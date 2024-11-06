@@ -6,8 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/login"
-    tools:context=".Screen.LoginScreen">
+    android:background="@drawable/logo"
+    tools:context=".screen.LoginScreen">
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,13 +17,14 @@
         android:layout_gravity="center"
         android:textStyle="bold"
         android:textSize="35dp"
-        android:layout_marginTop="120dp"
+        android:layout_marginTop="70dp"
         />
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
+        android:layout_marginTop="50dp"
         android:layout_marginHorizontal="10dp"
         >
 
@@ -58,5 +59,28 @@
         android:text="Login"
         android:textSize="25dp"
         android:layout_marginTop="30dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="You don't have account"
+            android:textSize="17dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign up"
+            android:textSize="17dp"
+            android:textStyle="bold"
+            android:id="@+id/tvSignUp"/>
+    </LinearLayout>
 
 </LinearLayout>

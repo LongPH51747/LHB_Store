@@ -1,5 +1,4 @@
-package fpoly.longlt.duan1.Screen;
-
+package fpoly.longlt.duan1.screen;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -10,8 +9,7 @@ import androidx.core.view.WindowInsetsCompat;
 
 import fpoly.longlt.duan1.R;
 
-public class ManHinhCho extends AppCompatActivity {
-
+public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
