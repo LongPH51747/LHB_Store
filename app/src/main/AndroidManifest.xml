@@ -13,7 +13,11 @@
         android:theme="@style/Theme.DuAn1"
         tools:targetApi="31">
         <activity
+<<<<<<< HEAD
             android:name=".screen.MainActivity"
+=======
+            android:name=".Screen.ManHinhCho"
+>>>>>>> Bao
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
