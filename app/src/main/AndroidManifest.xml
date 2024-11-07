@@ -13,6 +13,12 @@
         android:theme="@style/Theme.DuAn1"
         tools:targetApi="31">
         <activity
+            android:name=".screen.Login"
+            android:exported="false" />
+        <activity
+            android:name=".screen.MainActivity2"
+            android:exported="false" />
+        <activity
             android:name=".screen.RegisterScreen"
             android:exported="false" />
         <activity
