@@ -73,6 +73,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/loginicon"
                 app:backgroundTint="@null"
+                android:id="@+id/btnLogin"
                 android:textColor="#E91E63"
                 />
 
