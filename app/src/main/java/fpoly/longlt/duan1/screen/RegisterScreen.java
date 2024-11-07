@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.screen;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -11,6 +12,7 @@ import androidx.core.view.WindowInsetsCompat;
 import fpoly.longlt.duan1.R;
 
 public class RegisterScreen extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

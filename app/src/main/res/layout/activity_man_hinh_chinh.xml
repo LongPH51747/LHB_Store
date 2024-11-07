@@ -12,39 +12,19 @@
         android:padding="16dp">
 
         <!-- Logo -->
-        <TextView
-            android:id="@+id/tvLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="LHB"
-            android:textSize="24sp"
-            android:fontFamily="serif"
-            android:textStyle="bold" />
 
         <!-- Thanh Tìm Kiếm -->
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="16dp"
-            android:background="@drawable/search_background"
-            android:hint="Search"
-            android:drawableEnd="@drawable/baseline_location_searching_24"
-         />
+
 
     </LinearLayout>
 
-    <!-- RecyclerView cho Danh Sách Sản Phẩm -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
+    <!-- FrameLayout để chứa Fragment -->
+    <FrameLayout
+        android:id="@+id/frameLayoutContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar"
-        android:layout_above="@id/bottomNavigationView"
-        android:padding="8dp"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-        app:spanCount="2" />
+        android:layout_above="@id/bottomNavigationView"/>
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -52,6 +32,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_navigation_menu" />
 </RelativeLayout>
