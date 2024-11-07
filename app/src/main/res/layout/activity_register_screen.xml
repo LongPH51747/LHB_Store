@@ -25,7 +25,7 @@
                 android:text="Sign up"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"
-                android:textSize="24sp"
+                android:textSize="30sp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center"/>
 
@@ -34,7 +34,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColorHint="@color/white"
-                android:hint="Số điện thoại"
+                android:hint="Phone number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -78,6 +78,10 @@
                 android:textColorHint="@color/white"
                 android:hint="Nhập lại password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+                android:textColorHint="@color/white"
+                android:hint="Re-enter password"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -91,6 +95,8 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/loginicon"
                 app:backgroundTint="@null"
+                android:textSize="20dp"
+                android:textStyle="bold"
                 android:textColor="@color/black"
                 />
 
