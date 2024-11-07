@@ -19,10 +19,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 "user_id integer primary key autoincrement," +
                 " username text," +
                 " password text," +
-                "email text," +
-                "phone text," +
                 "role integer default 0)";
         db.execSQL(createUser);
+        String createKH = "create table khachhang(" +
+                "kh_id integer primary key autoincrement," +
+                "user_id integer references user," +
+                "tenkh text," +
+                "sdt text," +
+                "address text," +
+                "moneyonl integer default 0)";
+        db.execSQL(createKH);
         String createSP = "create table sanpham(" +
                 "sp_id integer primary key autoincrement," +
                 "tensp text," +
@@ -73,6 +79,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion != newVersion) {
             db.execSQL("drop table if exists user");
+            db.execSQL("drop table if exists khachhang");
             db.execSQL("drop table if exists sanpham");
             db.execSQL("drop table if exists chitietsp");
             db.execSQL("drop table if exists cart");
