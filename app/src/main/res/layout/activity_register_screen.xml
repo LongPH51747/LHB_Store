@@ -1,4 +1,5 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -77,11 +78,8 @@
                 app:passwordToggleEnabled="true"
                 android:textColorHint="@color/white"
                 android:hint="Nhập lại password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-                android:textColorHint="@color/white"
-                android:hint="Re-enter password"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                tools:ignore="ExtraText">
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
