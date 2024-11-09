@@ -29,6 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "sp_id integer primary key autoincrement," +
                 "tensp text," +
                 "img text," +
+                "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
         String createChiTietSP = "create table chitietsp(" +
