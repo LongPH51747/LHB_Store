@@ -58,6 +58,6 @@ public class AdminScreen extends AppCompatActivity {
 
     public void anhxa(){
         btnBottomNavigation = findViewById(R.id.btnBottomNavigation);
-        framelayout = findViewById(R.id.framelayout);
+        framelayout = findViewById(R.id.framelayout_admin);
     }
 }
