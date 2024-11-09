@@ -17,5 +17,9 @@
         android:id="@+id/nav_cart"
         android:icon="@drawable/baseline_add_shopping_cart_24"
         android:title="cart" />
+    <item
+        android:id="@+id/nav_account"
+        android:icon="@drawable/baseline_person"
+        android:title="account" />
 
 </menu>
