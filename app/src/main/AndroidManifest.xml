@@ -17,6 +17,7 @@
             android:exported="false" />
         <activity
             android:name=".screen.MainActivity2"
+            android:name=".screen.ManHinhChinh"
             android:exported="false" />
         <activity
             android:name=".screen.RegisterScreen"
