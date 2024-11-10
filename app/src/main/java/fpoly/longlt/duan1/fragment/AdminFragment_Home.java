@@ -2,6 +2,9 @@ package fpoly.longlt.duan1.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -16,6 +19,9 @@ import fpoly.longlt.duan1.R;
  * create an instance of this fragment.
  */
 public class AdminFragment_Home extends Fragment {
+    CardView card_sp, card_dh, card_kh, card_tk;
+    Fragment fragment;
+
     public AdminFragment_Home() {
         // Required empty public constructor
     }
@@ -35,5 +41,53 @@ public class AdminFragment_Home extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_admin, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        card_sp = view.findViewById(R.id.card_sp);
+        card_dh = view.findViewById(R.id.card_dh);
+        card_kh = view.findViewById(R.id.card_kh);
+        card_tk = view.findViewById(R.id.card_tk);
+        card_sp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout_admin, QuanLiSP_Fragment.newInstance())
+                        .commit();
+            }
+        });
+
+        card_dh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout_admin, QuanLiDonHang_Fragment.newInstance())
+                        .commit();
+            }
+        });
+
+        card_kh.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout_admin, QuanLIKhachHang_Fragment.newInstance())
+                        .commit();
+            }
+        });
+
+        card_tk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout_admin, ThongKeFragment.newInstance())
+                        .commit();
+            }
+        });
     }
 }

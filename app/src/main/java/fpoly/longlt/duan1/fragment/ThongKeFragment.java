@@ -14,17 +14,17 @@ import fpoly.longlt.duan1.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link QuanLiSP_Fragment#newInstance} factory method to
+ * Use the {@link ThongKeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLiSP_Fragment extends Fragment {
+public class ThongKeFragment extends Fragment {
 
-    public QuanLiSP_Fragment() {
+    public ThongKeFragment() {
         // Required empty public constructor
     }
 
-    public static QuanLiSP_Fragment newInstance() {
-        QuanLiSP_Fragment fragment = new QuanLiSP_Fragment();
+    public static ThongKeFragment newInstance() {
+        ThongKeFragment fragment = new ThongKeFragment();
         return fragment;
     }
 
@@ -37,7 +37,7 @@ public class QuanLiSP_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quan_li_s_p_, container, false);
+        return inflater.inflate(R.layout.fragment_thong_ke, container, false);
     }
 
     @Override
