@@ -35,7 +35,7 @@
         <CheckBox
             android:layout_alignParentLeft="true"
             android:layout_width="20dp"
-            android:id="@+id/chk_hidden"
+            android:id="@+id/chk_hidden_sp"
             android:layout_below="@id/tv_name_sp_admin"
             android:layout_margin="10dp"
             android:layout_height="20dp"/>
