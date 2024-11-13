@@ -1,6 +1,7 @@
 package fpoly.longlt.duan1.screen;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,6 +18,7 @@ public class AddSP extends AppCompatActivity {
     EditText edtTenSP, edtGiaSP, edtMoTaSP;
     CheckBox chk_size_s, chk_size_m, chk_size_l, chk_size_xl, chk_size_xxl;
     ImageView img_back, img_add;
+    Button btn_add;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +34,7 @@ public class AddSP extends AppCompatActivity {
     }
 
     public void anhxa(){
+        btn_add = findViewById(R.id.btn_add);
         img_add = findViewById(R.id.img_sp);
         img_back = findViewById(R.id.img_back_screen_admin);
         edtTenSP = findViewById(R.id.name_sp);
