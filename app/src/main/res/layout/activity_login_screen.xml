@@ -2,9 +2,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screen.LoginScreen"
     android:id="@+id/main"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".screen.LoginScreen"
     android:background="@drawable/img_1">
 
     <androidx.cardview.widget.CardView
@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="20dp"
-
             android:gravity="center_horizontal">
 
             <TextView

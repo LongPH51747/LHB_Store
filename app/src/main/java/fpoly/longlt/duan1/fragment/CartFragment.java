@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.Fragment;
+package fpoly.longlt.duan1.fragment;
 
 import android.os.Bundle;
 
@@ -10,18 +10,22 @@ import android.view.ViewGroup;
 
 import fpoly.longlt.duan1.R;
 
+/**
+ * A simple {@link Fragment} subclass.
+ * Use the {@link CartFragment#newInstance} factory method to
+ * create an instance of this fragment.
+ */
+public class CartFragment extends Fragment {
 
-public class OrderFragment extends Fragment {
 
 
-
-    public OrderFragment() {
+    public CartFragment() {
 
     }
 
 
-    public static OrderFragment newInstance() {
-        OrderFragment fragment = new OrderFragment();
+    public static CartFragment newInstance() {
+        CartFragment fragment = new CartFragment();
 
         return fragment;
     }
@@ -36,6 +40,6 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        return inflater.inflate(R.layout.fragment_order, container, false);
+        return inflater.inflate(R.layout.fragment_cart, container, false);
     }
 }

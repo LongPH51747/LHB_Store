@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/font</item>
+    </array>
+
+    <!-- <array name="preloaded_fonts" translatable="false">
+        <item>@font/my_font</item>
+        <item>@font/another_font</item>
+    </array> -->
+</resources>
