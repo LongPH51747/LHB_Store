@@ -1,2 +1,3 @@
-package fpoly.longlt.duan1.dao;public class UserDAO {
+package fpoly.longlt.duan1.Dao;
+public class UserDAO {
 }
