@@ -1,6 +1,7 @@
 package fpoly.longlt.duan1.screen;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -41,16 +42,19 @@ public class AdminScreen extends AppCompatActivity {
         btnBottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                Fragment frag =null;
                 if (menuItem.getItemId() == R.id.nav_home_admin){
-                    frag = AdminFragment_Home.newInstance();
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.framelayout_admin, AdminFragment_Home.newInstance())
+                            .commit();
                 } else if (menuItem.getItemId() == R.id.nav_logout_admin) {
-                    AdminScreen.this.finish();
+                    if (!isFinishing() && !isDestroyed()){
+                        finish();
+                    }
+                    else {
+                        Log.e("AdminScreen", "Activity đã kết thúc hoặc đang bị hủy.");
+                    }
                 }
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.framelayout_admin, frag)
-                        .commit();
                 return true;
             }
         });
