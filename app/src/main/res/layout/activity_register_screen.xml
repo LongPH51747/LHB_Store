@@ -2,7 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     tools:context=".screen.RegisterScreen"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -41,6 +40,7 @@
                 android:hint="Phone number"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPhoneNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -54,6 +54,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtUserNameLogUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -68,6 +69,7 @@
                 android:hint="Password"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassWordLogUp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"/>
@@ -84,12 +86,14 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 tools:ignore="ExtraText">
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edtPassConfirm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
+                android:id="@+id/btnLogUp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Log up"
