@@ -7,10 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String DATABSE_NAME = "myDB";
+    public static final String DATABASE_NAME = "myDB";
     public static final int DATABASE_VERSION = 1;
     public DBHelper(Context context) {
-        super(context, DATABSE_NAME, null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
@@ -21,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 " password text," +
                 "name text," +
                 "sdt text," +
-                "address text," +
+                "address text default 'ha noi'," +
                 "moneyonl integer default 0," +
                 "role integer default 0)";
         db.execSQL(createUser);
@@ -64,6 +64,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 "start_date text," +
                 "end_date text)";
         db.execSQL(createVoucher);
+        String addAdmin = ("insert into user values" +
+                "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1)"
+        );
+        db.execSQL(addAdmin);
     }
 
     @Override
