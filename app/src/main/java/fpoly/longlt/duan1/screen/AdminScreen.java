@@ -42,9 +42,9 @@ public class AdminScreen extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment frag =null;
-                if (menuItem.getItemId() == R.id.nav_home){
+                if (menuItem.getItemId() == R.id.nav_home_admin){
                     frag = AdminFragment_Home.newInstance();
-                } else if (menuItem.getItemId() == R.id.nav_account) {
+                } else if (menuItem.getItemId() == R.id.nav_account_admin) {
                     frag = AdminFragment_Accont.newInstance();
                 }
                 getSupportFragmentManager()

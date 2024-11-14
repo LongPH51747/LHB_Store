@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/nav_home"
+        android:id="@+id/nav_home_admin"
         android:icon="@drawable/baseline_home_24"
-        android:title="Home" />
+        android:title=""/>
     <item
-        android:id="@+id/nav_account"
+        android:id="@+id/nav_account_admin"
         android:icon="@drawable/baseline_person"
-        android:title="account" />
+        android:title=""/>
 </menu>
