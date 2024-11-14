@@ -32,6 +32,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
+        String insertIntoSP = "insert into sanpham(sp_id,tensp,img,status,price) " +
+                            "values" +
+                            "(1,'áo khoác gió nam phong cách hàn quốc',null, 1, 10000)," +
+                            "(2,'áo khoác gió nữ phong cách hàn quốc',null, 1, 20000)";
+        db.execSQL(insertIntoSP);
         String createChiTietSP = "create table chitietsp(" +
                 "chitietsp_id integer primary key autoincrement," +
                 "sp_id integer references sanpham," +
@@ -39,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "size text," +
                 "color text," +
                 "soluong integer)";
+
         db.execSQL(createChiTietSP);
         String createOrder = "create table orders(" +
                 "od_id integer primary key autoincrement," +

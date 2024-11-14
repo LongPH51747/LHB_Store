@@ -2,6 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/font</item>
+        <item>@font/dancing_script</item>
+        <item>@font/italianno</item>
     </array>
 
     <!-- <array name="preloaded_fonts" translatable="false">

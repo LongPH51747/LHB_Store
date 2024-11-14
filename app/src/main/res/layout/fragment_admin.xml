@@ -12,8 +12,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/font"
         android:layout_marginTop="27dp"
-        android:textSize="64sp"
-        android:text="LHB-Store" />
+        android:fontFamily="@font/italianno"
+        android:text="LHB-Store"
+        android:textSize="64sp" />
 
     <!-- TODO: Update blank fragment layout -->
     <androidx.cardview.widget.CardView
