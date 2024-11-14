@@ -44,8 +44,8 @@ public class AdminScreen extends AppCompatActivity {
                 Fragment frag =null;
                 if (menuItem.getItemId() == R.id.nav_home_admin){
                     frag = AdminFragment_Home.newInstance();
-                } else if (menuItem.getItemId() == R.id.nav_account_admin) {
-                    frag = AdminFragment_Accont.newInstance();
+                } else if (menuItem.getItemId() == R.id.nav_logout_admin) {
+                    AdminScreen.this.finish();
                 }
                 getSupportFragmentManager()
                         .beginTransaction()
