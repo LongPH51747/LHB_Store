@@ -42,7 +42,7 @@ bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelec
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         Fragment fragment = null;
         if(menuItem.getItemId() == R.id.nav_home){
-fragment = HomeFragment.newInstance();
+            fragment = HomeFragment.newInstance();
         } else if (menuItem.getItemId() == R.id.nav_order) {
             fragment = OrderFragment.newInstance();
         } else if (menuItem.getItemId() == R.id.nav_cart) {
