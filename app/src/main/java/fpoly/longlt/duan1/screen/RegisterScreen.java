@@ -15,11 +15,14 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
+import fpoly.longlt.duan1.Dao.UserDAO;
 import fpoly.longlt.duan1.R;
-import fpoly.longlt.duan1.dao.UserDAO;
+import fpoly.longlt.duan1.Dao.UserDAO;
 import fpoly.longlt.duan1.model.User;
 
 public class RegisterScreen extends AppCompatActivity {
+
+
     private TextInputEditText edtPhoneNumber ,edtUserName, edtPassWord, edtPassConfirm;
     private Button btnLogUp;
     private UserDAO userDAO;
