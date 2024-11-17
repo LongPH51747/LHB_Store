@@ -6,7 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import fpoly.longlt.duan1.Database.DBHelper;
+import fpoly.longlt.duan1.database.DBHelper;
 import fpoly.longlt.duan1.model.User;
 
 

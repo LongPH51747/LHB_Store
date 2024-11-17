@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.Database;
+package fpoly.longlt.duan1.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
