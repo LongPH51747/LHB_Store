@@ -2,12 +2,8 @@
 <resources>
     <array name="preloaded_fonts" translatable="false">
         <item>@font/font</item>
-        <item>@font/dancing_script</item>
-        <item>@font/italianno</item>
+        <!-- Bạn có thể thêm nhiều phông chữ khác nếu cần -->
+        <!-- <item>@font/my_font</item> -->
+        <!-- <item>@font/another_font</item> -->
     </array>
-
-    <!-- <array name="preloaded_fonts" translatable="false">
-        <item>@font/my_font</item>
-        <item>@font/another_font</item>
-    </array> -->
 </resources>

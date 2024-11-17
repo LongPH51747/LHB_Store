@@ -19,7 +19,6 @@
         android:id="@+id/btnBottomNavigation"
         app:menu="@menu/menu_bottom_admin"
         android:layout_weight="0"
-        android:background="#ffff"
         android:layout_height="wrap_content"/>
 
 </LinearLayout>
