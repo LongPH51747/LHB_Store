@@ -1,5 +1,5 @@
 
-package fpoly.longlt.duan1.Dao;
+package fpoly.longlt.duan1.dao;
 
 import android.content.ContentValues;
 import android.content.Context;

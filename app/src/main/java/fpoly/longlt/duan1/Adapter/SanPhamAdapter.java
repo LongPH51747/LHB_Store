@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.Adapter;
+package fpoly.longlt.duan1.adapter;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import fpoly.longlt.duan1.Dao.SanPhamDAO;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.model.SanPham;
 

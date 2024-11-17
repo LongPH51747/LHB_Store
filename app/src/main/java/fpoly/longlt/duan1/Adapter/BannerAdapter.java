@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.Adapter; // Thêm dòng này để chỉ định package chính xác
+package fpoly.longlt.duan1.adapter; // Thêm dòng này để chỉ định package chính xác
 
 import android.content.Context;
 import android.view.LayoutInflater;

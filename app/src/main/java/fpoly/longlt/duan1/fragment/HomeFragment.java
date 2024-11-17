@@ -23,7 +23,7 @@ import java.util.List;
 
 import fpoly.longlt.duan1.Adapter.BannerAdapter;
 import fpoly.longlt.duan1.Adapter.SanPhamAdapter;
-import fpoly.longlt.duan1.Dao.SanPhamDAO;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.model.SanPham;
 import fpoly.longlt.duan1.R;
 
