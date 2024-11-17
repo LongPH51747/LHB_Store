@@ -3,11 +3,11 @@ package fpoly.longlt.duan1.model;
 public class SanPham {
     private int spId;
     private String tenSp;
-    private int img;
+    private String img;
     private int status;
     private int price;
 
-    public SanPham(int spId, String tenSp, int img, int status, int price) {
+    public SanPham(int spId, String tenSp, String img, int status, int price) {
         this.spId = spId;
         this.tenSp = tenSp;
         this.img = img;
@@ -15,7 +15,10 @@ public class SanPham {
         this.price = price;
     }
 
-    public SanPham(String tenSp, int img, int price) {
+    public SanPham() {
+    }
+
+    public SanPham(String tenSp, String img, int price) {
         this.tenSp = tenSp;
         this.img = img;
         this.price = price;
@@ -37,11 +40,11 @@ public class SanPham {
         this.tenSp = tenSp;
     }
 
-    public int getImg() {
+    public String getImg() {
         return img;
     }
 
-    public void setImg(int img) {
+    public void setImg(String img) {
         this.img = img;
     }
 

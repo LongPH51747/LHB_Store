@@ -11,14 +11,20 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import fpoly.longlt.duan1.Dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.model.SanPham;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
-    private ArrayList<SanPham> arrayList;
+   private Context context;
+   ArrayList<SanPham> arrayList;
+   SanPhamDAO sanPhamDAO;
 
-    public SanPhamAdapter(ArrayList<SanPham> arrayList) {
+    public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
+        this.context = context;
         this.arrayList = arrayList;
+        this.sanPhamDAO = sanPhamDAO;
     }
 
     @NonNull
@@ -31,10 +37,23 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
 
     @Override
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
-        SanPham sanPham =arrayList.get(position);
-holder.tvNameSP.setText(sanPham.getTenSp());
-holder.tvPriceSP.setText(sanPham.getPrice()+"");
-holder.imgSP.setImageResource(sanPham.getImg());
+        SanPham sanPham = arrayList.get(position);
+        holder.tvNameSP.setText(sanPham.getTenSp());
+        holder.tvPriceSP.setText(String.valueOf(sanPham.getPrice()));
+
+        // Lấy tên ảnh từ cơ sở dữ liệu (String)
+        String imageName = sanPham.getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
+
+        // Lấy ID tài nguyên từ tên ảnh trong drawable
+        int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
+
+        // Kiểm tra nếu tài nguyên ảnh tồn tại
+        if (imageResId != 0) {
+            holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
+        } else {
+            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
+            holder.imgSP.setImageResource(R.drawable.img_3);  // Placeholder image
+        }
 
     }
 

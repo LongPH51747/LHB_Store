@@ -23,18 +23,18 @@ import java.util.List;
 
 import fpoly.longlt.duan1.Adapter.BannerAdapter;
 import fpoly.longlt.duan1.Adapter.SanPhamAdapter;
+import fpoly.longlt.duan1.Dao.SanPhamDAO;
 import fpoly.longlt.duan1.model.SanPham;
 import fpoly.longlt.duan1.R;
 
 public class HomeFragment extends Fragment {
     private ViewPager2 viewPager2;
+    SanPhamDAO sanPhamDAO;
     private RecyclerView recyclerView;
     private Handler sliderHandler = new Handler();
     private int currentPage = 0;
+    SanPhamAdapter adapter;
     private static final int SLIDE_DELAY = 3000; // Thời gian chờ giữa các slide, tính bằng ms
-
-    private SQLiteDatabase db;
-    private SanPhamAdapter sanPhamAdapter;
     private ArrayList<SanPham> arrayList;
 
     public HomeFragment() {
@@ -56,9 +56,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewProducts);
-
-        recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
 
         viewPager2 = view.findViewById(R.id.viewPagerBanner);
 
@@ -85,14 +82,9 @@ public class HomeFragment extends Fragment {
                 sliderHandler.postDelayed(slideRunnable, SLIDE_DELAY);
             }
         });
-   arrayList = new ArrayList<>();
-   arrayList.add(new SanPham("Áo hoodie", R.drawable.img_2, 200000));
-        arrayList.add(new SanPham("Quần jean trắng", R.drawable.img_3, 200000));
-        arrayList.add(new SanPham("Áo hoodie", R.drawable.img_2, 200000));
-        arrayList.add(new SanPham("Quần jean trắng", R.drawable.img_3, 200000));
+        LoadData();
 
-        sanPhamAdapter = new SanPhamAdapter(arrayList);
-        recyclerView.setAdapter(sanPhamAdapter);
+
 
 
         // Thiết lập RecyclerView cho danh sách sản phẩm
@@ -121,6 +113,17 @@ public class HomeFragment extends Fragment {
     public void onPause() {
         super.onPause();
         sliderHandler.removeCallbacks(slideRunnable);
+    }
+
+    public void LoadData(){
+RecyclerView.LayoutManager layoutManager =new GridLayoutManager(getContext(), 2);
+recyclerView.setLayoutManager(layoutManager);
+sanPhamDAO = new SanPhamDAO(getContext());
+arrayList =sanPhamDAO.getAll();
+adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+recyclerView.setAdapter(adapter);
+
+
     }
 
 
