@@ -27,6 +27,7 @@ public class RegisterScreen extends AppCompatActivity {
     private Button btnLogUp;
     private UserDAO userDAO;
     private String phone, name, pass, passConfirm;
+    //hari
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
