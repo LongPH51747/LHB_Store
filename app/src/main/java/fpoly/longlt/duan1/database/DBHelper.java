@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.database;
+package fpoly.longlt.duan1.Database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 1;
+    public static final int DATABASE_VERSION = 3;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -32,6 +32,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
+        String insertIntoSP = "INSERT INTO sanpham (tensp, img, status, price) VALUES " +
+                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
+                "('Quần jean trắng', 'img_3', 1, 20000);";
+
+        db.execSQL(insertIntoSP);
         String createChiTietSP = "create table chitietsp(" +
                 "chitietsp_id integer primary key autoincrement," +
                 "sp_id integer references sanpham," +
@@ -39,6 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "size text," +
                 "color text," +
                 "soluong integer)";
+
         db.execSQL(createChiTietSP);
         String createOrder = "create table orders(" +
                 "od_id integer primary key autoincrement," +
@@ -72,7 +78,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion != newVersion) {
+        if (oldVersion < newVersion) {
             db.execSQL("drop table if exists user");
             db.execSQL("drop table if exists sanpham");
             db.execSQL("drop table if exists chitietsp");

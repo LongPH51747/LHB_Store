@@ -1,12 +1,16 @@
-package fpoly.longlt.duan1.dao;
+
+package fpoly.longlt.duan1.Dao;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import fpoly.longlt.duan1.database.DBHelper;
+import fpoly.longlt.duan1.Database.DBHelper;
 import fpoly.longlt.duan1.model.User;
+
+
+
 
 public class UserDAO {
     private DBHelper dbHelper;
@@ -118,4 +122,5 @@ public class UserDAO {
         }
         return result;
     }
+
 }
