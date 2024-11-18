@@ -50,8 +50,16 @@ bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelec
         } else if (menuItem.getItemId() == R.id.nav_account) {
             fragment = AccountFragment.newInstance();
         }
+        if(fragment != null){
+getSupportFragmentManager().beginTransaction()
+        .replace(R.id.framelayout, fragment)
+        .commit();
+        }
         return false;
     }
+
 });
+
+
     }
 }

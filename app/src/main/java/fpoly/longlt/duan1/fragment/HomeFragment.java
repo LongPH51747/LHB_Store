@@ -1,19 +1,13 @@
 package fpoly.longlt.duan1.fragment;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -21,9 +15,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import fpoly.longlt.duan1.Adapter.BannerAdapter;
-import fpoly.longlt.duan1.Adapter.SanPhamAdapter;
-import fpoly.longlt.duan1.Dao.SanPhamDAO;
+import fpoly.longlt.duan1.adapter.BannerAdapter;
+import fpoly.longlt.duan1.adapter.SanPhamAdapter;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.model.SanPham;
 import fpoly.longlt.duan1.R;
 
