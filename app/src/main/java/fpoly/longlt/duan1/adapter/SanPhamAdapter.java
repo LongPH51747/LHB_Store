@@ -75,5 +75,5 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
         }
     }
 
-
+//nothing
 }
