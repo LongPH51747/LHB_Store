@@ -1,6 +1,5 @@
 package fpoly.longlt.duan1.screen;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,11 +15,8 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 
-import org.w3c.dom.Text;
-
-import fpoly.longlt.duan1.Dao.UserDAO;
+import fpoly.longlt.duan1.dao.UserDAO;
 import fpoly.longlt.duan1.R;
-import fpoly.longlt.duan1.Dao.UserDAO;
 
 public class LoginScreen extends AppCompatActivity {
     private TextInputEditText edtUserNameLogIn, edtPassWordLogIn;

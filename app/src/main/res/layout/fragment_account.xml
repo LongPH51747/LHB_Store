@@ -10,10 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:background="@color/white"
         android:padding="16dp">
 
         <!-- Phần ảnh đại diện -->
         <LinearLayout
+            android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -76,7 +78,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#79EBCD"
+            android:background="@drawable/item_border_account"
             android:padding="16dp">
 
             <LinearLayout
@@ -95,7 +97,7 @@
                     <ImageView
                         android:layout_width="32dp"
                         android:layout_height="32dp"
-                        android:src="@drawable/donhang" />
+                        android:src="@drawable/baseline_library_books_24" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -152,6 +154,7 @@
 
         <!-- Phần dưới: Danh sách sản phẩm -->
         <TextView
+            android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Có thể bạn sẽ thích"

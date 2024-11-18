@@ -6,17 +6,19 @@
     android:id="@+id/main"
     android:orientation="vertical"
     tools:context=".screen.ManHinhChinh">
+
     <FrameLayout
         android:id="@+id/framelayout"
         android:layout_width="match_parent"
-        android:layout_weight="1"
-        android:layout_height="0dp"/>
+        android:layout_height="0dp"
+        android:layout_weight="1" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="0"
         android:id="@+id/bottomNavigationView"
-        android:background="#ffffff"
+        android:background="#90FFC2"
         app:menu="@menu/menu_bottom"
         app:labelVisibilityMode="unlabeled"/>
 </LinearLayout>
