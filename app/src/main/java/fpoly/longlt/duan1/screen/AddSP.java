@@ -12,13 +12,25 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.ArrayList;
+
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.adapter.SP_Admin_Adapter;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
+import fpoly.longlt.duan1.model.ChiTietSP;
+import fpoly.longlt.duan1.model.SanPham;
 
 public class AddSP extends AppCompatActivity {
     EditText edtTenSP, edtGiaSP, edtMoTaSP;
     CheckBox chk_size_s, chk_size_m, chk_size_l, chk_size_xl, chk_size_xxl;
     ImageView img_back, img_add;
     Button btn_add;
+    ArrayList<SanPham> lstSP = new ArrayList<>();
+    ArrayList<ChiTietSP> lstCTSP = new ArrayList<>();
+    SanPham sp;
+    ChiTietSP ctsp;
+    SanPhamDAO sanPhamDAO;
+    SP_Admin_Adapter adminAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
