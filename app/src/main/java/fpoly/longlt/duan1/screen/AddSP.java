@@ -31,6 +31,9 @@ public class AddSP extends AppCompatActivity {
         });
         anhxa();
         img_back.setOnClickListener(v -> finish());
+        btn_add.setOnClickListener(v -> {
+            
+        });
     }
 
     public void anhxa(){
