@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.model.SanPham;
 
 public class SP_Admin_Adapter extends RecyclerView.Adapter<SP_Admin_Adapter.SP_Admin_Holder> {
@@ -35,13 +36,13 @@ public class SP_Admin_Adapter extends RecyclerView.Adapter<SP_Admin_Adapter.SP_A
     public void onBindViewHolder(@NonNull SP_Admin_Holder holder, int position) {
         holder.tv_name_sp_admin.setText(lst.get(position).getTenSp());
         holder.tv_price_sp_admin.setText(lst.get(position).getPrice() + "");
-        holder.chk_status_sp_admin.setChecked(lst.get(position).getStatus()==1?true:false);
+        holder.chk_status_sp_admin.setChecked(lst.get(position).getStatus()==1?false:true);
     }
 
     @NonNull
     @Override
     public SP_Admin_Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        return new SP_Admin_Holder(View.inflate(context, R.layout.list_item_sp_admin, null));
     }
     public static final class SP_Admin_Holder extends RecyclerView.ViewHolder {
         ImageView img_sp_admin;

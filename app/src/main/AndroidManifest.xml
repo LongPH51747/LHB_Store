@@ -19,7 +19,7 @@
             android:name=".screen.LoginScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.AdminScreen"
+            android:name=".screen.MainActivity"
             android:exported="false" />
         <activity
             android:name=".screen.RegisterScreen"
@@ -28,8 +28,7 @@
             android:name=".screen.ManHinhChinh"
             android:exported="false" />
         <activity
-            android:name=".screen.LoginScreen"
-            android:name=".screen.MainActivity"
+            android:name=".screen.AdminScreen"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

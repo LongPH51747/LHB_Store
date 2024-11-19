@@ -18,9 +18,10 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.w3c.dom.Text;
 
-import fpoly.longlt.duan1.Dao.UserDAO;
+import fpoly.longlt.duan1.dao.UserDAO;
 import fpoly.longlt.duan1.R;
-import fpoly.longlt.duan1.Dao.UserDAO;
+import fpoly.longlt.duan1.dao.UserDAO;
+import fpoly.longlt.duan1.model.User;
 
 public class LoginScreen extends AppCompatActivity {
     private TextInputEditText edtUserNameLogIn, edtPassWordLogIn;
@@ -28,6 +29,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button btnLogIn;
     private UserDAO userDAO;
     private String name, pass;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,6 +63,7 @@ public class LoginScreen extends AppCompatActivity {
             Toast.makeText(this, "The Box was Empty...404...", Toast.LENGTH_SHORT).show();
         }else {
             userDAO = new UserDAO(this);
+            user = new User();
             if (userDAO.checkLogInAdmin(name,pass)){
                 Toast.makeText(this, "Welcome Back Sir!!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginScreen.this, AdminScreen.class));

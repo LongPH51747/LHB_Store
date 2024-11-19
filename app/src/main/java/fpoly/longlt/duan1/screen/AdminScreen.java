@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.screen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -39,25 +40,21 @@ public class AdminScreen extends AppCompatActivity {
                 .beginTransaction()
                 .replace(R.id.framelayout_admin, AdminFragment_Home.newInstance())
                 .commit();
-//        btnBottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-//                if (menuItem.getItemId() == R.id.nav_home_admin){
-//                    getSupportFragmentManager()
-//                            .beginTransaction()
-//                            .replace(R.id.framelayout_admin, AdminFragment_Home.newInstance())
-//                            .commit();
-//                } else if (menuItem.getItemId() == R.id.nav_logout_admin) {
-//                    if (!isFinishing() && !isDestroyed()){
-//                        finish();
-//                    }
-//                    else {
-//                        Log.e("AdminScreen", "Activity đã kết thúc hoặc đang bị hủy.");
-//                    }
-//                }
-//                return true;
-//            }
-//        });
+        btnBottomNavigation.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                if (menuItem.getItemId() == R.id.nav_home_admin){
+                    getSupportFragmentManager()
+                            .beginTransaction()
+                            .replace(R.id.framelayout_admin, AdminFragment_Home.newInstance())
+                            .commit();
+                } else if (menuItem.getItemId() == R.id.nav_logout_admin) {
+                    startActivity(new Intent(AdminScreen.this, LoginScreen.class));
+                    finish();
+                }
+                return true;
+            }
+        });
     }
 
     public void anhxa(){

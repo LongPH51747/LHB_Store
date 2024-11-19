@@ -27,6 +27,7 @@ public class UserDAO {
         contentValues.put("name", user.getNameUser());
         contentValues.put("sdt", user.getPhoneNumber());
         contentValues.put("address", user.getAddress());
+//        contentValues.put("role", user.getRole());
         long result = sqLiteDatabase.insert("user",null,contentValues);
         if (sqLiteDatabase != null && sqLiteDatabase.isOpen()){
             sqLiteDatabase.close();
@@ -119,6 +120,17 @@ public class UserDAO {
         }
         if (sqLiteDatabase != null && sqLiteDatabase.isOpen()){
             sqLiteDatabase.close();
+        }
+        return result;
+    }
+
+    public boolean grtzrole(User user){
+        String sql = "SELECT * FROM user WHERE id_user = ?";
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor cursor = sqLiteDatabase.rawQuery(sql,new String[]{String.valueOf(user.getId_user())});
+        boolean result = (cursor.getCount() > 0);
+        if (cursor != null && !cursor.isClosed()){
+            cursor.close();
         }
         return result;
     }

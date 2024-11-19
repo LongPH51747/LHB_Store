@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import  fpoly.longlt.duan1.database.DBHelper;
+import fpoly.longlt.duan1.database.DBHelper;
 import fpoly.longlt.duan1.model.ChiTietSP;
 import fpoly.longlt.duan1.model.SanPham;
 
@@ -43,7 +43,7 @@ public class SanPhamDAO {
 
    //Bảng sản phẩm
 
-   public ArrayList<SanPham> getAll(){
+   public ArrayList<SanPham> getAllSP(){
       ArrayList<SanPham> arrayList = new ArrayList<>();
        Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);
         if(cursor.getCount() > 0){
