@@ -49,6 +49,7 @@ public class AdminFragment_Home extends Fragment {
         card_sp = view.findViewById(R.id.card_sp);
         card_dh = view.findViewById(R.id.card_dh);
         card_tk = view.findViewById(R.id.card_tk);
+        card_kh = view.findViewById(R.id.card_kh);
         card_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

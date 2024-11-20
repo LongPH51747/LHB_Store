@@ -1,10 +1,12 @@
 package fpoly.longlt.duan1.adapter;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,9 +16,10 @@ import java.util.ArrayList;
 import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.model.SanPham;
+import fpoly.longlt.duan1.screen.productDetailScreen;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
-   private Context context;
+    Context context;
    ArrayList<SanPham> arrayList;
    SanPhamDAO sanPhamDAO;
 
@@ -72,6 +75,12 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
             imgSP = itemView.findViewById(R.id.img_sp_kh);
             tvNameSP = itemView.findViewById(R.id.tv_name_sp_kh);
             tvPriceSP = itemView.findViewById(R.id.tv_price_sp_kh);
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), productDetailScreen.class));
+                }
+            });
         }
     }
 

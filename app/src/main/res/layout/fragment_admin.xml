@@ -53,6 +53,7 @@
 
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="20dp"
+        android:id="@+id/card_kh"
         android:layout_marginVertical="27dp"
         android:layout_marginHorizontal="27dp"
         android:layout_width="match_parent"

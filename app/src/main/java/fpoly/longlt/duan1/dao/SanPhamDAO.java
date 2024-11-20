@@ -36,4 +36,11 @@ public class SanPhamDAO {
         }
    return arrayList;
    }
+
+   public ArrayList<SanPham> getSPChiTiet(int sp_id){
+       SanPham sanPham = null;
+
+       Cursor cursor = db.rawQuery("SELECT * FROM sanpham WHERE sp_id = ?", new String[]{String.valueOf(sp_id)});
+
+   }
 }

@@ -116,7 +116,9 @@ sanPhamDAO = new SanPhamDAO(getContext());
 arrayList =sanPhamDAO.getAll();
 adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
 recyclerView.setAdapter(adapter);
+    }
 
+    public void clickProduct(){
 
     }
 
