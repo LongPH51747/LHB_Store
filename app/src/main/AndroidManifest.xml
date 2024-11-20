@@ -18,6 +18,12 @@
             android:exported="false" />
         <activity
             android:name=".screen.MainActivity"
+            android:name=".screen.productDetailScreen"
+            android:exported="false" />
+        <activity
+            android:name=".screen.OrderDetailsScreen"
+            android:exported="false" />
+        <activity
             android:name=".screen.AccountSceen"
             android:exported="false" />
         <activity

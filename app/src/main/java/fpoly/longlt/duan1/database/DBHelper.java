@@ -1,5 +1,7 @@
 package fpoly.longlt.duan1.Database;
 
+import static java.sql.Types.REAL;
+
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -32,9 +34,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
-        String insertIntoSP = "INSERT INTO sanpham (tensp, img, status, price) VALUES " +
-                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
-                "('Quần jean trắng', 'img_3', 1, 20000);";
+        String insertIntoSP = "INSERT INTO sanpham (sp_id, tensp, img, status, price) VALUES " +
+                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
+                "(1,'Quần jean trắng', 'img_3', 1, 20000);";
 
         db.execSQL(insertIntoSP);
         String createChiTietSP = "create table chitietsp(" +
@@ -44,6 +46,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 "size text," +
                 "color text," +
                 "soluong integer)";
+        String insertIntoChiTietSP = "INSERT INTO chitietsp(chitietsp_id, sp_id, description, size, color, soluong) VALUES" +
+                "(0, 0, 'chất liệu cotton siêu mát', 'M', 'Red', 100)," +
+                "(1, 0, 'chất liệu cotton siêu mát', 'L', 'White', 70)," +
+                "(2, 0, 'chất liệu cotton siêu mát', 'L', 'Red', 70)," +
+                "(3, 0, 'chất liệu cotton siêu mát', 'S', 'Blue', 50)," +
+                "(4, 0, 'chất liệu cotton siêu mát', 'M', 'Black', 60)," +
+                "(5, 0, 'chất liệu cotton siêu mát', 'L', 'Blue', 40)," +
+                "(6, 0, 'chất liệu cotton siêu mát', 'XL', 'Black', 30);";
+        db.execSQL(insertIntoChiTietSP);
+
 
         db.execSQL(createChiTietSP);
         String createOrder = "create table orders(" +
@@ -74,6 +86,16 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1)"
         );
         db.execSQL(addAdmin);
+        String createCart = "create table cart(" +
+                "cart_id integer primary key autoincrement," + // ID tự tăng cho từng mục trong giỏ hàng
+                "user_id integer references user," +         // ID người dùng, liên kết với bảng users (nếu có)
+                "sp_id integer references sanpham," +   // ID sản phẩm, liên kết với bảng sản phẩm
+                "quantity integer default 1," +              // Số lượng sản phẩm, mặc định là 1
+                "price integer," +                            // Giá của một sản phẩm
+                "total_price integer" +                       // Tổng giá = quantity * price
+                ")";
+        db.execSQL(createCart);
+
     }
 
     @Override
@@ -85,6 +107,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("drop table if exists orders");
             db.execSQL("drop table if exists orderdetail");
             db.execSQL("drop table if exists voucher");
+            db.execSQL("drop table if exists cart");
             onCreate(db);
         }
     }
