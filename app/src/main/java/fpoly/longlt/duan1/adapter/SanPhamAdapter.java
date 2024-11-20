@@ -1,4 +1,5 @@
 package fpoly.longlt.duan1.adapter;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,10 +16,10 @@ import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.model.SanPham;
 
-public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
-   private Context context;
-   ArrayList<SanPham> arrayList;
-   SanPhamDAO sanPhamDAO;
+public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder> {
+    private Context context;
+    ArrayList<SanPham> arrayList;
+    SanPhamDAO sanPhamDAO;
 
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
@@ -29,7 +30,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     @NonNull
     @Override
     public SanPhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sp_kh, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sp_kh, parent, false);
 
         return new SanPhamViewHolder(view);
     }
@@ -53,20 +54,26 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
             // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
             holder.imgSP.setImageResource(R.drawable.img_3);  // Placeholder image
         }
+        holder.imgSP.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
-        if(arrayList != null){
+        if (arrayList != null) {
             return arrayList.size();
         }
         return 0;
     }
 
     public static class SanPhamViewHolder extends RecyclerView.ViewHolder {
-     ImageView imgSP;
-     TextView tvNameSP, tvPriceSP;
+        ImageView imgSP;
+        TextView tvNameSP, tvPriceSP;
+
         public SanPhamViewHolder(@NonNull View itemView) {
             super(itemView);
             imgSP = itemView.findViewById(R.id.img_sp_kh);

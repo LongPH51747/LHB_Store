@@ -21,7 +21,8 @@ import fpoly.longlt.duan1.fragment.OrderFragment;
 import fpoly.longlt.duan1.R;
 
 public class ManHinhChinh extends AppCompatActivity {
-  private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,33 +33,33 @@ public class ManHinhChinh extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-getSupportFragmentManager().beginTransaction()
-        .replace(R.id.framelayout, HomeFragment.newInstance())
-        .commit();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.framelayout, HomeFragment.newInstance())
+                .commit();
 
-bottomNavigationView =findViewById(R.id.bottomNavigationView);
-bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        Fragment fragment = null;
-        if(menuItem.getItemId() == R.id.nav_home){
-            fragment = HomeFragment.newInstance();
-        } else if (menuItem.getItemId() == R.id.nav_order) {
-            fragment = OrderFragment.newInstance();
-        } else if (menuItem.getItemId() == R.id.nav_cart) {
-            fragment = CartFragment.newInstance();
-        } else if (menuItem.getItemId() == R.id.nav_account) {
-            fragment = AccountFragment.newInstance();
-        }
-        if(fragment != null){
-getSupportFragmentManager().beginTransaction()
-        .replace(R.id.framelayout, fragment)
-        .commit();
-        }
-        return false;
-    }
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                Fragment fragment = null;
+                if (menuItem.getItemId() == R.id.nav_home) {
+                    fragment = HomeFragment.newInstance();
+                } else if (menuItem.getItemId() == R.id.nav_order) {
+                    fragment = OrderFragment.newInstance();
+                } else if (menuItem.getItemId() == R.id.nav_cart) {
+                    fragment = CartFragment.newInstance();
+                } else if (menuItem.getItemId() == R.id.nav_account) {
+                    fragment = AccountFragment.newInstance();
+                }
+                if (fragment != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.framelayout, fragment)
+                            .commit();
+                }
+                return false;
+            }
 
-});
+        });
 
 
     }

@@ -1,8 +1,20 @@
 package fpoly.longlt.duan1.model;
 
 public class User {
-    int id_user, role, moneyOnl;
-    String userName, passWord, nameUser ,phoneNumber, address;
+    int id_user, role, moneyOnl, status;
+    String userName, passWord, nameUser ,phoneNumber, address, imageAvatar;
+
+    public User(int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address, String imageAvatar) {
+        this.role = role;
+        this.moneyOnl = moneyOnl;
+        this.status = status;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.nameUser = nameUser;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.imageAvatar = imageAvatar;
+    }
 
     public User(int role, int moneyOnl, String userName, String passWord, String nameUser, String phoneNumber, String address) {
         this.role = role;
@@ -23,6 +35,8 @@ public class User {
         this.nameUser = nameUser;
         this.phoneNumber = phoneNumber;
         this.address = address;
+        this.status = status;
+        this.imageAvatar = imageAvatar;
     }
 
     public int getId_user() {
@@ -87,5 +101,21 @@ public class User {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getImageAvatar() {
+        return imageAvatar;
+    }
+
+    public void setImageAvatar(String imageAvatar) {
+        this.imageAvatar = imageAvatar;
     }
 }

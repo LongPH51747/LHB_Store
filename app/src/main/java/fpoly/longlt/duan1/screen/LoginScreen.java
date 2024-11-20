@@ -1,7 +1,9 @@
 package fpoly.longlt.duan1.screen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,6 +26,8 @@ public class LoginScreen extends AppCompatActivity {
     private Button btnLogIn;
     private UserDAO userDAO;
     private String name, pass;
+    private int id;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,23 +55,30 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void checkLogIn() {
+        userDAO = new UserDAO(this);
         name = edtUserNameLogIn.getText().toString();
         pass = edtPassWordLogIn.getText().toString();
-        if (name.isEmpty() || pass.isEmpty()){
+        if (name.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "The Box was Empty...404...", Toast.LENGTH_SHORT).show();
-        }else {
-            userDAO = new UserDAO(this);
-            if (userDAO.checkLogInAdmin(name,pass)){
+        } else {
+
+            if (userDAO.checkLogInAdmin(name, pass)) {
                 Toast.makeText(this, "Welcome Back Sir!!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginScreen.this, AdminScreen.class));
                 finish();
-            }
-            if (userDAO.checkLoginUser(name, pass)) {
+            } else if (userDAO.checkLoginUser(name, pass)) {
                 Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
+                Intent intent = new Intent(LoginScreen.this, ManHinhChinh.class);
+                int index = userDAO.getIDByLogIn(name,pass);
+                if (index == -1){
+                    Log.e("errorID", "Loi" );
+                }
+                intent.putExtra("id",index);
+                Log.e("getID", "checkID: " + index );
+                startActivity(intent);
                 finish();
-            }else {
-                Toast.makeText(this, "Wrong Username or Password...", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Sai Tk hoa MK", Toast.LENGTH_SHORT).show();
             }
         }
     }

@@ -79,8 +79,6 @@ public class HomeFragment extends Fragment {
         LoadData();
 
 
-
-
         // Thiết lập RecyclerView cho danh sách sản phẩm
         return view;
     }
@@ -109,13 +107,13 @@ public class HomeFragment extends Fragment {
         sliderHandler.removeCallbacks(slideRunnable);
     }
 
-    public void LoadData(){
-RecyclerView.LayoutManager layoutManager =new GridLayoutManager(getContext(), 2);
-recyclerView.setLayoutManager(layoutManager);
-sanPhamDAO = new SanPhamDAO(getContext());
-arrayList =sanPhamDAO.getAll();
-adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
-recyclerView.setAdapter(adapter);
+    public void LoadData() {
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        sanPhamDAO = new SanPhamDAO(getContext());
+        arrayList = sanPhamDAO.getAll();
+        adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+        recyclerView.setAdapter(adapter);
 
 
     }

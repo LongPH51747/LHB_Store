@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteDatabase;
 
 import java.util.ArrayList;
 
-import fpoly.longlt.duan1.Database.DBHelper;
+import fpoly.longlt.duan1.database.DBHelper;
 import fpoly.longlt.duan1.model.SanPham;
 
 public class SanPhamDAO {
