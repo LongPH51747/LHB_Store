@@ -14,25 +14,27 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.R;
-import fpoly.longlt.duan1.adapter.QuanLiKhachHang_Adapter;
-import fpoly.longlt.duan1.dao.DonHangDao;
-import fpoly.longlt.duan1.model.DonHang;
+import fpoly.longlt.duan1.adapter.Voucher_Adapter;
+import fpoly.longlt.duan1.dao.VoucherDao;
+import fpoly.longlt.duan1.model.Voucher;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link QuanLiDonHang_Fragment#newInstance} factory method to
+ * Use the {@link Voucher_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class QuanLiDonHang_Fragment extends Fragment {
-    ArrayList<DonHang> lst = new ArrayList<>();
-    ListView lv_donhang;
-    QuanLiKhachHang_Adapter adapter;
-    DonHangDao dao;
-    public QuanLiDonHang_Fragment() {
+public class Voucher_Fragment extends Fragment {
+    ListView lv_quanli_voucher;
+    ArrayList<Voucher> lst = new ArrayList<>();
+    Voucher_Adapter adapter;
+    VoucherDao voucherDao;
+
+    public Voucher_Fragment() {
         // Required empty public constructor
     }
-    public static QuanLiDonHang_Fragment newInstance() {
-        QuanLiDonHang_Fragment fragment = new QuanLiDonHang_Fragment();
+
+    public static Voucher_Fragment newInstance() {
+        Voucher_Fragment fragment = new Voucher_Fragment();
         return fragment;
     }
 
@@ -45,11 +47,12 @@ public class QuanLiDonHang_Fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_quan_li_don_hang_, container, false);
+        return inflater.inflate(R.layout.fragment_voucher_, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
     }
 }

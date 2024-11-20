@@ -9,7 +9,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -70,14 +72,28 @@ public class QuanLiSP_Fragment extends Fragment {
             }
         });
 
+        loadData();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData();
+    }
+
+
+    public void loadData() {
         sanPhamDAO = new SanPhamDAO(getContext());
         lst = sanPhamDAO.getAllSP();
         adapter = new SP_Admin_Adapter(lst, getContext());
 
         StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
 
+        layoutManager.invalidateSpanAssignments();
+        adapter.notifyDataSetChanged();
+
         rc_sp_admin.setLayoutManager(layoutManager);
         rc_sp_admin.setAdapter(adapter);
-
     }
+
 }

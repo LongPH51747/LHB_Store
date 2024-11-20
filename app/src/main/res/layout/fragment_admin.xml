@@ -2,84 +2,113 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:background="#E5E5E5"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_height="match_parent"
     tools:context=".fragment.AdminFragment_Home">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:fontFamily="@font/font"
-        android:text="LHB-Store"
-        android:textSize="64sp" />
-
-    <!-- TODO: Update blank fragment layout -->
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="20dp"
-        android:id="@+id/card_sp"
-        android:layout_marginVertical="27dp"
-        android:layout_marginHorizontal="27dp"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:text="Quản lý sản phẩm"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="match_parent">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_dh"
-        app:cardCornerRadius="20dp"
-        android:layout_marginHorizontal="27dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-    >
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:text="Quản lý đơn hàng"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-    </androidx.cardview.widget.CardView>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="27dp"
+                android:fontFamily="@font/font"
+                android:text="LHB-Store"
+                android:textSize="64sp" />
 
-    <androidx.cardview.widget.CardView
-        app:cardCornerRadius="20dp"
-        android:id="@+id/card_kh"
-        android:layout_marginVertical="27dp"
-        android:layout_marginHorizontal="27dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:text="Quản lý khách hàng"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-    </androidx.cardview.widget.CardView>
+            <!-- TODO: Update blank fragment layout -->
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="20dp"
+                android:id="@+id/card_sp"
+                android:layout_marginVertical="27dp"
+                android:layout_marginHorizontal="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Quản lý sản phẩm"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_tk"
-        app:cardCornerRadius="20dp"
-        android:layout_marginHorizontal="27dp"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        >
-        <TextView
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:text="Thống kê"
-            android:textSize="30sp"
-            android:layout_height="wrap_content"/>
-    </androidx.cardview.widget.CardView>
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_dh"
+                app:cardCornerRadius="20dp"
+                android:layout_marginHorizontal="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+            >
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Quản lý đơn hàng"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                app:cardCornerRadius="20dp"
+                android:id="@+id/card_kh"
+                android:layout_marginVertical="27dp"
+                android:layout_marginHorizontal="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Quản lý khách hàng"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_tk"
+                app:cardCornerRadius="20dp"
+                android:layout_marginHorizontal="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Thống kê"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_vch"
+                app:cardCornerRadius="20dp"
+                android:layout_marginVertical="20dp"
+                android:layout_marginHorizontal="27dp"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                >
+                <TextView
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:text="Quản lí voucher"
+                    android:textSize="30sp"
+                    android:layout_height="wrap_content"/>
+            </androidx.cardview.widget.CardView>
+
+        </LinearLayout>
+    </ScrollView>
+
 </LinearLayout>

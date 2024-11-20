@@ -115,6 +115,7 @@ public class HomeFragment extends Fragment {
         sanPhamDAO = new SanPhamDAO(getContext());
         arrayList =sanPhamDAO.getAllSP();
         adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
     }
 

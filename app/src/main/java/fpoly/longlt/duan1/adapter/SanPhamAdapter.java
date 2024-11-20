@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -58,7 +59,18 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
         }
 
-
+        if (sanPham.getStatus() == 1){
+            holder.tv_hethang.setVisibility(View.GONE);
+            holder.overlay.setVisibility(View.GONE);
+        }
+        SanPham firstItem = arrayList.get(0);
+        Log.d("Adapter", "First Item - Name: " + firstItem.getTenSp() + ", Status: " + firstItem.getStatus());
+//        if (sanPham.getStatus() != 1){
+//            holder.tv_hethang.setVisibility(View.VISIBLE);
+//            holder.overlay.setVisibility(View.VISIBLE);
+//            holder.overlay.setFocusable(false);
+//            holder.overlay.setEnabled(false);
+//        }
     }
 
     @Override
@@ -72,11 +84,15 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     public static class SanPhamViewHolder extends RecyclerView.ViewHolder {
      ImageView imgSP;
      TextView tvNameSP, tvPriceSP;
+     View overlay;
+     CardView tv_hethang;
         public SanPhamViewHolder(@NonNull View itemView) {
             super(itemView);
             imgSP = itemView.findViewById(R.id.img_sp_kh);
             tvNameSP = itemView.findViewById(R.id.tv_name_sp_kh);
             tvPriceSP = itemView.findViewById(R.id.tv_price_sp_kh);
+            overlay = itemView.findViewById(R.id.overlay);
+            tv_hethang = itemView.findViewById(R.id.tv_hethang);
         }
     }
 

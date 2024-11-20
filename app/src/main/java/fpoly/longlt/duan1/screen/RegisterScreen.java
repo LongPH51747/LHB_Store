@@ -62,6 +62,8 @@ public class RegisterScreen extends AppCompatActivity {
             user.setPhoneNumber(phone);
             user.setPassWord(pass);
             user.setRole(0);
+            user.setStatus(1);
+            user.setImg("img_2");
             boolean check = userDAO.insertUser(user);
             if (check){
                 Toast.makeText(this, "Dang Ky Thanh Cong", Toast.LENGTH_SHORT).show();

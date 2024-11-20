@@ -13,6 +13,8 @@ import fpoly.longlt.duan1.model.SanPham;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+
 import java.util.ArrayList;
 
 
@@ -71,10 +73,11 @@ public class SanPhamDAO {
        return result != -1;
    }
 
-   public boolean updateStatusSP(SanPham sanPham){
+   public boolean updateStatusSP(int id, boolean check){
+       int status = check ? 1 :0;
        ContentValues values = new ContentValues();
-       values.put("status", sanPham.getStatus());
-       long result = db.update("sanpham", values, "sp_id = ?", new String[]{String.valueOf(sanPham.getSpId())});
+       values.put("status", status);
+       long result = db.update("sanpham", values, "sp_id = ?", new String[]{String.valueOf(id)});
        return result != -1;
    }
 
@@ -87,13 +90,17 @@ public class SanPhamDAO {
        return result != -1;
     }
 
-   public int getIdSP(String tenSP){
-       int id = 0;
-       Cursor cursor = db.rawQuery("SELECT sp_id FROM sanpham WHERE tensp = ?", new String[]{tenSP});
-       if (cursor.getCount() > 0){
-           id = cursor.getInt(0);
+   public int getIdSP(SanPham sanPham){
+       int i = -1;
+       Cursor cursor = db.rawQuery("SELECT sp_id FROM sanpham WHERE tensp = ?", new String[]{String.valueOf(sanPham.getTenSp())});
+       if (cursor.getCount()>0){
+           cursor.moveToFirst();
+           i = cursor.getInt(0);
        }
-       return id;
+       else {
+           Log.d("bug", "ko tìm thấy curso");
+       }
+       return i;
    }
 
    //Bảng chi tiết sản phẩm

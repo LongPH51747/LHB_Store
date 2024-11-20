@@ -56,15 +56,16 @@ public class AddSP extends AppCompatActivity {
             sp.setPrice(Integer.parseInt(edtGiaSP.getText().toString()));
             sp.setStatus(1);
             sp.setImg("img_2");
-            size();
+            lstSize = size();
 
             boolean checkSP = sanPhamDAO.insertSP(sp);
             boolean checkCTSP = false;
 
             for (int i = 0; i < lstSize.size(); i++){
-                int id_sp = sanPhamDAO.getIdSP(edtTenSP.getText().toString());
+                int id_sp = sanPhamDAO.getIdSP(sp);
                 ctsp.setSp_id(id_sp);
                 ctsp.setMota(edtMoTaSP.getText().toString());
+                ctsp.setColor("red");
                 ctsp.setSoluong(Integer.parseInt(edsoluong.getText().toString()));
                 ctsp.setSize(ctsp.getSize());
                 checkCTSP = sanPhamDAO.insertChiTietSP(ctsp);
@@ -75,6 +76,7 @@ public class AddSP extends AppCompatActivity {
 
             if (checkCTSP && checkSP){
                 Toast.makeText(this, "Thêm sản phẩm thành công", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
@@ -95,21 +97,22 @@ public class AddSP extends AppCompatActivity {
     }
 
     public ArrayList<String> size(){
+        ArrayList<String> lstSizes = new ArrayList<>();
         if (chk_size_s.isChecked()){
-            lstSize.add("S");
+            lstSizes.add("S");
         }
         if (chk_size_m.isChecked()){
-            lstSize.add("M");
+            lstSizes.add("M");
         }
         if (chk_size_l.isChecked()){
-            lstSize.add("L");
+            lstSizes.add("L");
         }
         if (chk_size_xl.isChecked()) {
-            lstSize.add("XL");
+            lstSizes.add("XL");
         }
         if (chk_size_xxl.isChecked()){
-            lstSize.add("XXL");
+            lstSizes.add("XXL");
         }
-        return lstSize;
+        return lstSizes;
     }
 }

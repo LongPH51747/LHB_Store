@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".fragment.QuanLIKhachHang_Fragment">
+    tools:context=".fragment.Voucher_Fragment">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:background="#ffff"
@@ -11,17 +13,18 @@
         android:layout_height="100dp">
         <TextView
             android:layout_width="match_parent"
-            android:text="Quản lí khách hàng"
+            android:text="Quản lí voucher"
             android:layout_marginTop="50dp"
             android:textSize="30sp"
             android:gravity="center"
             android:layout_height="wrap_content"/>
     </RelativeLayout>
+
     <ListView
         android:layout_below="@+id/relative"
         android:layout_width="match_parent"
-        android:id="@+id/lv_quanli_kh"
         android:layout_height="match_parent"
-        />
+        android:id="@+id/lv_quanli_voucher"/>
 
-</RelativeLayout>
+
+</LinearLayout>

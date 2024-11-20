@@ -69,12 +69,15 @@ public class LoginScreen extends AppCompatActivity {
                 startActivity(new Intent(LoginScreen.this, AdminScreen.class));
                 finish();
             }
-            if (userDAO.checkLoginUser(name, pass)) {
-                Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
-                finish();
-            }else {
+            if (!userDAO.checkLoginUser(name, pass)) {
                 Toast.makeText(this, "Wrong Username or Password...", Toast.LENGTH_SHORT).show();
+            }else if (userDAO.checkLoginUser(name, pass) && userDAO.getStatus(name,pass)==1) {
+                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
+                Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else if (userDAO.getStatus(name,pass) == 0){
+                Toast.makeText(this, "Người dùng đã bị chặn bởi admin.", Toast.LENGTH_SHORT).show();
             }
         }
     }
