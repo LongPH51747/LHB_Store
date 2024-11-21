@@ -8,4 +8,5 @@
         android:id="@+id/nav_logout_admin"
         android:icon="@drawable/logout"
         android:title="account"/>
+        android:title=""/>
 </menu>

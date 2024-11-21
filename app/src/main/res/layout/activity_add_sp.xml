@@ -48,6 +48,7 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Giá:"
         android:layout_width="match_parent"
+        android:inputType="number"
         android:id="@+id/price_sp"
         android:layout_height="wrap_content"/>
     <LinearLayout
@@ -168,6 +169,7 @@
         android:layout_marginHorizontal="10dp"
         android:hint="Số lượng:"
         android:id="@+id/quantity_sp"
+        android:inputType="number"
         android:layout_height="wrap_content"/>
     <EditText
         android:layout_width="match_parent"

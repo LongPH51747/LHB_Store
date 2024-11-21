@@ -1,8 +1,59 @@
 package fpoly.longlt.duan1.model;
 
 public class User {
-    int id_user, role, moneyOnl;
-    String userName, passWord, nameUser ,phoneNumber, address;
+    int id_user;
+    int role;
+    int moneyOnl;
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public User(int id_user, int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address) {
+        this.id_user = id_user;
+        this.role = role;
+        this.moneyOnl = moneyOnl;
+        this.status = status;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.nameUser = nameUser;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+    }
+
+    int status;
+    String userName;
+    String passWord;
+    String nameUser;
+    String phoneNumber;
+    String address;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public User(int id_user, int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address, String img) {
+        this.id_user = id_user;
+        this.role = role;
+        this.moneyOnl = moneyOnl;
+        this.status = status;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.nameUser = nameUser;
+        this.phoneNumber = phoneNumber;
+        this.address = address;
+        this.img = img;
+    }
+
+    String img;
 
     public User(int role, int moneyOnl, String userName, String passWord, String nameUser, String phoneNumber, String address) {
         this.role = role;

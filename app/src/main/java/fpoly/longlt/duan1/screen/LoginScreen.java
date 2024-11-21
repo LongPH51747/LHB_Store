@@ -17,6 +17,12 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import fpoly.longlt.duan1.dao.UserDAO;
 import fpoly.longlt.duan1.R;
+import org.w3c.dom.Text;
+
+import fpoly.longlt.duan1.dao.UserDAO;
+import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.dao.UserDAO;
+import fpoly.longlt.duan1.model.User;
 
 public class LoginScreen extends AppCompatActivity {
     private TextInputEditText edtUserNameLogIn, edtPassWordLogIn;
@@ -24,6 +30,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button btnLogIn;
     private UserDAO userDAO;
     private String name, pass;
+    User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,17 +64,21 @@ public class LoginScreen extends AppCompatActivity {
             Toast.makeText(this, "The Box was Empty...404...", Toast.LENGTH_SHORT).show();
         }else {
             userDAO = new UserDAO(this);
+            user = new User();
             if (userDAO.checkLogInAdmin(name,pass)){
                 Toast.makeText(this, "Welcome Back Sir!!!", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(LoginScreen.this, AdminScreen.class));
                 finish();
             }
-            if (userDAO.checkLoginUser(name, pass)) {
-                Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
-                finish();
-            }else {
+            if (!userDAO.checkLoginUser(name, pass)) {
                 Toast.makeText(this, "Wrong Username or Password...", Toast.LENGTH_SHORT).show();
+            }else if (userDAO.checkLoginUser(name, pass) && userDAO.getStatus(name,pass)==1) {
+                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
+                Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            else if (userDAO.getStatus(name,pass) == 0){
+                Toast.makeText(this, "Người dùng đã bị chặn bởi admin.", Toast.LENGTH_SHORT).show();
             }
         }
     }

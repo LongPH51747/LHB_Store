@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import fpoly.longlt.duan1.dao.UserDAO;
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.dao.UserDAO;
 import fpoly.longlt.duan1.model.User;
 
 public class RegisterScreen extends AppCompatActivity {
@@ -25,6 +26,7 @@ public class RegisterScreen extends AppCompatActivity {
     private Button btnLogUp;
     private UserDAO userDAO;
     private String phone, name, pass, passConfirm;
+    //hari
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,9 @@ public class RegisterScreen extends AppCompatActivity {
             user.setUserName(name);
             user.setPhoneNumber(phone);
             user.setPassWord(pass);
+            user.setRole(0);
+            user.setStatus(1);
+            user.setImg("img_2");
             boolean check = userDAO.insertUser(user);
             if (check){
                 Toast.makeText(this, "Dang Ky Thanh Cong", Toast.LENGTH_SHORT).show();
