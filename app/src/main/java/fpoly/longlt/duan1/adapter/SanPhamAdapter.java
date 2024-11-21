@@ -41,12 +41,12 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
         SanPham sanPham = arrayList.get(position);
         holder.tvNameSP.setText(sanPham.getTenSp());
         holder.tvPriceSP.setText("đ "+sanPham.getPrice());
-        if (holder.imgSP == null){
-            Log.d("bug","imgSP is null at position: " + position);
-        }
-        else {
-            Log.d("bug","imgSP is not null at position: " + position);
-        }
+//        if (holder.imgSP == null){
+//            Log.d("bug","imgSP is null at position: " + position);
+//        }
+//        else {
+//            Log.d("bug","imgSP is not null at position: " + position);
+//        }
         // Lấy tên ảnh từ cơ sở dữ liệu (String)
         String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
         // Lấy ID tài nguyên từ tên ảnh trong drawable
@@ -58,13 +58,17 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
             // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
             holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
         }
-
-        if (sanPham.getStatus() == 1){
-            holder.tv_hethang.setVisibility(View.GONE);
-            holder.overlay.setVisibility(View.GONE);
+        holder.tv_hethang.setVisibility(View.GONE);
+        holder.overlay.setVisibility(View.GONE);
+        if (sanPham.getStatus() == 0){
+            holder.tv_hethang.setVisibility(View.VISIBLE);
+            holder.overlay.setVisibility(View.VISIBLE);
+            Log.d("OVERLAY_DEBUG", "Item position: " + position + ", Visibility: " + holder.overlay.getVisibility());
         }
-        SanPham firstItem = arrayList.get(0);
-        Log.d("Adapter", "First Item - Name: " + firstItem.getTenSp() + ", Status: " + firstItem.getStatus());
+//        else {
+//            holder.tv_hethang.setVisibility(View.VISIBLE);
+//            holder.overlay.setVisibility(View.VISIBLE);
+//        }
 //        if (sanPham.getStatus() != 1){
 //            holder.tv_hethang.setVisibility(View.VISIBLE);
 //            holder.overlay.setVisibility(View.VISIBLE);

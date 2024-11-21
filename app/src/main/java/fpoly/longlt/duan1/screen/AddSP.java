@@ -55,7 +55,7 @@ public class AddSP extends AppCompatActivity {
             sp.setTenSp(edtTenSP.getText().toString());
             sp.setPrice(Integer.parseInt(edtGiaSP.getText().toString()));
             sp.setStatus(1);
-            sp.setImg("img_2");
+            sp.setImg("img_3");
             lstSize = size();
 
             boolean checkSP = sanPhamDAO.insertSP(sp);

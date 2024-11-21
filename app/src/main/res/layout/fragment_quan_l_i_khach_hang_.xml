@@ -18,6 +18,7 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
     <ListView
+        android:divider="@android:color/transparent"
         android:layout_below="@+id/relative"
         android:layout_width="match_parent"
         android:id="@+id/lv_quanli_kh"
