@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +15,7 @@ import java.util.ArrayList;
 import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.model.SanPham;
-import fpoly.longlt.duan1.screen.productDetailScreen;
+import fpoly.longlt.duan1.screen.ProductDetailScreen;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
     Context context;
@@ -54,8 +53,22 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
             holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
         } else {
             // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-            holder.imgSP.setImageResource(R.drawable.img_3);  // Placeholder image
+            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
         }
+
+        holder.itemView.setOnClickListener(v -> {
+            Intent intent = new Intent(holder.itemView.getContext(), ProductDetailScreen.class);
+
+            intent.putExtra("sp_id", sanPham.getSpId());
+            intent.putExtra("tensp", sanPham.getTenSp());
+            intent.putExtra("img", sanPham.getImg());
+            intent.putExtra("price", sanPham.getPrice());
+            intent.putExtra("description", sanPham.getDescription());
+            intent.putExtra("size", sanPham.getSize());
+            intent.putExtra("color", sanPham.getColors());
+
+            holder.itemView.getContext().startActivity(intent);
+        });
 
     }
 
@@ -75,12 +88,7 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
             imgSP = itemView.findViewById(R.id.img_sp_kh);
             tvNameSP = itemView.findViewById(R.id.tv_name_sp_kh);
             tvPriceSP = itemView.findViewById(R.id.tv_price_sp_kh);
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), productDetailScreen.class));
-                }
-            });
+
         }
     }
 
