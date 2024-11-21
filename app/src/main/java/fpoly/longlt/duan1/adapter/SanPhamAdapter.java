@@ -1,6 +1,7 @@
 package fpoly.longlt.duan1.adapter;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -22,6 +24,8 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     Context context;
    ArrayList<SanPham> arrayList;
    SanPhamDAO sanPhamDAO;
+    ArrayList<SanPham> arrayList;
+    SanPhamDAO sanPhamDAO;
 
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
@@ -32,8 +36,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     @NonNull
     @Override
     public SanPhamViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sp_kh, parent, false);
-
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sp_kh, parent, false);
         return new SanPhamViewHolder(view);
     }
 
@@ -41,22 +44,41 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
         SanPham sanPham = arrayList.get(position);
         holder.tvNameSP.setText(sanPham.getTenSp());
-        holder.tvPriceSP.setText(String.valueOf(sanPham.getPrice()));
-
+        holder.tvPriceSP.setText("đ "+sanPham.getPrice());
+//        if (holder.imgSP == null){
+//            Log.d("bug","imgSP is null at position: " + position);
+//        }
+//        else {
+//            Log.d("bug","imgSP is not null at position: " + position);
+//        }
         // Lấy tên ảnh từ cơ sở dữ liệu (String)
-        String imageName = sanPham.getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
-
+        String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
         // Lấy ID tài nguyên từ tên ảnh trong drawable
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
-
         // Kiểm tra nếu tài nguyên ảnh tồn tại
         if (imageResId != 0) {
             holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
         } else {
             // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-            holder.imgSP.setImageResource(R.drawable.img_3);  // Placeholder image
+            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
         }
-
+        holder.tv_hethang.setVisibility(View.GONE);
+        holder.overlay.setVisibility(View.GONE);
+        if (sanPham.getStatus() == 0){
+            holder.tv_hethang.setVisibility(View.VISIBLE);
+            holder.overlay.setVisibility(View.VISIBLE);
+            Log.d("OVERLAY_DEBUG", "Item position: " + position + ", Visibility: " + holder.overlay.getVisibility());
+        }
+//        else {
+//            holder.tv_hethang.setVisibility(View.VISIBLE);
+//            holder.overlay.setVisibility(View.VISIBLE);
+//        }
+//        if (sanPham.getStatus() != 1){
+//            holder.tv_hethang.setVisibility(View.VISIBLE);
+//            holder.overlay.setVisibility(View.VISIBLE);
+//            holder.overlay.setFocusable(false);
+//            holder.overlay.setEnabled(false);
+//        }
     }
 
     @Override
@@ -70,6 +92,8 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
     public static class SanPhamViewHolder extends RecyclerView.ViewHolder {
      ImageView imgSP;
      TextView tvNameSP, tvPriceSP;
+     View overlay;
+     CardView tv_hethang;
         public SanPhamViewHolder(@NonNull View itemView) {
             super(itemView);
             imgSP = itemView.findViewById(R.id.img_sp_kh);
@@ -81,6 +105,8 @@ View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_
                     itemView.getContext().startActivity(new Intent(itemView.getContext(), productDetailScreen.class));
                 }
             });
+            overlay = itemView.findViewById(R.id.overlay);
+            tv_hethang = itemView.findViewById(R.id.tv_hethang);
         }
     }
 

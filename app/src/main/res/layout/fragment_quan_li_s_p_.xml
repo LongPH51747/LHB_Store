@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".fragment.QuanLiSP_Fragment">
 
     <RelativeLayout
@@ -19,9 +20,12 @@
             android:layout_height="wrap_content"/>
     </RelativeLayout>
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:id="@+id/listview_quanlisp"
+        tools:listitem="@layout/list_item_sp_admin"
+        app:layoutManager="GridLayoutManager"
+        app:spanCount="2"
+        android:id="@+id/rc_quanlisp"
         android:layout_below="@+id/relative"
         android:layout_height="match_parent"/>
 

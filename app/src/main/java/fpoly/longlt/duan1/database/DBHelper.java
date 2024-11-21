@@ -1,4 +1,4 @@
-package fpoly.longlt.duan1.Database;
+package fpoly.longlt.duan1.database;
 
 import static java.sql.Types.REAL;
 
@@ -10,7 +10,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 3;
+    public static final int DATABASE_VERSION = 4;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -19,13 +19,15 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String createUser = "create table user(" +
                 "user_id integer primary key autoincrement," +
-                " username text," +
-                " password text," +
+                "username text," +
+                "password text," +
                 "name text," +
                 "sdt text," +
                 "address text default 'ha noi'," +
                 "moneyonl integer default 0," +
-                "role integer default 0)";
+                "role integer default 0," +
+                "status bit default 1," +
+                "imgavatar text)";
         db.execSQL(createUser);
         String createSP = "create table sanpham(" +
                 "sp_id integer primary key autoincrement," +
@@ -62,11 +64,13 @@ public class DBHelper extends SQLiteOpenHelper {
                 "od_id integer primary key autoincrement," +
                 "user_id integer references user," +
                 "vc_id integer references voucher," +
-                "oddetail_id integer references orderdetail," +
                 "od_date text," +
                 "total_price integer," +
-                "status integer)";
+                "status integer default 0)";
         db.execSQL(createOrder);
+        String insertIntoOrder = "INSERT INTO orders" +
+                                " VALUES " +
+                                "(0,1,)";
         String createOrderDetail = "create table orderdetail(" +
                 "oddetail_id integer primary key autoincrement," +
                 "od_id integer references orders," +
@@ -76,14 +80,15 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createOrderDetail);
         String createVoucher = "create table voucher(" +
                 "vc_id integer primary key autoincrement," +
-                "od_id integer references orders," +
                 "code text," +
                 "discount_price integer," +
                 "start_date text," +
-                "end_date text)";
+                "end_date text," +
+                "dieukien integer," +
+                "status bit default 0)";
         db.execSQL(createVoucher);
         String addAdmin = ("insert into user values" +
-                "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1)"
+                "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1,1,'img_1')"
         );
         db.execSQL(addAdmin);
         String createCart = "create table cart(" +

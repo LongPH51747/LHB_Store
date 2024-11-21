@@ -28,12 +28,16 @@
             android:exported="false" />
         <activity
             android:name=".screen.ManHinhChinh"
+            android:name=".screen.AddVoucher"
+            android:exported="false" />
+        <activity
+            android:name=".screen.AddSP"
             android:exported="false" />
         <activity
             android:name=".screen.LoginScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.AdminScreen"
+            android:name=".screen.MainActivity"
             android:exported="false" />
         <activity
             android:name=".screen.RegisterScreen"

@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.screen;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -54,6 +55,8 @@ public class AdminScreen extends AppCompatActivity {
                     else {
                         Log.e("AdminScreen", "Activity đã kết thúc hoặc đang bị hủy.");
                     }
+                    startActivity(new Intent(AdminScreen.this, LoginScreen.class));
+                    finish();
                 }
                 return true;
             }
