@@ -10,30 +10,33 @@ import fpoly.longlt.duan1.database.DBHelper;
 import fpoly.longlt.duan1.model.SanPham;
 
 public class SanPhamDAO {
-   private DBHelper dbHelper;
-   private SQLiteDatabase db;
+    private DBHelper dbHelper;
+    private SQLiteDatabase db;
 
-   public SanPhamDAO(Context context){
-      dbHelper = new DBHelper(context);
-      db = dbHelper.getWritableDatabase();
-   }
+    public SanPhamDAO(Context context) {
+        dbHelper = new DBHelper(context);
+        db = dbHelper.getWritableDatabase();
+    }
 
-   public ArrayList<SanPham> getAll(){
-      ArrayList<SanPham> arrayList = new ArrayList<>();
-       Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);
-        if(cursor.getCount() > 0){
+    public ArrayList<SanPham> getAll() {
+        ArrayList<SanPham> arrayList = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);
+        if (cursor.getCount() > 0) {
             cursor.moveToFirst();
-                do {
-            SanPham sanPham = new SanPham();
-            sanPham.setSpId(cursor.getInt(0));
-            sanPham.setTenSp(cursor.getString(1));
-            sanPham.setImg(cursor.getString(2));
-            sanPham.setStatus(cursor.getInt(3));
-            sanPham.setPrice(cursor.getInt(4));
-        arrayList.add(sanPham);
-                }while (cursor.moveToNext());
-
+            do {
+                SanPham sanPham = new SanPham();
+                sanPham.setSpId(cursor.getInt(0));
+                sanPham.setTenSp(cursor.getString(1));
+                sanPham.setImg(cursor.getString(2));
+                sanPham.setStatus(cursor.getInt(3));
+                sanPham.setPrice(cursor.getInt(4));
+                arrayList.add(sanPham);
+            } while (cursor.moveToNext());
         }
-   return arrayList;
-   }
+        if (cursor != null && !cursor.isClosed()){
+            cursor.close();
+        }
+        return arrayList;
+    }
+
 }

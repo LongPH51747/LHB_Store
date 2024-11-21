@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
     public static final int DATABASE_VERSION = 2;
+
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -33,7 +34,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
-
         String createChiTietSP = "create table chitietsp(" +
                 "chitietsp_id integer primary key autoincrement," +
                 "sp_id integer references sanpham," +
@@ -41,6 +41,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "size text," +
                 "color text," +
                 "soluong integer)";
+        String insertIntoChiTietSP = "INSERT INTO chitietsp(chitietsp_id, sp_id, description, size, color, soluong) VALUES" +
+                "(0, 0, 'chất liệu cotton siêu mát', 'M', 'Red', 100)," +
+                "(1, 0, 'chất liệu cotton siêu mát', 'L', 'White', 70)," +
+                "(2, 0, 'chất liệu cotton siêu mát', 'L', 'Red', 70)," +
+                "(3, 0, 'chất liệu cotton siêu mát', 'S', 'Blue', 50)," +
+                "(4, 0, 'chất liệu cotton siêu mát', 'M', 'Black', 60)," +
+                "(5, 0, 'chất liệu cotton siêu mát', 'L', 'Blue', 40)," +
+                "(6, 0, 'chất liệu cotton siêu mát', 'XL', 'Black', 30);";
+        db.execSQL(insertIntoChiTietSP);
         db.execSQL(createChiTietSP);
         String createBills = "create table bills(" +
                 "od_id integer primary key autoincrement," +
@@ -60,11 +69,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createOrderDetail);
         String createVoucher = "create table voucher(" +
                 "vc_id integer primary key autoincrement," +
-                "od_id integer references orders," +
                 "code text," +
                 "discount_price integer," +
                 "start_date date not null," +
-                "end_date date not null)";
+                "end_date date not null," +
+                "status bit default 0)";
         db.execSQL(createVoucher);
 
         // Them cac du lieu fix cung de test o day
@@ -83,6 +92,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,0,'678')"
         );
         db.execSQL(insertUser);
+        String createCart = "create table cart(" +
+                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
+                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
+                "sp_id integer references sanpham," +           // ID sản phẩm, liên kết với bảng sản phẩm
+                "quantity integer default 1," +                 // Số lượng sản phẩm, mặc định là 1
+                "price integer," +                              // Giá của một sản phẩm
+                "total_price integer" +                         // Tổng giá = quantity * price
+                ")";
+        db.execSQL(createCart);
     }
 
     @Override
@@ -94,6 +112,7 @@ public class DBHelper extends SQLiteOpenHelper {
             db.execSQL("drop table if exists bills");
             db.execSQL("drop table if exists orderdetail");
             db.execSQL("drop table if exists voucher");
+            db.execSQL("drop table if exists cart");
             onCreate(db);
         }
     }

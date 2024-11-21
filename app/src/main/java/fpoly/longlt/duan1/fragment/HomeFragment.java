@@ -112,11 +112,7 @@ public class HomeFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
         sanPhamDAO = new SanPhamDAO(getContext());
         arrayList = sanPhamDAO.getAll();
-        adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+        adapter = new SanPhamAdapter(getContext(),arrayList,sanPhamDAO);
         recyclerView.setAdapter(adapter);
-
-
     }
-
-
 }

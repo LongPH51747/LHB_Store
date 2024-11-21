@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.fragment;
 
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,6 +17,8 @@ import fpoly.longlt.duan1.R;
  * create an instance of this fragment.
  */
 public class CartFragment extends Fragment {
+    Image imgBack;
+
 
 
 
