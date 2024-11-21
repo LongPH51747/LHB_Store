@@ -9,8 +9,14 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import java.util.ArrayList;
 
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.adapter.QuanLiKhachHang_Adapter;
+import fpoly.longlt.duan1.dao.DonHangDao;
+import fpoly.longlt.duan1.model.DonHang;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +24,10 @@ import fpoly.longlt.duan1.R;
  * create an instance of this fragment.
  */
 public class QuanLiDonHang_Fragment extends Fragment {
-
+    ArrayList<DonHang> lst = new ArrayList<>();
+    ListView lv_donhang;
+    QuanLiKhachHang_Adapter adapter;
+    DonHangDao dao;
     public QuanLiDonHang_Fragment() {
         // Required empty public constructor
     }

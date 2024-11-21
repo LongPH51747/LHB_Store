@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     <androidx.cardview.widget.CardView
         app:cardCornerRadius="20dp"
-        android:layout_width="170dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <RelativeLayout
@@ -33,6 +33,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:id="@+id/tv_name_sp_admin"
                 android:layout_marginTop="10dp"
+                android:textSize="17sp"
                 android:text="áo này màu đỏ rất là đẹp luôn"
                 android:layout_height="wrap_content"/>
             <TextView
@@ -40,6 +41,7 @@
                 android:layout_width="wrap_content"
                 android:id="@+id/tv_price_sp_admin"
                 android:layout_alignParentRight="true"
+                android:textSize="17sp"
                 android:layout_margin="10dp"
                 android:textColor="#ff00"
                 android:text="đ150.000"

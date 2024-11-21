@@ -22,17 +22,21 @@
             android:name=".screen.OrderDetailsScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.AccountSceen"
+            android:name=".screen.ManHinhChinh"
             android:exported="false" />
         <activity
-            android:name=".screen.ManHinhChinh"
+            android:name=".screen.AddVoucher"
+            android:exported="false" />
+        <activity
+            android:name=".screen.AddSP"
             android:exported="false" />
         <activity
             android:name=".screen.LoginScreen"
             android:exported="false" />
         <activity
             android:name=".screen.AdminScreen"
-            android:exported="false" />
+            android:exported="false"/>
+
         <activity
             android:name=".screen.RegisterScreen"
             android:exported="false" />

@@ -19,8 +19,8 @@ import fpoly.longlt.duan1.R;
  * create an instance of this fragment.
  */
 public class AdminFragment_Home extends Fragment {
-    CardView card_sp, card_dh, card_kh, card_tk;
-    Fragment fragment;
+    CardView card_sp, card_dh, card_kh, card_tk, card_vc;
+
 
     public AdminFragment_Home() {
         // Required empty public constructor
@@ -48,8 +48,10 @@ public class AdminFragment_Home extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         card_sp = view.findViewById(R.id.card_sp);
         card_dh = view.findViewById(R.id.card_dh);
+        card_kh = view.findViewById(R.id.card_kh);
         card_tk = view.findViewById(R.id.card_tk);
         card_kh = view.findViewById(R.id.card_kh);
+        card_vc = view.findViewById(R.id.card_vch);
         card_sp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +88,16 @@ public class AdminFragment_Home extends Fragment {
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.framelayout_admin, ThongKeFragment.newInstance())
+                        .commit();
+            }
+        });
+
+        card_vc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.framelayout_admin, Voucher_Fragment.newInstance())
                         .commit();
             }
         });
