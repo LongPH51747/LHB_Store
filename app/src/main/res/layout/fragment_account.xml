@@ -48,6 +48,7 @@
                 android:weightSum="3">
 
                 <Button
+                    android:id="@+id/btnVoucher"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:backgroundTint="#4EE9AC"
@@ -55,20 +56,21 @@
                     android:textColor="#000" />
 
                 <Button
+                    android:id="@+id/btnPayment"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:backgroundTint="#4EE9AC"
-                    android:text="Ví"
+                    android:text="Payment"
                     android:textColor="#000" />
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    android:id="@+id/btnEdit"
                     android:backgroundTint="#4EE9AC"
-                    android:text="Chỉnh sửa"
+                    android:text="Edit"
                     android:textColor="#000" />
             </LinearLayout>
         </LinearLayout>
