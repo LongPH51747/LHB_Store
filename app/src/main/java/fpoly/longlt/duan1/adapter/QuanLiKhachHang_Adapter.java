@@ -101,7 +101,7 @@ public class QuanLiKhachHang_Adapter extends BaseAdapter {
                 }
             }
         });
-        String imageName = user.getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
+        String imageName = user.getImageAvatar();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
         // Lấy ID tài nguyên từ tên ảnh trong drawable
         int imageResId = convertView.getContext().getResources().getIdentifier(imageName, "drawable", convertView.getContext().getPackageName());
         // Kiểm tra nếu tài nguyên ảnh tồn tại

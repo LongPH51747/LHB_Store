@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
+    <!-- Cho Android 14+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -22,7 +24,7 @@
             android:name=".screen.ProductDetailScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.OrderDetailsScreen"
+            android:name=".screen.AdminScreen"
             android:exported="false" />
         <activity
             android:name=".screen.ManHinhChinh"
@@ -31,10 +33,13 @@
             android:name=".screen.AddVoucher"
             android:exported="false" />
         <activity
+            android:name=".screen.productDetailScreen"
+            android:exported="false" />
+        <activity
             android:name=".screen.AddSP"
             android:exported="false" />
         <activity
-            android:name=".screen.LoginScreen"
+            android:name=".screen.ManHinhChinh"
             android:exported="false" />
         <activity
             android:name=".screen.AdminScreen"
@@ -45,6 +50,9 @@
             android:exported="false" />
         <activity
             android:name=".screen.MainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".screen.LoginScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -21,7 +21,8 @@ import fpoly.longlt.duan1.fragment.OrderFragment;
 import fpoly.longlt.duan1.R;
 
 public class ManHinhChinh extends AppCompatActivity {
-  private BottomNavigationView bottomNavigationView;
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +38,17 @@ public class ManHinhChinh extends AppCompatActivity {
             .commit();
 
         bottomNavigationView =findViewById(R.id.bottomNavigationView);
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.framelayout, HomeFragment.newInstance())
+                .commit();
+
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
         bottomNavigationView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 Fragment fragment = null;
                 if(menuItem.getItemId() == R.id.nav_home){
+                if (menuItem.getItemId() == R.id.nav_home) {
                     fragment = HomeFragment.newInstance();
                 } else if (menuItem.getItemId() == R.id.nav_order) {
                     fragment = OrderFragment.newInstance();
@@ -56,6 +63,15 @@ public class ManHinhChinh extends AppCompatActivity {
                     .commit();
                 }
                 return true;
+                if (fragment != null) {
+                    getSupportFragmentManager().beginTransaction()
+                            .replace(R.id.framelayout, fragment)
+                            .commit();
+                }
+                return false;
+            }
+
+        });
 
             }
 

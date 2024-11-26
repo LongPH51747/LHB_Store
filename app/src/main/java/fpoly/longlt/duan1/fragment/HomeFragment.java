@@ -78,7 +78,6 @@ public class HomeFragment extends Fragment {
             }
         });
         LoadData();
-//        recyclerView.setNestedScrollingEnabled(false); //tắt cuộn độc lập
         // Thiết lập RecyclerView cho danh sách sản phẩm
         return view;
     }
@@ -119,8 +118,13 @@ public class HomeFragment extends Fragment {
         sanPhamDAO = new SanPhamDAO(getContext());
         arrayList = sanPhamDAO.getAllSP();
         adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+    public void LoadData() {
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        recyclerView.setLayoutManager(layoutManager);
+        sanPhamDAO = new SanPhamDAO(getContext());
+        arrayList = sanPhamDAO.getAllSP();
+        adapter = new SanPhamAdapter(getContext(),arrayList,sanPhamDAO);
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(null);
     }
 
 //    public void clickProduct(){

@@ -1,7 +1,9 @@
 package fpoly.longlt.duan1.screen;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -58,9 +60,10 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void checkLogIn() {
+        userDAO = new UserDAO(this);
         name = edtUserNameLogIn.getText().toString();
         pass = edtPassWordLogIn.getText().toString();
-        if (name.isEmpty() || pass.isEmpty()){
+        if (name.isEmpty() || pass.isEmpty()) {
             Toast.makeText(this, "The Box was Empty...404...", Toast.LENGTH_SHORT).show();
         }else {
             userDAO = new UserDAO(this);
@@ -73,7 +76,13 @@ public class LoginScreen extends AppCompatActivity {
             if (!userDAO.checkLoginUser(name, pass)) {
                 Toast.makeText(this, "Wrong Username or Password...", Toast.LENGTH_SHORT).show();
             }else if (userDAO.checkLoginUser(name, pass) && userDAO.getStatus(name,pass)==1) {
-                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
+                Intent intent = new Intent(LoginScreen.this, ManHinhChinh.class);
+                int id = userDAO.getIDByLogIn(name,pass);
+                user = new User(id);
+                intent.putExtra("user_id",user);
+                Log.e("idUser", "ID: " + id );
+                startActivity(intent);
+//                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
                 Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();
                 finish();
             }

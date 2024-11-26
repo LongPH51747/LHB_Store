@@ -62,7 +62,7 @@ public class RegisterScreen extends AppCompatActivity {
             user.setPassWord(pass);
             user.setRole(0);
             user.setStatus(1);
-            user.setImg("img_2");
+            user.setImageAvatar("img_2");
             boolean check = userDAO.insertUser(user);
             if (check){
                 Toast.makeText(this, "Dang Ky Thanh Cong", Toast.LENGTH_SHORT).show();

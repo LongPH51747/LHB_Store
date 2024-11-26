@@ -1,4 +1,5 @@
 package fpoly.longlt.duan1.adapter;
+
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -23,10 +24,13 @@ import fpoly.longlt.duan1.model.ChiTietSP;
 import fpoly.longlt.duan1.model.SanPham;
 import fpoly.longlt.duan1.screen.ProductDetailScreen;
 
-public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
+
+public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder> {
     Context context;
    ArrayList<SanPham> arrayList;
    SanPhamDAO sanPhamDAO;
+    ArrayList<SanPham> arrayList;
+    SanPhamDAO sanPhamDAO;
 
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
@@ -45,7 +49,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
         SanPham sanPham = arrayList.get(position);
         holder.tvNameSP.setText(sanPham.getTenSp());
-        holder.tvPriceSP.setText("đ "+sanPham.getPrice());
+        holder.tvPriceSP.setText("đ " + sanPham.getPrice());
 //        if (holder.imgSP == null){
 //            Log.d("bug","imgSP is null at position: " + position);
 //        }
@@ -92,7 +96,7 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 //        }
         holder.tv_hethang.setVisibility(View.GONE);
         holder.overlay.setVisibility(View.GONE);
-        if (sanPham.getStatus() == 0){
+        if (sanPham.getStatus() == 0) {
             holder.tv_hethang.setVisibility(View.VISIBLE);
             Log.d("OVERLAY_DEBUG", "Item position: " + position + ", Visibility: " + holder.overlay.getVisibility());
         }
@@ -111,17 +115,19 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
     @Override
     public int getItemCount() {
-        if(arrayList != null){
+        if (arrayList != null) {
             return arrayList.size();
         }
         return 0;
     }
 
     public static class SanPhamViewHolder extends RecyclerView.ViewHolder {
-     ImageView imgSP;
-     TextView tvNameSP, tvPriceSP;
-     View overlay;
-     CardView tv_hethang;
+        ImageView imgSP;
+        TextView tvNameSP, tvPriceSP;
+
+        View overlay;
+        CardView tv_hethang;
+
         public SanPhamViewHolder(@NonNull View itemView) {
             super(itemView);
             imgSP = itemView.findViewById(R.id.img_sp_kh);
@@ -138,6 +144,5 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
         }
     }
-
-
+    //nothing
 }
