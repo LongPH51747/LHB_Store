@@ -173,4 +173,12 @@ public class UserDAO {
         return result != -1;
     }
 
+    public boolean updateMoney(int money, int id){
+        SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put("moneyonl", money);
+        int check = sqLiteDatabase.update("user", values, "user_id = ?", new String[]{String.valueOf(id)});
+        return check!=-1;
+    }
+
 }

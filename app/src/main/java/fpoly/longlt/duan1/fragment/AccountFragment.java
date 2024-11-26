@@ -2,6 +2,9 @@ package fpoly.longlt.duan1.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.ArrayList;
 
@@ -57,6 +61,34 @@ public class AccountFragment extends Fragment {
             rvProduct = view.findViewById(R.id.rv_products);
         LoadData();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        btnPayment = view.findViewById(R.id.btnPayment);
+        btnVoucher = view.findViewById(R.id.btnVoucher);
+        btnEdit = view.findViewById(R.id.btnEdit);
+        btnPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view = getLayoutInflater().inflate(R.layout.payment, null);
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                EditText ed_payment = view.findViewById(R.id.ed_money_onl);
+                Button btn_naptien = view.findViewById(R.id.btn_naptien);
+                btn_naptien.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int money = Integer.parseInt(ed_payment.getText().toString());
+
+                    }
+                });
+                dialog.show();
+
+            }
+        });
     }
 
     public void LoadData(){

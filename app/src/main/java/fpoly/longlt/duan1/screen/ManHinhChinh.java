@@ -55,7 +55,7 @@ public class ManHinhChinh extends AppCompatActivity {
                     .replace(R.id.framelayout, fragment)
                     .commit();
                 }
-                return false;
+                return true;
 
             }
 
