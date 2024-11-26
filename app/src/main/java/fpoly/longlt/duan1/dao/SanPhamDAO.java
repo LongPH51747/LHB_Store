@@ -81,6 +81,11 @@ public class SanPhamDAO {
        return result != -1;
    }
 
+   public boolean deleteSP(int id){
+       long result = db.delete("sanpham", "sp_id = ?", new String[]{String.valueOf(id)});
+       return result != -1;
+   }
+
     public boolean updateSP(SanPham sanPham){
        ContentValues values = new ContentValues();
        values.put("tensp", sanPham.getTenSp());

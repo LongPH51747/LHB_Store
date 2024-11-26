@@ -8,7 +8,7 @@ import androidx.annotation.Nullable;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 4;
+    public static final int DATABASE_VERSION = 6;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -34,9 +34,9 @@ public class DBHelper extends SQLiteOpenHelper {
                 "status bit default 1," +
                 "price integer)";
         db.execSQL(createSP);
-        String insertIntoSP = "INSERT INTO sanpham (tensp, img, status, price) VALUES " +
-                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
-                "('Quần jean trắng', 'img_3', 1, 20000);";
+        String insertIntoSP = "INSERT INTO sanpham VALUES " +
+                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
+                "(1,'Quần jean trắng', 'img_3', 1, 20000);";
 
         db.execSQL(insertIntoSP);
         String createChiTietSP = "create table chitietsp(" +

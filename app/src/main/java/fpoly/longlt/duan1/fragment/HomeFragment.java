@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.ArrayList;
@@ -107,10 +108,10 @@ public class HomeFragment extends Fragment {
     }
 
     public void LoadData(){
-        RecyclerView.LayoutManager layoutManager =new GridLayoutManager(getContext(), 2);
+        StaggeredGridLayoutManager layoutManager =new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         sanPhamDAO = new SanPhamDAO(getContext());
-        arrayList =sanPhamDAO.getAllSP();
+        arrayList = sanPhamDAO.getAllSP();
         adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
         recyclerView.setAdapter(adapter);
         recyclerView.setItemAnimator(null);

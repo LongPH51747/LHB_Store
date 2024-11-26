@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.adapter;
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +22,7 @@ import fpoly.longlt.duan1.model.SanPham;
 
 public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder>{
     Context context;
-    ArrayList<SanPham> arrayList;
+    ArrayList<SanPham> arrayList = new ArrayList<>();
     SanPhamDAO sanPhamDAO;
 
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
@@ -47,22 +49,35 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 //        else {
 //            Log.d("bug","imgSP is not null at position: " + position);
 //        }
-        // Lấy tên ảnh từ cơ sở dữ liệu (String)
-        String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
-        // Lấy ID tài nguyên từ tên ảnh trong drawable
-        int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
-        // Kiểm tra nếu tài nguyên ảnh tồn tại
-        if (imageResId != 0) {
-            holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
-        } else {
-            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
+
+        if (arrayList.size() > 0) {
+            Log.d("anh", "ảnh: "+arrayList.get(position).getImg());
+            try {
+                String imgPath = arrayList.get(position).getImg();  // Lấy đường dẫn tệp từ SQLite
+                File imgFile = new  File(imgPath);  // Tạo đối tượng File từ đường dẫn
+                if(imgFile.exists()) {
+                    Uri uri = Uri.fromFile(imgFile);  // Chuyển đường dẫn thành URI
+                    holder.imgSP.setImageURI(uri);  // Đặt URI vào ImageView
+                }
+            } catch (Exception e){
+                holder.imgSP.setImageResource(R.drawable.img_2);
+            }
         }
+        // Lấy tên ảnh từ cơ sở dữ liệu (String)
+//        String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
+//        // Lấy ID tài nguyên từ tên ảnh trong drawable
+//        int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
+//        // Kiểm tra nếu tài nguyên ảnh tồn tại
+//        if (imageResId != 0) {
+//            holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
+//        } else {
+//            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
+//            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
+//        }
         holder.tv_hethang.setVisibility(View.GONE);
         holder.overlay.setVisibility(View.GONE);
         if (sanPham.getStatus() == 0){
             holder.tv_hethang.setVisibility(View.VISIBLE);
-            holder.overlay.setVisibility(View.VISIBLE);
             Log.d("OVERLAY_DEBUG", "Item position: " + position + ", Visibility: " + holder.overlay.getVisibility());
         }
 //        else {
