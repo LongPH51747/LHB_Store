@@ -88,12 +88,7 @@ public class EditProfileScreen extends AppCompatActivity {
                 profileImage.setImageResource(R.drawable.baseline_account_circle_24);
             }
         });
-
-        // Chon anh tu thu vien
     }
-
-    // Ham mo thu vien anh
-
     private void anhXa() {
         ivTurnBack = findViewById(R.id.ivBack);
         profileImage = findViewById(R.id.profileImage);
