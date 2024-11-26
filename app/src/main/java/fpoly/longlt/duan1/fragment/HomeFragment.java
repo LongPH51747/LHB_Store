@@ -108,12 +108,12 @@ public class HomeFragment extends Fragment {
     }
 
     public void LoadData(){
-RecyclerView.LayoutManager layoutManager =new GridLayoutManager(getContext(), 2);
-recyclerView.setLayoutManager(layoutManager);
-sanPhamDAO = new SanPhamDAO(getContext());
-arrayList =sanPhamDAO.getAllSP();
-adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
-recyclerView.setAdapter(adapter);
+//        RecyclerView.LayoutManager layoutManager =new GridLayoutManager(getContext(), 2);
+//        recyclerView.setLayoutManager(layoutManager);
+//        sanPhamDAO = new SanPhamDAO(getContext());
+//        arrayList =sanPhamDAO.getAllSP();
+//        adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+//        recyclerView.setAdapter(adapter);
         StaggeredGridLayoutManager layoutManager =new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         sanPhamDAO = new SanPhamDAO(getContext());

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,18 +12,10 @@
 
 
     <!-- Phần chính nội dung màn hình -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
 
             <!-- Hình ảnh sản phẩm -->
             <RelativeLayout
+                android:id="@+id/rc_img"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
@@ -49,6 +41,8 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/rc_content"
+                android:layout_below="@+id/rc_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -139,54 +133,36 @@
                     android:layout_marginTop="16dp" />
 
                 <!-- Gợi ý sản phẩm -->
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Gợi ý sản phẩm"
-                    android:textSize="20sp"
-                    android:textColor="#000"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp" />
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerViewProducts"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                    app:spanCount="2"
-                    tools:listitem="@layout/list_item_sp_kh" />
 
                 <!-- Nút thao tác -->
+            </LinearLayout>
                 <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center"
                     android:layout_marginTop="16dp">
-
                     <Button
                         android:id="@+id/btnAddToCart"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:background="#4CAF50"
+                        app:backgroundTint="#4CAF50"
                         android:layout_height="wrap_content"
                         android:text="Thêm vào giỏ hàng"
-                        android:backgroundTint="#4CAF50"
                         android:textColor="#FFFFFF" />
-
                     <Button
                         android:id="@+id/btnBuyNow"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Mua ngay"
-                        android:backgroundTint="#FF5722"
                         android:textColor="#FFFFFF"
-                        android:layout_marginStart="8dp" />
+                        android:background="#FF5722"
+                        app:backgroundTint="#FF5722"
+                         />
                 </LinearLayout>
-            </LinearLayout>
 
             <!-- Tên sản phẩm -->
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</RelativeLayout>

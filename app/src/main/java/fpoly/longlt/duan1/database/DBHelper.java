@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 6;
+    public static final int DATABASE_VERSION = 7;
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -30,48 +30,35 @@ public class DBHelper extends SQLiteOpenHelper {
                 "tensp text," +
                 "img text," +
                 "status bit default 1," +
-                "price integer)";
+                "price integer," +
+                "description text)";
         db.execSQL(createSP);
-        String insertIntoSP = "INSERT INTO sanpham VALUES " +
-                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
-                "(1,'Quần jean trắng', 'img_3', 1, 20000);";
-
-        db.execSQL(insertIntoSP);
         String createChiTietSP = "create table chitietsp(" +
                 "chitietsp_id integer primary key autoincrement," +
                 "sp_id integer references sanpham," +
-                "description text," +
                 "size text," +
                 "color text," +
                 "soluong integer)";
         db.execSQL(createChiTietSP);
-
-        String insertIntoSP = "INSERT INTO sanpham (sp_id, tensp, img, status, price) VALUES " +
-                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
-                "(1,'Quần jean trắng', 'img_3', 1, 20000)";
-
+        String insertIntoSP = "INSERT INTO sanpham VALUES " +
+                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
+                "(1,'Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp');";
         db.execSQL(insertIntoSP);
-        String insertIntoChiTietSP = "INSERT INTO chitietsp(chitietsp_id, sp_id, description, size, color, soluong) VALUES" +
-                "(0, 0, 'chất liệu cotton siêu mát', 'M', 'Red', 100)," +
-                "(1, 0, 'chất liệu cotton siêu mát', 'L', 'White', 70)," +
-                "(2, 0, 'chất liệu cotton siêu mát', 'L', 'Red', 70)," +
-                "(3, 0, 'chất liệu cotton siêu mát', 'S', 'Blue', 50)," +
-                "(4, 0, 'chất liệu cotton siêu mát', 'M', 'Black', 60)," +
-                "(5, 0, 'chất liệu cotton siêu mát', 'L', 'Blue', 40)," +
-                "(6, 0, 'chất liệu cotton siêu mát', 'XL', 'Black', 30)," +
-                "(7, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','M', 'White', 60)," +
-                "(8, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','L', 'Black', 40)," +
-                "(9, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','X', 'Gray', 24)," +
-                "(10, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','XL', 'Beige', 16)," +
-                "(11, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','M', 'Blue', 08)," +
-                "(12, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','L', 'Black-Blue', 77)," +
-                "(13, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','X', 'Sliver', 23)," +
-                "(14, 1, 'vải nhung tăm dày dặn, thoải mái, ấm áp','Xl', 'Gray', 45)";
-
-
+        String insertIntoChiTietSP = "INSERT INTO chitietsp VALUES" +
+                "(0, 0, 'M', 'Red', 100)," +
+                "(1, 0, 'L', 'White', 70)," +
+                "(2, 0, 'L', 'Red', 70)," +
+                "(3, 0, 'S', 'Blue', 50)," +
+                "(4, 0, 'M', 'Black', 60)," +
+                "(5, 0,'L', 'White', 40)," +
+                "(6, 0,'XL', 'Black', 30)," +
+                "(7, 1,'M', 'White', 60)," +
+                "(8, 1,'L', 'Black', 40)," +
+                "(9, 1,'X', 'Gray', 24)," +
+                "(10, 1,'XL', 'Beige', 16)," +
+                "(11, 1,'M', 'Blue', 08)," +
+                "(12, 1,'L', 'Black-Blue', 77)";
         db.execSQL(insertIntoChiTietSP);
-
-
 
         String createOrder = "create table orders(" +
                 "od_id integer primary key autoincrement," +

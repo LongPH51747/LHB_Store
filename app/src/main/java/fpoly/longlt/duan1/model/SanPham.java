@@ -3,6 +3,16 @@ package fpoly.longlt.duan1.model;
 public class SanPham {
     private int spId;
     private String tenSp;
+
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
+    }
+
+    private String mota;
     private String img;
     private int status;
     private int price;

@@ -2,6 +2,7 @@ package fpoly.longlt.duan1.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import java.util.ArrayList;
 
 import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.model.ChiTietSP;
 import fpoly.longlt.duan1.model.SanPham;
 import fpoly.longlt.duan1.screen.ProductDetailScreen;
 
@@ -25,9 +27,6 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
     Context context;
    ArrayList<SanPham> arrayList;
    SanPhamDAO sanPhamDAO;
-
-    ArrayList<SanPham> arrayList = new ArrayList<>();
-    SanPhamDAO sanPhamDAO;
 
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
@@ -70,17 +69,13 @@ public class SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamV
 
 
         holder.itemView.setOnClickListener(v -> {
-            Intent intent = new Intent(holder.itemView.getContext(), ProductDetailScreen.class);
-
-            intent.putExtra("sp_id", sanPham.getSpId());
-            intent.putExtra("tensp", sanPham.getTenSp());
-            intent.putExtra("img", sanPham.getImg());
-            intent.putExtra("price", sanPham.getPrice());
-            intent.putExtra("description", sanPham.getDescription());
-            intent.putExtra("size", sanPham.getSize());
-            intent.putExtra("color", sanPham.getColors());
-
-            holder.itemView.getContext().startActivity(intent);
+            SanPham sanPham1 = arrayList.get(position);
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent();
+            bundle.putInt("id", sanPham1.getSpId());
+            intent.putExtras(bundle);
+            intent.setClass(context, ProductDetailScreen.class);
+            context.startActivity(intent);
         });
 
 
