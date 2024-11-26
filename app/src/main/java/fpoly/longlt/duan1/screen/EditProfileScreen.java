@@ -22,27 +22,12 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import fpoly.longlt.duan1.R;
-
-public class EditProfileScreen extends AppCompatActivity {
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
-import com.squareup.picasso.Picasso;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.dao.UserDAO;
-import fpoly.longlt.duan1.fragment.AccountFragment;
 import fpoly.longlt.duan1.model.User;
+
 
 public class EditProfileScreen extends AppCompatActivity {
     ImageView ivTurnBack, profileImage;

@@ -27,13 +27,7 @@
             android:name=".screen.AdminScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.ManHinhChinh"
-            android:exported="false" />
-        <activity
             android:name=".screen.AddVoucher"
-            android:exported="false" />
-        <activity
-            android:name=".screen.productDetailScreen"
             android:exported="false" />
         <activity
             android:name=".screen.AddSP"
@@ -41,10 +35,6 @@
         <activity
             android:name=".screen.ManHinhChinh"
             android:exported="false" />
-        <activity
-            android:name=".screen.AdminScreen"
-            android:exported="false"/>
-
         <activity
             android:name=".screen.RegisterScreen"
             android:exported="false" />

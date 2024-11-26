@@ -22,60 +22,6 @@ public class SanPhamDAO {
         db = dbHelper.getWritableDatabase();
     }
 
-    // Lấy danh sách tất cả sản phẩm
-    public ArrayList<SanPham> getAllSP() {
-        ArrayList<SanPham> arrayList = new ArrayList<>();
-        Cursor cursor = null;
-
-        try {
-            cursor = db.rawQuery("SELECT * FROM sanpham", null);
-            if (cursor != null && cursor.moveToFirst()) {
-                do {
-                    SanPham sanPham = new SanPham();
-                    sanPham.setSpId(cursor.getInt(0)); // sp_id
-                    sanPham.setTenSp(cursor.getString(1)); // tên sản phẩm
-                    sanPham.setImg(cursor.getString(2)); // ảnh
-                    sanPham.setStatus(cursor.getInt(3)); // trạng thái
-                    sanPham.setPrice(cursor.getInt(4)); // giá
-                    sanPham.setMota(cursor.getString(5)); // mô tả
-                    arrayList.add(sanPham);
-                } while (cursor.moveToNext());
-            }
-        } finally {
-            if (cursor != null) cursor.close();
-        }
-
-        return arrayList;
-    }
-
-import java.util.ArrayList;
-
-import fpoly.longlt.duan1.database.DBHelper;
-
-import fpoly.longlt.duan1.model.ChiTietSP;
-import fpoly.longlt.duan1.model.SanPham;
-
-import android.util.Log;
-
-
-public class SanPhamDAO {
-
-   private DBHelper dbHelper;
-   private SQLiteDatabase db;
-
-    public SanPhamDAO(Context context) {
-        dbHelper = new DBHelper(context);
-        db = dbHelper.getWritableDatabase();
-    }
-
-//<<<<<<< HEAD
-//    public ArrayList<SanPham> getAll() {
-//        ArrayList<SanPham> arrayList = new ArrayList<>();
-//        Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);
-//        if (cursor.getCount() > 0) {
-//=======
-//   //Bảng sản phẩm
-
    public ArrayList<SanPham> getAllSP(){
       ArrayList<SanPham> arrayList = new ArrayList<>();
        Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);

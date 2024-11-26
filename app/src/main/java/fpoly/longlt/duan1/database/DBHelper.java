@@ -8,10 +8,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
     public static final int DATABASE_VERSION = 7;
 
-public class DBHelper extends SQLiteOpenHelper {
-    public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 3;
-
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -65,17 +61,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(12, 1,'L', 'Black-Blue', 77)";
         db.execSQL(insertIntoChiTietSP);
 
-        String createOrder = "create table orders(" +
-        String insertIntoChiTietSP = "INSERT INTO chitietsp(chitietsp_id, sp_id, description, size, color, soluong) VALUES" +
-                "(0, 0, 'chất liệu cotton siêu mát', 'M', 'Red', 100)," +
-                "(1, 0, 'chất liệu cotton siêu mát', 'L', 'White', 70)," +
-                "(2, 0, 'chất liệu cotton siêu mát', 'L', 'Red', 70)," +
-                "(3, 0, 'chất liệu cotton siêu mát', 'S', 'Blue', 50)," +
-                "(4, 0, 'chất liệu cotton siêu mát', 'M', 'Black', 60)," +
-                "(5, 0, 'chất liệu cotton siêu mát', 'L', 'Blue', 40)," +
-                "(6, 0, 'chất liệu cotton siêu mát', 'XL', 'Black', 30);";
-        db.execSQL(insertIntoChiTietSP);
-
         String createBills = "create table bills(" +
                 "od_id integer primary key autoincrement," +
                 "user_id integer references user," +
@@ -107,11 +92,6 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1,1,'img_1')"
         );
         db.execSQL(addAdmin);
-        String insertIntoSP = "INSERT INTO sanpham (tensp, img, status, price) VALUES " +
-                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000)," +
-                "('Quần jean trắng', 'img_3', 1, 20000);";
-
-        db.execSQL(insertIntoSP);
         String insertUser = ("insert into user values" +
                 "(1,'hai','123','HaiViet','0971296368','Ha Tay',1,0,1,'1234')," +
                 "(2,'bao','123','GiaBao','0987654412','Ha Nam',1,0,1,'345')," +

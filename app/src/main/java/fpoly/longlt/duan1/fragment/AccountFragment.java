@@ -70,6 +70,17 @@ public class AccountFragment extends Fragment {
 
     }
 
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_account, container, false);
+            rvProduct = view.findViewById(R.id.rv_products);
+        LoadData();
+        return view;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -113,43 +124,33 @@ public class AccountFragment extends Fragment {
         txtNameAccount.setText(nameUser);
 
     }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_account, container, false);
-            rvProduct = view.findViewById(R.id.rv_products);
-        LoadData();
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        btnPayment = view.findViewById(R.id.btnPayment);
-        btnVoucher = view.findViewById(R.id.btnVoucher);
-        btnEdit = view.findViewById(R.id.btnEdit);
-        btnPayment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                View view = getLayoutInflater().inflate(R.layout.payment, null);
-                builder.setView(view);
-                AlertDialog dialog = builder.create();
-                EditText ed_payment = view.findViewById(R.id.ed_money_onl);
-                Button btn_naptien = view.findViewById(R.id.btn_naptien);
-                btn_naptien.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        int money = Integer.parseInt(ed_payment.getText().toString());
-
-                    }
-                });
-                dialog.show();
-
-            }
-        });
-    }
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//        btnPayment = view.findViewById(R.id.btnPayment);
+//        btnVoucher = view.findViewById(R.id.btnVoucher);
+//        btnEdit = view.findViewById(R.id.btnEdit);
+//        btnPayment.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+//                View view = getLayoutInflater().inflate(R.layout.payment, null);
+//                builder.setView(view);
+//                AlertDialog dialog = builder.create();
+//                EditText ed_payment = view.findViewById(R.id.ed_money_onl);
+//                Button btn_naptien = view.findViewById(R.id.btn_naptien);
+//                btn_naptien.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View v) {
+//                        int money = Integer.parseInt(ed_payment.getText().toString());
+//
+//                    }
+//                });
+//                dialog.show();
+//
+//            }
+//        });
+//    }
 
     public void LoadData(){
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

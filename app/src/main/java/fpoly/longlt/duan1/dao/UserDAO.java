@@ -30,7 +30,6 @@ public class UserDAO {
         contentValues.put("sdt", user.getPhoneNumber());
         contentValues.put("address", user.getAddress());
         contentValues.put("status", user.getStatus());
-        contentValues.put("imgavatar", user.getImg());
         contentValues.put("imgavatar", user.getImageAvatar());
 //        contentValues.put("role", user.getRole());
         long result = sqLiteDatabase.insert("user",null,contentValues);
