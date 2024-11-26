@@ -21,7 +21,7 @@ import fpoly.longlt.duan1.dao.SanPhamDAO;
 public class ProductDetailScreen extends AppCompatActivity {
 
     private Spinner spnSize, spnColors;
-    private TextView tvNameSPCT, tvPriceSPCT;
+    private TextView tvNameSPCT, tvPriceSPCT, tvMoTaSPCT;
     ImageView imgSPCT;
 
     ArrayList<String> listSize = new ArrayList<>();
@@ -49,6 +49,8 @@ public class ProductDetailScreen extends AppCompatActivity {
 // Cập nhật giao diện
         tvNameSPCT.setText(productName);
         tvPriceSPCT.setText(String.valueOf(productPrice)+"VND");
+        tvMoTaSPCT.setText(productDescription);
+
 
 // Lấy ID tài nguyên ảnh từ tên ảnh lưu trong cơ sở dữ liệu
         int imageResId = getResources().getIdentifier(productImg, "drawable", getPackageName());
@@ -87,5 +89,6 @@ public class ProductDetailScreen extends AppCompatActivity {
         tvNameSPCT = findViewById(R.id.tvNameSPCT);
         imgSPCT = findViewById(R.id.imgSPCT);
         tvPriceSPCT = findViewById(R.id.tvPriceSPCT);
+        tvMoTaSPCT = findViewById(R.id.tvMoTaSPCT);
     }
 }

@@ -86,12 +86,8 @@ public class QuanLiSP_Fragment extends Fragment {
         sanPhamDAO = new SanPhamDAO(getContext());
         lst = sanPhamDAO.getAllSP();
         adapter = new SP_Admin_Adapter(lst, getContext());
-
-        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-
-        layoutManager.invalidateSpanAssignments();
         adapter.notifyDataSetChanged();
-
+        StaggeredGridLayoutManager layoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         rc_sp_admin.setLayoutManager(layoutManager);
         rc_sp_admin.setAdapter(adapter);
     }

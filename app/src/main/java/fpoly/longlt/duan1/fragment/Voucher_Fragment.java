@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -42,7 +45,7 @@ public class Voucher_Fragment extends Fragment {
     VoucherDao voucherDao;
     TextView btn_add_vch;
     Voucher vc;
-
+    int count;
     public Voucher_Fragment() {
         // Required empty public constructor
     }
@@ -76,7 +79,7 @@ public class Voucher_Fragment extends Fragment {
                 View view1 = getLayoutInflater().inflate(R.layout.activity_add_voucher, null);
                 builder.setView(view1);
                 AlertDialog dialog = builder.create();
-                EditText ed_ma, ed_giagiam, ed_start_date, ed_end_date;
+                EditText ed_ma, ed_giagiam, ed_start_date, ed_end_date, ed_dk_giam;
                 Button btn_add_vc;
                 ImageView imgback;
                 ed_ma = view1.findViewById(R.id.ed_ma_vc);
@@ -85,6 +88,7 @@ public class Voucher_Fragment extends Fragment {
                 ed_end_date = view1.findViewById(R.id.ed_end_date);
                 btn_add_vc = view1.findViewById(R.id.btn_them_vc);
                 imgback = view1.findViewById(R.id.img_back);
+                ed_dk_giam = view1.findViewById(R.id.ed_dk_giam);
                 imgback.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -93,45 +97,70 @@ public class Voucher_Fragment extends Fragment {
                 });
                 btn_add_vc.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
+                        voucherDao = new VoucherDao(getContext());
+                        count = 0;
+                        ArrayList<String> list = new ArrayList<>();
+                        list = voucherDao.getCodeVCH();
                         String ma = ed_ma.getText().toString();
                         String giagiam = ed_giagiam.getText().toString();
                         String start_date = ed_start_date.getText().toString();
                         String end_date = ed_end_date.getText().toString();
+                        String dk_giam = ed_dk_giam.getText().toString();
+                        for (int i = 0; i < list.size(); i++){
+                            if (list.get(i).equals(ma)){
+                                count++;
+                                Log.d("bug", "onClick: "+count);
+                                break;
+                            }
+                        }
                         if (ma.isEmpty() || giagiam.isEmpty() || start_date.isEmpty() || end_date.isEmpty()) {
                             Toast.makeText(getContext(), "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
                         }
+                        else if (Integer.parseInt(giagiam) > Integer.parseInt(dk_giam)){
+                            Toast.makeText(getContext(), "Giá giảm không được lớn hơn điều kiện giảm", Toast.LENGTH_SHORT).show();
+                        }
+                        else if (count>0){
+                            Toast.makeText(getContext(), "Mã voucher đã tồn tại", Toast.LENGTH_SHORT).show();
+                        }
                         else {
-                            voucherDao = new VoucherDao(getContext());
-                            vc = new Voucher();
-                            vc.setCode(ma);
-                            vc.setDiscount_price(Integer.parseInt(giagiam));
-                            vc.setStart_date(start_date);
-                            vc.setEnd_date(end_date);
-                            SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
-                            sdf.setLenient(false);
                             try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
+                                sdf.setLenient(false);
+                                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
                                 Date inputDate = sdf.parse(start_date);
+                                Date end = sdf.parse(end_date);
                                 Date currentDate = new Date();
-                                if (inputDate.after(currentDate)){
-                                    vc.setStatus(0);
+                                if (inputDate.after(end)){
+                                    Toast.makeText(getContext(), "Ngày bắt đầu không được sau ngày kết thúc", Toast.LENGTH_SHORT).show();
                                 }
                                 else {
-                                    vc.setStatus(1);
+                                    voucherDao = new VoucherDao(getContext());
+                                    vc = new Voucher();
+                                    vc.setCode(ma);
+                                    vc.setDiscount_price(Integer.parseInt(giagiam));
+                                    vc.setStart_date(start_date);
+                                    vc.setEnd_date(end_date);
+                                    vc.setDieukien(Integer.parseInt(dk_giam));
+                                    if (inputDate.after(currentDate)){
+                                        vc.setStatus(0);
+                                    }
+                                    else {
+                                        vc.setStatus(1);
+                                    }
+                                    boolean check = voucherDao.insertVC(vc);
+                                    if (check){
+                                        Toast.makeText(getContext(), "Thêm voucher thành công", Toast.LENGTH_SHORT).show();
+                                        dialog.dismiss();
+                                        loadData();
+                                    }
+                                    else {
+                                        Toast.makeText(getContext(), "thêm voucher thất bại", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                             } catch (ParseException e) {
                                 throw new RuntimeException(e);
                             }
-
                             // Lấy ngày hiện tại
-                            boolean check = voucherDao.insertVC(vc);
-                            if (check){
-                                Toast.makeText(getContext(), "Thêm voucher thành công", Toast.LENGTH_SHORT).show();
-                                dialog.dismiss();
-                                loadData();
-                            }
-                            else {
-                                Toast.makeText(getContext(), "thêm voucher thất bại", Toast.LENGTH_SHORT).show();
-                            }
                         }
                     }
                 });
