@@ -45,6 +45,36 @@ public class SanPhamDAO {
         }
 
         return arrayList;
+   public boolean insertSP(SanPham sanPham){
+       ContentValues values = new ContentValues();
+       values.put("tensp", sanPham.getTenSp());
+       values.put("img", sanPham.getImg());
+       values.put("status", sanPham.getStatus());
+       values.put("price", sanPham.getPrice());
+       long result = db.insert("sanpham", null, values);
+       return result != -1;
+   }
+
+   public boolean updateStatusSP(int id, boolean check){
+       int status = check ? 1 :0;
+       ContentValues values = new ContentValues();
+       values.put("status", status);
+       long result = db.update("sanpham", values, "sp_id = ?", new String[]{String.valueOf(id)});
+       return result != -1;
+   }
+
+   public boolean deleteSP(int id){
+       long result = db.delete("sanpham", "sp_id = ?", new String[]{String.valueOf(id)});
+       return result != -1;
+   }
+
+    public boolean updateSP(SanPham sanPham){
+       ContentValues values = new ContentValues();
+       values.put("tensp", sanPham.getTenSp());
+       values.put("img", sanPham.getImg());
+       values.put("price", sanPham.getPrice());
+       long result = db.update("sanpham", values,"sp_id = ?", new String[]{String.valueOf(sanPham.getSpId())});
+       return result != -1;
     }
 
     // Lấy chi tiết sản phẩm theo ID
