@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-
+    <!-- Cho Android 14+ -->
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,16 +13,26 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DuAn1"
         tools:targetApi="31">
-        <activity android:name=".screen.AddSP"
-            android:exported="false"/>
+        <activity
+            android:name=".screen.EditProfileScreen"
+            android:exported="false" />
+        <activity
+            android:name=".screen.AdminScreen"
+            android:exported="false" />
+        <activity
+            android:name=".screen.AddVoucher"
+            android:exported="false" />
+        <activity
+            android:name=".screen.productDetailScreen"
+            android:exported="false" />
+        <activity
+            android:name=".screen.AddSP"
+            android:exported="false" />
         <activity
             android:name=".screen.ManHinhChinh"
             android:exported="false" />
         <activity
             android:name=".screen.OrderDetailsScreen"
-            android:exported="false" />
-        <activity
-            android:name=".screen.AdminScreen"
             android:exported="false" />
         <activity
             android:name=".screen.RegisterScreen"
@@ -31,9 +42,10 @@
             android:exported="false" />
         <activity
             android:name=".screen.LoginScreen"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

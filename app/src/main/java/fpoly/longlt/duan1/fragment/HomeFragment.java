@@ -77,8 +77,6 @@ public class HomeFragment extends Fragment {
             }
         });
         LoadData();
-
-
         // Thiết lập RecyclerView cho danh sách sản phẩm
         return view;
     }
@@ -111,7 +109,7 @@ public class HomeFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(layoutManager);
         sanPhamDAO = new SanPhamDAO(getContext());
-        arrayList = sanPhamDAO.getAll();
+        arrayList = sanPhamDAO.getAllSP();
         adapter = new SanPhamAdapter(getContext(),arrayList,sanPhamDAO);
         recyclerView.setAdapter(adapter);
     }

@@ -1,42 +1,30 @@
 package fpoly.longlt.duan1.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     int id_user, role, moneyOnl, status;
     String userName, passWord, nameUser ,phoneNumber, address, imageAvatar;
 
-    public User(int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address, String imageAvatar) {
-        this.role = role;
-        this.moneyOnl = moneyOnl;
-        this.status = status;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.nameUser = nameUser;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-        this.imageAvatar = imageAvatar;
-    }
 
-    public User(int role, int moneyOnl, String userName, String passWord, String nameUser, String phoneNumber, String address) {
-        this.role = role;
-        this.moneyOnl = moneyOnl;
-        this.userName = userName;
-        this.passWord = passWord;
-        this.nameUser = nameUser;
-        this.phoneNumber = phoneNumber;
-        this.address = address;
-    }
-
-    public User() {
+    public User(int id_user, int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address, String img) {
         this.id_user = id_user;
         this.role = role;
         this.moneyOnl = moneyOnl;
+        this.status = status;
         this.userName = userName;
         this.passWord = passWord;
         this.nameUser = nameUser;
         this.phoneNumber = phoneNumber;
         this.address = address;
-        this.status = status;
         this.imageAvatar = imageAvatar;
+    }
+
+    public User() {
+    }
+
+    public User(int id_user) {
+        this.id_user = id_user;
     }
 
     public int getId_user() {
