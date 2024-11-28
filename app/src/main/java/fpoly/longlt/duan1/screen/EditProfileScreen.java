@@ -26,6 +26,7 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.dao.UserDAO;
+import fpoly.longlt.duan1.fragment.AccountFragment;
 import fpoly.longlt.duan1.model.User;
 
 
@@ -59,6 +60,7 @@ public class EditProfileScreen extends AppCompatActivity {
         User user = (User) intent.getSerializableExtra("user_id");
         if (user != null){
             id = user.getId_user();
+            Log.d("id", "id: "+id);
         }else {
             Log.e("id", "onCreate: " + id);
         }

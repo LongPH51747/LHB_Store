@@ -2,6 +2,7 @@ package fpoly.longlt.duan1.adapter;
 
 import android.content.Context;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -106,10 +107,12 @@ public class QuanLiKhachHang_Adapter extends BaseAdapter {
         int imageResId = convertView.getContext().getResources().getIdentifier(imageName, "drawable", convertView.getContext().getPackageName());
         // Kiểm tra nếu tài nguyên ảnh tồn tại
         if (imageResId != 0) {
+            Log.d("anh", "getView: "+imageResId);
+            Log.d("anh", "getView: "+imageName);
             img_quanlikh.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
         } else {
             // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-            img_quanlikh.setImageResource(R.drawable.img_2);  // Placeholder image
+            img_quanlikh.setImageResource(R.drawable.imgkh);  // Placeholder image
         }
 
         return convertView;

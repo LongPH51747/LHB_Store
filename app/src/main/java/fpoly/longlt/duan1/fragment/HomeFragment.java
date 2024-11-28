@@ -118,6 +118,7 @@ public class HomeFragment extends Fragment {
         sanPhamDAO = new SanPhamDAO(getContext());
         arrayList = sanPhamDAO.getAllSP();
         adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+        recyclerView.setAdapter(adapter);
     }
 //    public void LoadData() {
 //        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);

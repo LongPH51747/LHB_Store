@@ -47,13 +47,17 @@
                 <!-- Slideshow Banner -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
 
                     <androidx.viewpager2.widget.ViewPager2
                         android:id="@+id/viewPagerBanner"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
-
                 </androidx.cardview.widget.CardView>
 
                 <!-- RecyclerView hiển thị sản phẩm -->

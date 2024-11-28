@@ -1,5 +1,7 @@
 package fpoly.longlt.duan1.fragment;
 
+import static android.content.Intent.getIntent;
+
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -45,6 +47,7 @@ public class AccountFragment extends Fragment {
     SanPhamAdapter adapter;
     ArrayList<SanPham> arrayList;
 
+    int id_user;
 
     ImageView imgLogOut, imgAvatar;
     TextView txtNameAccount;
@@ -89,6 +92,7 @@ public class AccountFragment extends Fragment {
         imgAvatar = view.findViewById(R.id.imgAvatar);
         txtNameAccount = view.findViewById(R.id.txtNameAccount);
         btn_update_profile = view.findViewById(R.id.btn_update_profile);
+        btnPayment = view.findViewById(R.id.btnPayment);
         userDAO = new UserDAO(getContext());
         // Lay ra phan id cua nguoi duoi day
 //        Bundle bundle = requireActivity().getIntent().getExtras();
@@ -118,6 +122,44 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
 //                Toast.makeText(getContext(), "....Updating....soon", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), EditProfileScreen.class));
+            }
+        });
+
+        btnPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                View view = getLayoutInflater().inflate(R.layout.payment, null);
+                builder.setView(view);
+                AlertDialog dialog = builder.create();
+                EditText ed_payment = view.findViewById(R.id.ed_money_onl);
+                Button btn_naptien = view.findViewById(R.id.btn_naptien);
+                TextView tv_sdtk = view.findViewById(R.id.tv_sdtk);
+                Intent intent = getActivity().getIntent();
+                User user = (User) intent.getSerializableExtra("user_id");
+                if (user != null){
+                    id_user = user.getId_user();
+                }
+                tv_sdtk.setText("số dư: "+userDAO.getMoney(id_user));
+                btn_naptien.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        int money = Integer.parseInt(ed_payment.getText().toString());
+                        if (ed_payment.getText().toString().isEmpty()){
+                            Toast.makeText(getContext(), "Vui Long Nhap So Tien", Toast.LENGTH_SHORT).show();
+                        }else {
+                            UserDAO userDAO = new UserDAO(getContext());
+                            boolean check = userDAO.updateMoney(money,id_user);
+                            if (check){
+                                tv_sdtk.setText("số dư: "+userDAO.getMoney(id_user));
+                            }else {
+                                Toast.makeText(getContext(), "Cap Nhat That Bai", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                });
+                dialog.show();
+
             }
         });
 

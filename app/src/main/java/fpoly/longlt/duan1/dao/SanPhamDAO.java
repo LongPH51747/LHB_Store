@@ -34,6 +34,7 @@ public class SanPhamDAO {
                 sanPham.setImg(cursor.getString(2));
                 sanPham.setStatus(cursor.getInt(3));
                 sanPham.setPrice(cursor.getInt(4));
+                sanPham.setMota(cursor.getString(5));
                 arrayList.add(sanPham);
             } while (cursor.moveToNext());
         }

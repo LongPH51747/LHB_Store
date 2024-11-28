@@ -25,8 +25,8 @@ public class BillsDAO {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
         contentValues.put("user_id", donHang.getUser_id());
-        contentValues.put("vc_id", donHang.getVc_id());
-        contentValues.put("oddetail_id", donHang.getOdDetail_id());
+//        contentValues.put("vc_id", donHang.getVc_id());
+//        contentValues.put("oddetail_id", donHang.getOdDetail_id());
         contentValues.put("od_date", sdf.format(donHang.getOd_date()));
         contentValues.put("total_price", donHang.getTotal_price());
         contentValues.put("status", donHang.getStatus());
@@ -51,8 +51,8 @@ public class BillsDAO {
                 DonHang donHang = new DonHang();
                 donHang.setOd_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("od_id"))));
                 donHang.setUser_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("user_id"))));
-                donHang.setVc_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("vc_id"))));
-                donHang.setOdDetail_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("oddetail_id"))));
+//                donHang.setVc_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("vc_id"))));
+//                donHang.setOdDetail_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("oddetail_id"))));
                 try {
                     donHang.setOd_date(sdf.parse(cursor.getString(cursor.getColumnIndex("od_date"))));
                 } catch (Exception e) {

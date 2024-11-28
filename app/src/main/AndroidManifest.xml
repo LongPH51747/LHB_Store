@@ -24,7 +24,7 @@
             android:name=".screen.ProductDetailScreen"
             android:exported="false" />
         <activity
-            android:name=".screen.AdminScreen"
+            android:name=".screen.LoginScreen"
             android:exported="false" />
         <activity
             android:name=".screen.AddVoucher"
@@ -42,7 +42,7 @@
             android:name=".screen.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".screen.LoginScreen"
+            android:name=".screen.AdminScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
