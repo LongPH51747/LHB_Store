@@ -2,7 +2,7 @@ package fpoly.longlt.duan1.model;
 
 public class ChiTietSP {
     int chitietSP_id, sp_id, soluong;
-    String mota, size, color;
+    String size, color;
 
     public int getChitietSP_id() {
         return chitietSP_id;
@@ -28,13 +28,6 @@ public class ChiTietSP {
         this.soluong = soluong;
     }
 
-    public String getMota() {
-        return mota;
-    }
-
-    public void setMota(String mota) {
-        this.mota = mota;
-    }
 
     public String getSize() {
         return size;
@@ -55,11 +48,10 @@ public class ChiTietSP {
     public ChiTietSP() {
     }
 
-    public ChiTietSP(int chitietSP_id, int sp_id, int soluong, String mota, String size, String color) {
+    public ChiTietSP(int chitietSP_id, int sp_id, int soluong, String size, String color) {
         this.chitietSP_id = chitietSP_id;
         this.sp_id = sp_id;
         this.soluong = soluong;
-        this.mota = mota;
         this.size = size;
         this.color = color;
     }

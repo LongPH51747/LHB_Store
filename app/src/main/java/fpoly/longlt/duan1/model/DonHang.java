@@ -3,14 +3,14 @@ package fpoly.longlt.duan1.model;
 import java.util.Date;
 
 public class DonHang {
-    private int od_id, user_id, vc_id, odDetail_id, total_price, status;
+    private int od_id, user_id, vc_id, odDetail_id, chitietsp_id,status;
     private Date od_date;
 
-    public DonHang(int user_id, int vc_id, int odDetail_id, int total_price, int status, Date od_date) {
+    public DonHang(int user_id, int vc_id, int odDetail_id, int chitietsp_id,int status, Date od_date) {
         this.user_id = user_id;
         this.vc_id = vc_id;
         this.odDetail_id = odDetail_id;
-        this.total_price = total_price;
+        this.chitietsp_id = chitietsp_id;
         this.status = status;
         this.od_date = od_date;
     }
@@ -50,16 +50,16 @@ public class DonHang {
         this.odDetail_id = odDetail_id;
     }
 
-    public int getTotal_price() {
-        return total_price;
-    }
-
-    public void setTotal_price(int total_price) {
-        this.total_price = total_price;
-    }
-
     public int getStatus() {
         return status;
+    }
+
+    public int getChitietsp_id() {
+        return chitietsp_id;
+    }
+
+    public void setChitietsp_id(int chitietsp_id) {
+        this.chitietsp_id = chitietsp_id;
     }
 
     public void setStatus(int status) {

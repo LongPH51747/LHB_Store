@@ -5,13 +5,24 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+
+import java.util.ArrayList;
+
+import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.adapter.SanPhamAdapter;
+import fpoly.longlt.duan1.dao.SanPhamDAO;
+import fpoly.longlt.duan1.model.SanPham;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,6 +39,12 @@ import fpoly.longlt.duan1.screen.LoginScreen;
  * create an instance of this fragment.
  */
 public class AccountFragment extends Fragment {
+    SanPhamDAO sanPhamDAO;
+    Button btnPayment, btnVoucher, btnEdit;
+    RecyclerView rvProduct;
+    SanPhamAdapter adapter;
+    ArrayList<SanPham> arrayList;
+
 
     ImageView imgLogOut, imgAvatar;
     TextView txtNameAccount;
@@ -53,6 +70,17 @@ public class AccountFragment extends Fragment {
 
     }
 
+
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_account, container, false);
+            rvProduct = view.findViewById(R.id.rv_products);
+        LoadData();
+        return view;
+    }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,14 +96,7 @@ public class AccountFragment extends Fragment {
 //            id = bundle.getInt("id");
 //            nameUser = userDAO.getNameUserByID(id);
 //        }
-        Intent intent = getActivity().getIntent();
-        User user = (User) intent.getSerializableExtra("user_id");
-        if (user != null){
-            id = user.getId_user();
-            nameUser = userDAO.getNameUserByID(id);
-        }else {
-            Log.e("Loi", "Khong lay dc username tu id" + id );
-        }
+
         // LogOut: Ben tai khoan User
         imgLogOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,15 +113,38 @@ public class AccountFragment extends Fragment {
                 startActivity(new Intent(getActivity(), EditProfileScreen.class));
             }
         });
-
+        Intent intent = getActivity().getIntent();
+        User user = (User) intent.getSerializableExtra("user_id");
+        if (user != null){
+            id = user.getId_user();
+            nameUser = userDAO.getNameUserByID(id);
+        }else {
+            Log.e("Loi", "Khong lay dc username tu id" + id );
+        }
         txtNameAccount.setText(nameUser);
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onResume() {
+        Intent intent = getActivity().getIntent();
+        User user = (User) intent.getSerializableExtra("user_id");
+        if (user != null){
+            id = user.getId_user();
+            nameUser = userDAO.getNameUserByID(id);
+        }else {
+            Log.e("Loi", "Khong lay dc username tu id" + id );
+        }
+        txtNameAccount.setText(nameUser);
+        super.onResume();
+    }
 
-        return inflater.inflate(R.layout.fragment_account, container, false);
+    public void LoadData(){
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(getContext(), 2);
+        rvProduct.setLayoutManager(layoutManager);
+        sanPhamDAO = new SanPhamDAO(getContext());
+        arrayList = sanPhamDAO.getAllSP();
+        adapter = new SanPhamAdapter(getContext(), arrayList, sanPhamDAO);
+        rvProduct.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
     }
 }

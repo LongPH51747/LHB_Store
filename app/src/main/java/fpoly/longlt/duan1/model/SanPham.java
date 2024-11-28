@@ -3,25 +3,39 @@ package fpoly.longlt.duan1.model;
 public class SanPham {
     private int spId;
     private String tenSp;
+
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
+    }
+
+    private String mota;
     private String img;
     private int status;
     private int price;
 
-    public SanPham(int spId, String tenSp, String img, int status, int price) {
+    private String description;
+    private String colors;
+    private String size;
+    private int soLuong;
+
+
+    public SanPham() {
+    }
+
+    public SanPham(int spId, String tenSp, String img, int status, int price, String description, String colors, String size, int soLuong) {
         this.spId = spId;
         this.tenSp = tenSp;
         this.img = img;
         this.status = status;
         this.price = price;
-    }
-
-    public SanPham() {
-    }
-
-    public SanPham(String tenSp, String img, int price) {
-        this.tenSp = tenSp;
-        this.img = img;
-        this.price = price;
+        this.description = description;
+        this.colors = colors;
+        this.size = size;
+        this.soLuong = soLuong;
     }
 
     public int getSpId() {
@@ -63,5 +77,36 @@ public class SanPham {
     public void setPrice(int price) {
         this.price = price;
     }
-}
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getColors() {
+        return colors;
+    }
+
+    public void setColors(String colors) {
+        this.colors = colors;
+    }
+
+    public String getSize() {
+        return size;
+    }
+
+    public void setSize(String size) {
+        this.size = size;
+    }
+
+    public int getSoLuong() {
+        return soLuong;
+    }
+
+    public void setSoLuong(int soLuong) {
+        this.soLuong = soLuong;
+    }
+}

@@ -5,9 +5,12 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".screen.OrderDetailsScreen">
-
+    tools:context=".screen.OrderDetailScreen"
+    android:orientation="vertical">
+    <FrameLayout
+        android:id="@+id/framelayoutODDT"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <!-- Toolbar -->
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +21,7 @@
         android:elevation="4dp">
 
         <ImageView
-            android:id="@+id/imgUserAvatar"
+            android:id="@+id/imgUserAvatarDT"
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:src="@drawable/baseline_account_circle_24"
@@ -32,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvUserName"
+                android:id="@+id/tvUserNameDT"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nguyễn Văn A"
@@ -112,7 +115,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvOrderId"
+                    android:id="@+id/tvMaOrderTD"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Mã đơn hàng: #12345"
@@ -121,7 +124,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/tvOrderDate"
+                    android:id="@+id/tvOrderDateDT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Ngày đặt: 2024-11-19"
@@ -139,7 +142,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/tvOrderPrice"
+                    android:id="@+id/tvOrderPriceDT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giá tiền: 450,000 VNĐ"
@@ -148,7 +151,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/tvShippingFee"
+                    android:id="@+id/tvShippingFeeDT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Phí vận chuyển: 30,000 VNĐ"
@@ -157,7 +160,7 @@
                     android:layout_marginBottom="4dp" />
 
                 <TextView
-                    android:id="@+id/tvDiscount"
+                    android:id="@+id/tvDiscountDT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Giảm giá: 50,000 VNĐ"
@@ -167,7 +170,7 @@
 
             <!-- Product Image -->
             <ImageView
-                android:id="@+id/imgOrderProduct"
+                android:id="@+id/imgOrderProductDT"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:layout_gravity="center_vertical"
@@ -178,7 +181,7 @@
 
         <!-- Total Amount -->
         <TextView
-            android:id="@+id/tvTotalAmount"
+            android:id="@+id/tvTotalAmountDT"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="16dp"
@@ -187,9 +190,6 @@
             android:background="#FFFFFF"
             android:text="Tổng tiền: 430,000 VNĐ"
             android:textSize="18sp"
-            android:textColor="#4CAF50"
             android:textStyle="bold" />
     </LinearLayout>
-
-    </LinearLayout>
-
+</LinearLayout>

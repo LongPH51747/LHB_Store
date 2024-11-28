@@ -2,6 +2,8 @@ package fpoly.longlt.duan1.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,19 +15,20 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.model.ChiTietSP;
 import fpoly.longlt.duan1.model.SanPham;
-import fpoly.longlt.duan1.screen.productDetailScreen;
+import fpoly.longlt.duan1.screen.ProductDetailScreen;
 
 
 public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPhamViewHolder> {
     Context context;
-    ArrayList<SanPham> arrayList;
-    SanPhamDAO sanPhamDAO;
-
+   ArrayList<SanPham> arrayList;
+   SanPhamDAO sanPhamDAO;
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
         this.arrayList = arrayList;
@@ -50,22 +53,48 @@ public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPh
 //        else {
 //            Log.d("bug","imgSP is not null at position: " + position);
 //        }
-        // Lấy tên ảnh từ cơ sở dữ liệu (String)
-        String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
-        // Lấy ID tài nguyên từ tên ảnh trong drawable
-        int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
-        // Kiểm tra nếu tài nguyên ảnh tồn tại
-        if (imageResId != 0) {
-            holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
-        } else {
-            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
+
+        if (arrayList.size() > 0) {
+            Log.d("anh", "ảnh: "+arrayList.get(position).getImg());
+            try {
+                String imgPath = arrayList.get(position).getImg();  // Lấy đường dẫn tệp từ SQLite
+                File imgFile = new  File(imgPath);  // Tạo đối tượng File từ đường dẫn
+                if(imgFile.exists()) {
+                    Uri uri = Uri.fromFile(imgFile);  // Chuyển đường dẫn thành URI
+                    holder.imgSP.setImageURI(uri);  // Đặt URI vào ImageView
+                }
+            } catch (Exception e){
+                holder.imgSP.setImageResource(R.drawable.img_2);
+            }
         }
+
+
+        holder.itemView.setOnClickListener(v -> {
+            SanPham sanPham1 = arrayList.get(position);
+            Bundle bundle = new Bundle();
+            Intent intent = new Intent();
+            bundle.putInt("id", sanPham1.getSpId());
+            intent.putExtras(bundle);
+            intent.setClass(context, ProductDetailScreen.class);
+            context.startActivity(intent);
+        });
+
+
+        // Lấy tên ảnh từ cơ sở dữ liệu (String)
+//        String imageName = arrayList.get(position).getImg();  // Đây là tên ảnh bạn lưu trong cơ sở dữ liệu, ví dụ: "product_image"
+//        // Lấy ID tài nguyên từ tên ảnh trong drawable
+//        int imageResId = holder.itemView.getContext().getResources().getIdentifier(imageName, "drawable", holder.itemView.getContext().getPackageName());
+//        // Kiểm tra nếu tài nguyên ảnh tồn tại
+//        if (imageResId != 0) {
+//            holder.imgSP.setImageResource(imageResId);  // Set ảnh từ drawable vào ImageView
+//        } else {
+//            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
+//            holder.imgSP.setImageResource(R.drawable.img_2);  // Placeholder image
+//        }
         holder.tv_hethang.setVisibility(View.GONE);
         holder.overlay.setVisibility(View.GONE);
         if (sanPham.getStatus() == 0) {
             holder.tv_hethang.setVisibility(View.VISIBLE);
-            holder.overlay.setVisibility(View.VISIBLE);
             Log.d("OVERLAY_DEBUG", "Item position: " + position + ", Visibility: " + holder.overlay.getVisibility());
         }
 //        else {
@@ -78,6 +107,7 @@ public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPh
 //            holder.overlay.setFocusable(false);
 //            holder.overlay.setEnabled(false);
 //        }
+
     }
 
     @Override
@@ -103,11 +133,12 @@ public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPh
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    itemView.getContext().startActivity(new Intent(itemView.getContext(), productDetailScreen.class));
+                    itemView.getContext().startActivity(new Intent(itemView.getContext(), ProductDetailScreen.class));
                 }
             });
             overlay = itemView.findViewById(R.id.overlay);
             tv_hethang = itemView.findViewById(R.id.tv_hethang);
+
         }
     }
     //nothing

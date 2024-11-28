@@ -32,6 +32,7 @@ public class LoginScreen extends AppCompatActivity {
     private Button btnLogIn;
     private UserDAO userDAO;
     private String name, pass;
+    public static int id_userHere;
     User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,10 +78,10 @@ public class LoginScreen extends AppCompatActivity {
                 Toast.makeText(this, "Wrong Username or Password...", Toast.LENGTH_SHORT).show();
             }else if (userDAO.checkLoginUser(name, pass) && userDAO.getStatus(name,pass)==1) {
                 Intent intent = new Intent(LoginScreen.this, ManHinhChinh.class);
-                int id = userDAO.getIDByLogIn(name,pass);
-                user = new User(id);
+                id_userHere = userDAO.getIDByLogIn(name,pass);
+                user = new User(id_userHere);
                 intent.putExtra("user_id",user);
-                Log.e("idUser", "ID: " + id );
+                Log.e("idUser", "ID: " + id_userHere );
                 startActivity(intent);
 //                startActivity(new Intent(LoginScreen.this, ManHinhChinh.class));
                 Toast.makeText(this, "Dang Nhap Thanh Cong", Toast.LENGTH_SHORT).show();

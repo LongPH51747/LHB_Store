@@ -1,6 +1,8 @@
 
 package fpoly.longlt.duan1.dao;
 
+import static fpoly.longlt.duan1.screen.LoginScreen.id_userHere;
+
 import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
@@ -237,18 +239,34 @@ public class UserDAO {
         return result != -1;
     }
 
-    public boolean updateUser(User user){
+    public boolean updateMoney(int money, int id){
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
-        ContentValues contentValues = new ContentValues();
-        contentValues.put("name",user.getNameUser());
-        contentValues.put("sdt",user.getPhoneNumber());
-        contentValues.put("address",user.getAddress());
-        contentValues.put("imgavatar", user.getImageAvatar());
-        int result = sqLiteDatabase.update("user",contentValues,"user_id = ?",new String[]{String.valueOf(user.getId_user())});
-        if (result == -1){
+        ContentValues values = new ContentValues();
+        values.put("moneyonl", money);
+        int check = sqLiteDatabase.update("user", values, "user_id = ?", new String[]{String.valueOf(id)});
+        return check!=-1;
+    }
+
+    public boolean updateUser(User user, int id){
+        SQLiteDatabase sqLiteDatabase = null;
+        try {
+            sqLiteDatabase = dbHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("name", user.getNameUser());
+            contentValues.put("sdt", user.getPhoneNumber());
+            contentValues.put("address", user.getAddress());
+//            contentValues.put("imgavatar", user.getImageAvatar());
+
+            int result = sqLiteDatabase.update("user", contentValues, "user_id = ?", new String[]{String.valueOf(id)});
+            return result > 0; // Trả về true nếu có ít nhất một hàng được cập nhật
+        } catch (Exception e) {
+            e.printStackTrace(); // Log lỗi
             return false;
+        } finally {
+            if (sqLiteDatabase != null) {
+                sqLiteDatabase.close(); // Đảm bảo đóng database
+            }
         }
-        return true;
     }
 
     public String getImgAvatar(int id){
@@ -268,5 +286,25 @@ public class UserDAO {
             cursor.close();
         }
         return null;
+    }
+
+    public boolean updateNameAndAddressAnotherImg(int userId, String newName, String newAddress, String newPhoneNumber) {
+        SQLiteDatabase sqLiteDatabase = null;
+        try {
+            sqLiteDatabase = dbHelper.getWritableDatabase();
+            ContentValues contentValues = new ContentValues();
+            contentValues.put("name", newName);
+            contentValues.put("address", newAddress);
+            contentValues.put("sdt", newPhoneNumber);
+            int result = sqLiteDatabase.update("user", contentValues, "user_id = ?", new String[]{String.valueOf(userId)});
+            return result > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (sqLiteDatabase != null) {
+                sqLiteDatabase.close();
+            }
+        }
     }
 }

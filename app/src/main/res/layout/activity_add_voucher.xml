@@ -49,10 +49,18 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_marginHorizontal="10dp"
+        android:hint="Đơn hàng tối thiểu: "
+        android:id="@+id/ed_dk_giam"
+        android:inputType="number"
+        android:layout_height="wrap_content"/>
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="10dp"
         android:hint="ngày bắt đầu: dd/mm/yyyy"
         android:id="@+id/ed_start_date"
         android:inputType="date"
         android:layout_height="wrap_content"/>
+
     <EditText
         android:layout_width="match_parent"
         android:id="@+id/ed_end_date"
