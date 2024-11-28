@@ -52,8 +52,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 "od_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "user_id INTEGER REFERENCES user," +
                 "vc_id INTEGER REFERENCES voucher," +
-                "chitietsp_id INTEGER REFERENCES chitietsp," +
-                "oddetail_id INTEGER REFERENCES orderdetail," +
+//                "chitietsp_id INTEGER REFERENCES chitietsp," +
+//                "oddetail_id INTEGER REFERENCES orderdetail," +
                 "od_date DATE NOT NULL," +
                 "total_price integer," +
                 "status INTEGER)";
@@ -132,10 +132,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(2, 'X', 'Gray', 24)";
         db.execSQL(insertChiTietSP);
 
-        // Dữ liệu mẫu cho `bills`
-        String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
-                "(1, NULL, 1, NULL, '2024-11-11', 0)";
-        db.execSQL(insertBills);
+//        // Dữ liệu mẫu cho `bills`
+//        String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
+//                "(1, NULL, 1, NULL, '2024-11-11', 0)";
+//        db.execSQL(insertBills);
 //        String insertBillDetail = "insert into orderdetail values " +
 //                "(1,1,1,2,2000),"+
 //                "(2,2,1,3,2000),"+
@@ -148,15 +148,15 @@ public class DBHelper extends SQLiteOpenHelper {
 //                "(4,2,'2024-11-27',4000,0)";
 //                db.execSQL(insertBills);
 //                db.execSQL(insertBillDetail);
-        String createVoucher = "create table voucher(" +
-                "vc_id integer primary key autoincrement," +
-                "code text," +
-                "discount_price integer," +
-                "start_date text," +
-                "end_date text," +
-                "dieukien integer," +
-                "status bit default 0)";
-        db.execSQL(createVoucher);
+//        String createVoucher = "create table voucher(" +
+//                "vc_id integer primary key autoincrement," +
+//                "code text," +
+//                "discount_price integer," +
+//                "start_date text," +
+//                "end_date text," +
+//                "dieukien integer," +
+//                "status bit default 0)";
+//        db.execSQL(createVoucher);
 
         // Them cac du lieu fix cung de test o day
         String addAdmin = ("insert into user values" +
@@ -169,15 +169,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,1,'aaaa')"
         );
         db.execSQL(insertUser);
-        String createCart = "create table cart(" +
-                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
-                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
-                "sp_id integer references sanpham," +           // ID sản phẩm, liên kết với bảng sản phẩm
-                "quantity integer default 1," +                 // Số lượng sản phẩm, mặc định là 1
-                "price integer," +                              // Giá của một sản phẩm
-                "total_price integer" +                         // Tổng giá = quantity * price
-                ")";
-        db.execSQL(createCart);
+//        String createCart = "create table cart(" +
+//                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
+//                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
+//                "sp_id integer references sanpham," +           // ID sản phẩm, liên kết với bảng sản phẩm
+//                "quantity integer default 1," +                 // Số lượng sản phẩm, mặc định là 1
+//                "price integer," +                              // Giá của một sản phẩm
+//                "total_price integer" +                         // Tổng giá = quantity * price
+//                ")";
+//        db.execSQL(createCart);
 //        String creeateThongKe = "create table thongke (" +
 //                "od_id integer references bills," +
 //                "order_date text," +
