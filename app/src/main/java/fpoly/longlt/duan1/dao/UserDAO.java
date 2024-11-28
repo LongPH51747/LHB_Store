@@ -239,12 +239,40 @@ public class UserDAO {
         return result != -1;
     }
 
-    public boolean updateMoney(int money, int id){
+    public int getMoney(int id) {
+        int money = 0;
+        String sql = "SELECT moneyonl FROM user WHERE user_id = ?";
+        SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
+        Cursor cursor = null;
+        try {
+            cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(id)});
+            if (cursor != null && cursor.moveToFirst()) {
+                money = cursor.getInt(cursor.getColumnIndexOrThrow("moneyonl"));
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close(); // Đảm bảo đóng Cursor
+            }
+        }
+        return money;
+    }
+    public boolean updateMoney(int money, int id) {
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
-        ContentValues values = new ContentValues();
-        values.put("moneyonl", money);
-        int check = sqLiteDatabase.update("user", values, "user_id = ?", new String[]{String.valueOf(id)});
-        return check!=-1;
+        try {
+            int currentMoney = getMoney(id); // Lấy số tiền hiện tại
+            int newMoney = currentMoney + money; // Cộng thêm số tiền mới
+
+            ContentValues values = new ContentValues();
+            values.put("moneyonl", newMoney); // Cập nhật số tiền mới
+
+            int check = sqLiteDatabase.update("user", values, "user_id = ?", new String[]{String.valueOf(id)});
+            return check > 0; // Trả về true nếu cập nhật thành công
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        } finally {
+            sqLiteDatabase.close(); // Đóng cơ sở dữ liệu sau khi sử dụng
+        }
     }
 
     public boolean updateUser(User user, int id){

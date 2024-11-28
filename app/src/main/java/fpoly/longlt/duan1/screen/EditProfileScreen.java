@@ -60,6 +60,16 @@ public class EditProfileScreen extends AppCompatActivity {
         // Ánh xạ
         anhXa();
         Log.e("id_here", "onCreate: " + id_userHere );
+
+        // Lay id cua user
+        Intent intent = getIntent();
+        User user = (User) intent.getSerializableExtra("user_id");
+        if (user != null){
+            id = user.getId_user();
+            Log.d("id", "id: "+id);
+        }else {
+            Log.e("id", "onCreate: " + id);
+        }
         // Phan tro ra chuyen doi man hinh tu activity sang fragment
         ivTurnBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,13 +4,28 @@ import java.util.Date;
 
 public class DonHang {
     private int od_id, user_id, vc_id, odDetail_id, chitietsp_id,status;
+    private int od_id, user_id, /*vc_id, odDetail_id,*/ total_price, status;
     private Date od_date;
+    boolean isSelected;
 
     public DonHang(int user_id, int vc_id, int odDetail_id, int chitietsp_id,int status, Date od_date) {
         this.user_id = user_id;
         this.vc_id = vc_id;
         this.odDetail_id = odDetail_id;
         this.chitietsp_id = chitietsp_id;
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+    public DonHang(int user_id, /*int vc_id, int odDetail_id,*/ int total_price, int status, Date od_date) {
+        this.user_id = user_id;
+//        this.vc_id = vc_id;
+//        this.odDetail_id = odDetail_id;
+        this.total_price = total_price;
         this.status = status;
         this.od_date = od_date;
     }
@@ -34,7 +49,7 @@ public class DonHang {
         this.user_id = user_id;
     }
 
-    public int getVc_id() {
+ /*   public int getVc_id() {
         return vc_id;
     }
 
@@ -48,7 +63,7 @@ public class DonHang {
 
     public void setOdDetail_id(int odDetail_id) {
         this.odDetail_id = odDetail_id;
-    }
+    }*/
 
     public int getStatus() {
         return status;
