@@ -55,12 +55,12 @@
                 <TextView
                     android:id="@+id/tvNameSPCT"
                     android:layout_width="match_parent"
-                    android:background="#E91E63"
+                    android:background="@drawable/border"
                     android:layout_height="wrap_content"
                     android:text="Cam nhập khẩu"
                     android:padding="5dp"
                     android:textSize="24sp"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/black"
                     android:layout_marginTop="16dp" />
 
                 <!-- Giá sản phẩm -->
@@ -120,14 +120,7 @@
                 </LinearLayout>
 
                 <!-- Đánh giá sản phẩm -->
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:stepSize="0.5"
-                    android:rating="4"
-                    android:layout_marginTop="16dp" />
+
 
                 <TextView
                     android:id="@+id/tvMoTaSPCT"
