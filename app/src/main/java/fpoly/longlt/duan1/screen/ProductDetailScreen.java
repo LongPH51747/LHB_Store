@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -23,6 +25,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.dao.CartDAO;
 import fpoly.longlt.duan1.dao.SanPhamChiTietDAO;
 import fpoly.longlt.duan1.dao.SanPhamDAO;
 import fpoly.longlt.duan1.fragment.HomeFragment;
@@ -33,13 +36,17 @@ import fpoly.longlt.duan1.model.User;
 
 public class ProductDetailScreen extends AppCompatActivity {
     private Spinner spnSize, spnColors;
-    private TextView tvNameSPCT, tvPriceSPCT, tvMoTa;
-    private Button btnBuyNow, btnAddToCart;
-    ImageView imgSPCT, imgBack;
-    public static int sp_id;
-    SanPhamDAO dao;
+    private TextView tvNameSPCT, tvPriceSPCT, tvMoTaSPCT;
+    ImageView imgSPCT;
+    private int sp_id;
+    private SanPhamDAO dao;
+    Button btnAddToCart, btnBuyNow;
     String mauSac, kichCo;
-    SanPhamChiTietDAO sanPhamChiTietDAO;
+    CardView btn_cong, btn_tru;
+    EditText ed_sl;
+    ImageButton btnBackCT;
+    SanPhamChiTietDAO chiTietDAO;
+    int sl = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,13 +63,6 @@ public class ProductDetailScreen extends AppCompatActivity {
         // Ánh xạ view
         anhXa();
         btnBackCT.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ProductDetailScreen.this, HomeFragment.class));
-            }
-        });
-
-        imgBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutPRDS, HomeFragment.newInstance()).commit();
@@ -83,7 +83,7 @@ public class ProductDetailScreen extends AppCompatActivity {
         SanPham sanPham = dao.getSP(sp_id);
         tvNameSPCT.setText(sanPham.getTenSp());
         tvPriceSPCT.setText(sanPham.getPrice() + "VND");
-        tvMoTa.setText(sanPham.getMota());
+        tvMoTaSPCT.setText(sanPham.getDescription());
         Log.d("anh", "ảnh: " + bundle.getString("img"));
         try {
             String imgPath = sanPham.getImg();  // Lấy đường dẫn tệp từ SQLite
@@ -96,7 +96,55 @@ public class ProductDetailScreen extends AppCompatActivity {
             imgSPCT.setImageResource(R.drawable.img_2);
         }
         setUpSpiner(sp_id);
+
+
+        btn_cong.setOnClickListener(v -> {
+            sl += 1;
+            ed_sl.setText(sl+" ");
+        });
+        btn_tru.setOnClickListener(v -> {
+            sl -= 1;
+            if (sl<0) {
+                sl = 0;
+            }
+            ed_sl.setText(sl+"");
+        });
+        btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String selectedSize = spnSize.getSelectedItem() != null ? spnSize.getSelectedItem().toString() : "";
+                String selectedColor = spnColors.getSelectedItem() != null ? spnColors.getSelectedItem().toString() : "";
+                if (selectedColor.isEmpty()) {
+                    Toast.makeText(ProductDetailScreen.this, "Bạn chưa chọn màu", Toast.LENGTH_SHORT).show();
+                } else if (selectedSize.isEmpty()) {
+                    Toast.makeText(ProductDetailScreen.this, "Bạn chưa chọn size", Toast.LENGTH_SHORT).show();
+                }
+                if (sl <= 0) {
+                    Toast.makeText(ProductDetailScreen.this, "Số lượng phải lớn hơn 0", Toast.LENGTH_SHORT).show();
+                } else {
+                    CartDAO cartDAO = new CartDAO(ProductDetailScreen.this);
+                    SanPham sanPham1 = dao.getSP(sp_id);
+                    if (sanPham1 != null) {
+                        User user = getCurrentUser();
+                        int user_id = user.getId_user();
+                        int price = sanPham1.getPrice();
+                        String imgPath = sanPham1.getImg();
+//    sl = Integer.parseInt(ed_sl.getText().toString());
+                        boolean isAdded = cartDAO.addToCart(user_id, sp_id, sl, price, imgPath, selectedColor, selectedSize);
+                        if (isAdded) {
+                            Toast.makeText(ProductDetailScreen.this, "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
+//        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, CartFragment.newInstance()).commit();
+//        startActivity(new Intent(ProductDetailScreen.this, CartFragment.newInstance()));
+                        } else {
+                            Toast.makeText(ProductDetailScreen.this, "Lỗi!!! Thêm thất bại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        });
     }
+
+
 
     //    public void hienThiChiTietSanPham(int spId) {
 //        SanPhamDAO sanPhamDAO = new SanPhamDAO(this);
@@ -185,13 +233,13 @@ public class ProductDetailScreen extends AppCompatActivity {
         btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sanPhamChiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
+                chiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
                 ChiTietSP chiTietSP = new ChiTietSP();
                 chiTietSP.setSoluong(100);
                 chiTietSP.setColor(mauSac);
                 chiTietSP.setSize(kichCo);
                 chiTietSP.setSp_id(sp_id);
-                boolean check = sanPhamChiTietDAO.insertSpChiTiet(chiTietSP);
+                boolean check = chiTietDAO.insertSpChiTiet(chiTietSP);
                 if (check) {
                     getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutPRDS, OrderFragment.newInstance()).commit();
                     Toast.makeText(ProductDetailScreen.this, "Đã đặt hàng", Toast.LENGTH_SHORT).show();
@@ -208,13 +256,16 @@ public class ProductDetailScreen extends AppCompatActivity {
     }
 
     private void anhXa() {
-        imgBack = findViewById(R.id.btnBack);
+        btnBackCT = findViewById(R.id.btnBackCT);
         spnSize = findViewById(R.id.spnSize);
         spnColors = findViewById(R.id.spnColor);
+        ed_sl = findViewById(R.id.ed_soluong);
         tvNameSPCT = findViewById(R.id.tvNameSPCT);
         imgSPCT = findViewById(R.id.imgSPCT);
         tvPriceSPCT = findViewById(R.id.tvPriceSPCT);
-        tvMoTa = findViewById(R.id.tvMoTaSPCT);
+        tvMoTaSPCT = findViewById(R.id.tvMoTaSPCT);
+        btn_cong = findViewById(R.id.btn_cong);
+        btn_tru = findViewById(R.id.btn_tru);
         btnBuyNow = findViewById(R.id.btnBuyNow);
         btnAddToCart = findViewById(R.id.btnAddToCart);
     }

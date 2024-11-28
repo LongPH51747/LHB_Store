@@ -6,6 +6,10 @@ public class User implements Serializable {
     int id_user, role, moneyOnl, status;
     String userName, passWord, nameUser ,phoneNumber, address, imageAvatar;
 
+    public User(int id_user, String userName) {
+        this.id_user = id_user;
+        this.userName = userName;
+    }
 
     public User(int id_user, int role, int moneyOnl, int status, String userName, String passWord, String nameUser, String phoneNumber, String address, String img) {
         this.id_user = id_user;

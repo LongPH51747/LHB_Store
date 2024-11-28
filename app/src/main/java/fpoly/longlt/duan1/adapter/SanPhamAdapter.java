@@ -30,8 +30,8 @@ public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPh
     SanPhamDAO sanPhamDAO;
     ArrayList<SanPham> arrayList;
 
-   ArrayList<SanPham> arrayList;
-   SanPhamDAO sanPhamDAO;
+
+
     public SanPhamAdapter(Context context, ArrayList<SanPham> arrayList, SanPhamDAO sanPhamDAO) {
         this.context = context;
         this.arrayList = arrayList;

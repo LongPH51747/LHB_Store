@@ -161,7 +161,7 @@
                     <EditText
                         android:layout_width="100dp"
                         android:layout_below="@+id/tv_mota_detail"
-                        android:id="@+id/ed_kg_detail"
+                        android:id="@+id/ed_soluong"
                         android:inputType="number"
                         android:textSize="20sp"
                         android:gravity="center"

@@ -14,150 +14,133 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createUser = "create table user(" +
-                "user_id integer primary key autoincrement," +
-                "username text," +
-                "password text," +
-                "name text," +
-                "sdt text," +
-                "address text default 'ha noi'," +
-                "moneyonl integer default 0," +
-                "role integer default 0," +
-                "status bit default 1," +
-                "imgavatar text)";
+        // Tạo bảng `user`
+        String createUser = "CREATE TABLE user(" +
+                "user_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "username TEXT," +
+                "password TEXT," +
+                "name TEXT," +
+                "sdt TEXT," +
+                "address TEXT DEFAULT 'Ha Noi'," +
+                "moneyonl INTEGER DEFAULT 0," +
+                "role INTEGER DEFAULT 0," +
+                "status BIT DEFAULT 1," +
+                "imgavatar TEXT)";
         db.execSQL(createUser);
 
-        //
-        String createSP = "create table sanpham(" +
-                "sp_id integer primary key autoincrement," +
-                "tensp text," +
-                "img text," +
-                "status bit default 1," +
-                "price integer," +
-                "description text)";
+        // Tạo bảng `sanpham`
+        String createSP = "CREATE TABLE sanpham(" +
+                "sp_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "tensp TEXT," +
+                "img TEXT," +
+                "status BIT DEFAULT 1," +
+                "price INTEGER," +
+                "description TEXT)";
         db.execSQL(createSP);
-        String insertIntoSP = "INSERT INTO sanpham VALUES " +
-                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
-                "(1,'Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp');";
-        db.execSQL(insertIntoSP);
 
-        //
-        String createChiTietSP = "create table chitietsp(" +
-                "chitietsp_id integer primary key autoincrement," +
-                "sp_id integer references sanpham," +
-                "size text," +
-                "color text," +
-                "soluong integer)";
+        // Tạo bảng `chitietsp`
+        String createChiTietSP = "CREATE TABLE chitietsp(" +
+                "chitietsp_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "sp_id INTEGER REFERENCES sanpham," +
+                "size TEXT," +
+                "color TEXT," +
+                "soluong INTEGER)";
         db.execSQL(createChiTietSP);
 
-
-        String insertIntoChiTietSP = "INSERT INTO chitietsp VALUES" +
-                "(0, 0, 'M', 'Red', 100)," +
-                "(1, 0, 'L', 'White', 70)," +
-                "(2, 0, 'L', 'Red', 70)," +
-                "(3, 0, 'S', 'Blue', 50)," +
-                "(4, 0, 'M', 'Black', 60)," +
-                "(5, 0,'L', 'White', 40)," +
-                "(6, 0,'XL', 'Black', 30)," +
-                "(7, 1,'M', 'White', 60)," +
-                "(8, 1,'L', 'Black', 40)," +
-                "(9, 1,'X', 'Gray', 24)," +
-                "(10, 1,'XL', 'Beige', 16)," +
-                "(11, 1,'M', 'Blue', 08)," +
-                "(12, 1,'L', 'Black-Blue', 77)";
-
-        db.execSQL(insertIntoChiTietSP);
-        String insertIntoSP = "INSERT INTO sanpham VALUES " +
-                "(0,'áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
-                "(1,'Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp');";
-        db.execSQL(insertIntoSP);
-
-        String createBills = "create table bills(" +
-                "od_id integer primary key autoincrement," +
-                "user_id integer references user," +
-                "vc_id integer references voucher," +
-                "chitietsp_id integer references chitietsp," +
-                "oddetail_id integer references orderdetail," +
-                "od_date date not null," +
-                "status integer)";
+        // Tạo bảng `bills`
+        String createBills = "CREATE TABLE bills(" +
+                "od_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_id INTEGER REFERENCES user," +
+                "vc_id INTEGER REFERENCES voucher," +
+                "chitietsp_id INTEGER REFERENCES chitietsp," +
+                "oddetail_id INTEGER REFERENCES orderdetail," +
+                "od_date DATE NOT NULL," +
+                "status INTEGER)";
         db.execSQL(createBills);
-        String createOrderDetail = "create table orderdetail(" +
-                "oddetail_id integer primary key autoincrement," +
-                "od_id integer references orders," +
-                "sp_id integer references sanpham," +
-                "quantity integer," +
-                "price integer)";
+
+        // Tạo bảng `orderdetail`
+        String createOrderDetail = "CREATE TABLE orderdetail(" +
+                "oddetail_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "od_id INTEGER REFERENCES bills," +
+                "sp_id INTEGER REFERENCES sanpham," +
+                "quantity INTEGER," +
+                "price INTEGER)";
         db.execSQL(createOrderDetail);
-        String createVoucher = "create table voucher(" +
-                "vc_id integer primary key autoincrement," +
-                "code text," +
-                "discount_price integer," +
-                "start_date text," +
-                "end_date text," +
-                "dieukien integer," +
-                "status bit default 0)";
+
+        // Tạo bảng `voucher`
+        String createVoucher = "CREATE TABLE voucher(" +
+                "vc_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "code TEXT," +
+                "discount_price INTEGER," +
+                "start_date TEXT," +
+                "end_date TEXT," +
+                "dieukien INTEGER," +
+                "status BIT DEFAULT 0)";
         db.execSQL(createVoucher);
 
-        // Them cac du lieu fix cung de test o day
-        String addAdmin = ("insert into user values" +
-                "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1,1,'img_1')"
-        );
-        db.execSQL(addAdmin);
-        String insertUser = ("insert into user values" +
-                "(1,'hai','123','HaiViet','0971296368','Ha Tay',1,0,1,'1234')," +
-                "(2,'bao','123','GiaBao','0987654412','Ha Nam',1,0,1,'345')," +
-                "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,1,'678')"
-        );
-        db.execSQL(insertUser);
-        String createCart = "create table cart(" +
-                "cart_id integer primary key autoincrement," + // ID tự tăng cho từng mục trong giỏ hàng
-                "user_id integer references user," +         // ID người dùng, liên kết với bảng users (nếu có)
-                "sp_id integer references sanpham," +   // ID sản phẩm, liên kết với bảng sản phẩm
-                "quantity integer default 1," +              // Số lượng sản phẩm, mặc định là 1
-                "price integer," +                            // Giá của một sản phẩm
-                "total_price integer," + // Tổng giá = quantity * price
-                "img_path text," +
-                "color text," +
-                "size text," +
-                "status integer"+
-                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
-                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
-                "sp_id integer references sanpham," +           // ID sản phẩm, liên kết với bảng sản phẩm
-                "quantity integer default 1," +                 // Số lượng sản phẩm, mặc định là 1
-                "price integer," +                              // Giá của một sản phẩm
-                "total_price integer" +                         // Tổng giá = quantity * price
-                ")";
+        // Tạo bảng `cart`
+        String createCart = "CREATE TABLE cart(" +
+                "cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "user_id INTEGER REFERENCES user," +
+                "sp_id INTEGER REFERENCES sanpham," +
+                "quantity INTEGER DEFAULT 1," +
+                "price INTEGER," +
+                "total_price INTEGER," +
+                "img_path TEXT," +
+                "color TEXT," +
+                "size TEXT," +
+                "status INTEGER)";
         db.execSQL(createCart);
-        String insertIntoChiTietSP = "INSERT INTO chitietsp VALUES" +
-                "(0, 0, 'M', 'Red', 100)," +
-                "(1, 0, 'L', 'White', 70)," +
-                "(2, 0, 'L', 'Red', 70)," +
-                "(3, 0, 'S', 'Blue', 50)," +
-                "(4, 0, 'M', 'Black', 60)," +
-                "(5, 0,'L', 'White', 40)," +
-                "(6, 0,'XL', 'Black', 30)," +
-                "(7, 1,'M', 'White', 60)," +
-                "(8, 1,'L', 'Black', 40)," +
-                "(9, 1,'X', 'Gray', 24)," +
-                "(10, 1,'XL', 'Beige', 16)," +
-                "(11, 1,'M', 'Blue', 08)," +
-                "(12, 1,'L', 'Black-Blue', 77)";
-        db.execSQL(insertIntoChiTietSP);
-        String insertBills = "INSERT INTO bills VALUES" +
-                "(0,1,1,1,1,'11/11/2024',0)";
+
+        // Thêm dữ liệu mẫu
+        addSampleData(db);
+    }
+
+    private void addSampleData(SQLiteDatabase db) {
+        // Dữ liệu mẫu cho `user`
+        String insertUser = "INSERT INTO user(username, password, name, sdt, address, role, status, imgavatar) VALUES " +
+                "('admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',1,1,'img_1')," +
+                "('hai','123','HaiViet','0971296368','Ha Tay',0,1,'1234')," +
+                "('bao','123','GiaBao','0987654412','Ha Nam',0,1,'345')," +
+                "('long','123','ThanhLong','091234567','Ha Dong',0,1,'678')";
+        db.execSQL(insertUser);
+
+        // Dữ liệu mẫu cho `sanpham`
+        String insertSP = "INSERT INTO sanpham(tensp, img, status, price, description) VALUES " +
+                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
+                "('Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp')";
+        db.execSQL(insertSP);
+
+        // Dữ liệu mẫu cho `chitietsp`
+        String insertChiTietSP = "INSERT INTO chitietsp(sp_id, size, color, soluong) VALUES " +
+                "(1, 'M', 'Red', 100)," +
+                "(1, 'L', 'White', 70)," +
+                "(1, 'L', 'Red', 70)," +
+                "(1, 'S', 'Blue', 50)," +
+                "(1, 'M', 'Black', 60)," +
+                "(1, 'L', 'White', 40)," +
+                "(2, 'XL', 'Black', 30)," +
+                "(2, 'M', 'White', 60)," +
+                "(2, 'L', 'Black', 40)," +
+                "(2, 'X', 'Gray', 24)";
+        db.execSQL(insertChiTietSP);
+
+        // Dữ liệu mẫu cho `bills`
+        String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
+                "(1, NULL, 1, NULL, '2024-11-11', 0)";
         db.execSQL(insertBills);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         if (oldVersion < newVersion) {
-            db.execSQL("drop table if exists user");
-            db.execSQL("drop table if exists sanpham");
-            db.execSQL("drop table if exists chitietsp");
-            db.execSQL("drop table if exists bills");
-            db.execSQL("drop table if exists orderdetail");
-            db.execSQL("drop table if exists voucher");
-            db.execSQL("drop table if exists cart");
+            db.execSQL("DROP TABLE IF EXISTS user");
+            db.execSQL("DROP TABLE IF EXISTS sanpham");
+            db.execSQL("DROP TABLE IF EXISTS chitietsp");
+            db.execSQL("DROP TABLE IF EXISTS bills");
+            db.execSQL("DROP TABLE IF EXISTS orderdetail");
+            db.execSQL("DROP TABLE IF EXISTS voucher");
+            db.execSQL("DROP TABLE IF EXISTS cart");
             onCreate(db);
         }
     }
