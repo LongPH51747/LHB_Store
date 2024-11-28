@@ -6,12 +6,22 @@ public class SanPham {
     private String img;
     private int status;
     private int price;
-
     private String description;
+    ///
     private String colors;
     private String size;
     private int soLuong;
+    private boolean isSelected;
 
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
+    }
+
+// Constructor, Getter và Setter
 
     public SanPham() {
     }

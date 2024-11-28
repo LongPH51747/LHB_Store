@@ -54,6 +54,7 @@ public class AddSP extends AppCompatActivity {
     SP_Admin_Adapter adminAdapter;
     int count = 0;
     LinearLayout layoutEditTexts;
+    ArrayList<String> values = new ArrayList<>();
     ArrayList<EditText> editTextList = new ArrayList<>();
     static final int PICK_IMAGE_REQUEST_CODE = 1;
     private ActivityResultLauncher<Intent> galleryLauncher;
@@ -107,9 +108,10 @@ public class AddSP extends AppCompatActivity {
                 sp.setPrice(Integer.parseInt(edtGiaSP.getText().toString()));
                 sp.setStatus(1);
                 sp.setImg(saveImageToInternalStorage(imageUri));
+                sp.setDescription(edtMoTaSP.getText().toString());
                 lstSize = size();
 
-                ArrayList<String> values = getAllEditTextValues();
+                values = getAllEditTextValues();
 
                 boolean checkSP = sanPhamDAO.insertSP(sp);
                 boolean checkCTSP = false;
@@ -119,10 +121,9 @@ public class AddSP extends AppCompatActivity {
 
                         int id_sp = sanPhamDAO.getIdSP(sp);
                         ctsp.setSp_id(id_sp);
-                        ctsp.setMota(edtMoTaSP.getText().toString());
                         ctsp.setColor(values.get(j));
                         ctsp.setSoluong(Integer.parseInt(edsoluong.getText().toString()));
-                        ctsp.setSize(ctsp.getSize());
+                        ctsp.setSize(lstSize.get(i));
                         checkCTSP = sanPhamDAO.insertChiTietSP(ctsp);
                         if (checkCTSP){
                             count++;

@@ -55,7 +55,11 @@ public class AccountFragment extends Fragment {
                              Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_account, container, false);
             rvProduct = view.findViewById(R.id.rv_products);
+
             LoadData();
+
+
+        LoadData();
 
         return view;
     }

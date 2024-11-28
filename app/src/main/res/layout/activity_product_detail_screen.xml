@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
@@ -12,18 +12,10 @@
 
 
     <!-- Phần chính nội dung màn hình -->
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
 
             <!-- Hình ảnh sản phẩm -->
             <RelativeLayout
+                android:id="@+id/rc_img"
                 android:layout_width="match_parent"
                 android:layout_height="200dp">
 
@@ -37,7 +29,7 @@
 
                 <!-- Nút Back -->
                 <ImageButton
-                    android:id="@+id/btnBack"
+                    android:id="@+id/btnBackCT"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/back"
@@ -49,6 +41,8 @@
             </RelativeLayout>
 
             <LinearLayout
+                android:id="@+id/rc_content"
+                android:layout_below="@+id/rc_img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -76,13 +70,6 @@
                     android:layout_marginTop="8dp" />
 
                 <!-- Mô tả sản phẩm -->
-                <TextView
-                    android:id="@+id/tvMoTaSPCT"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Chất liệu cotton, siêu mát"
-                    android:textSize="16sp"
-                    android:layout_marginTop="16dp" />
 
                 <!-- Lựa chọn kích thước -->
                 <LinearLayout
@@ -138,49 +125,92 @@
                     android:rating="4"
                     android:layout_marginTop="16dp" />
 
-                <!-- Gợi ý sản phẩm -->
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvMoTaSPCT"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Gợi ý sản phẩm"
-                    android:textSize="20sp"
-                    android:textColor="#000"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginBottom="8dp" />
+                    android:text="Chất liệu cotton, siêu mát"
+                    android:textSize="16sp"
+                    android:layout_marginTop="16dp" />
 
+                <LinearLayout
+                    android:layout_below="@+id/tv_mota_detail"
+                    android:layout_width="wrap_content"
+                    android:layout_marginHorizontal="10dp"
+                    android:orientation="horizontal"
+                    android:gravity="center"
+                    android:layout_height="wrap_content">
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="30dp"
+                        app:cardCornerRadius="50dp"
+                        android:id="@+id/btn_tru"
+                        android:layout_toLeftOf="@+id/ed_kg_detail"
+                        android:layout_below="@+id/tv_mota_detail"
+                        android:layout_height="30dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="-"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                    </androidx.cardview.widget.CardView>
+                    <EditText
+                        android:layout_width="100dp"
+                        android:layout_below="@+id/tv_mota_detail"
+                        android:id="@+id/ed_kg_detail"
+                        android:inputType="number"
+                        android:textSize="20sp"
+                        android:gravity="center"
+                        android:layout_marginHorizontal="10dp"
+                        android:hint="Số lượng"
+                        android:layout_height="wrap_content"/>
+                    <androidx.cardview.widget.CardView
+                        android:layout_width="30dp"
+                        android:layout_toRightOf="@+id/ed_kg_detail"
+                        app:cardCornerRadius="50dp"
+                        android:id="@+id/btn_cong"
+                        android:layout_height="30dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="+"
+                            android:textSize="20sp"
+                            android:layout_height="wrap_content"/>
+                    </androidx.cardview.widget.CardView>
+                </LinearLayout>
 
+                <!-- Gợi ý sản phẩm -->
 
                 <!-- Nút thao tác -->
+            </LinearLayout>
                 <LinearLayout
+                    android:layout_gravity="bottom"
+                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:gravity="center"
                     android:layout_marginTop="16dp">
-
                     <Button
                         android:id="@+id/btnAddToCart"
                         android:layout_width="0dp"
                         android:layout_weight="1"
+                        android:background="#4CAF50"
+                        app:backgroundTint="#4CAF50"
                         android:layout_height="wrap_content"
                         android:text="Thêm vào giỏ hàng"
-                        android:backgroundTint="#4CAF50"
                         android:textColor="#FFFFFF" />
-
                     <Button
                         android:id="@+id/btnBuyNow"
                         android:layout_width="0dp"
                         android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:text="Mua ngay"
-                        android:backgroundTint="#FF5722"
                         android:textColor="#FFFFFF"
-                        android:layout_marginStart="8dp" />
+                        android:background="#FF5722"
+                        app:backgroundTint="#FF5722"
+                         />
                 </LinearLayout>
-            </LinearLayout>
+
 
             <!-- Tên sản phẩm -->
-
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+</RelativeLayout>
