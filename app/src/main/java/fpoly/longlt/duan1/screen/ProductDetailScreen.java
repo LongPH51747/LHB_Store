@@ -1,5 +1,6 @@
 package fpoly.longlt.duan1.screen;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,7 +39,7 @@ public class ProductDetailScreen extends AppCompatActivity {
     private Spinner spnSize, spnColors;
     private TextView tvNameSPCT, tvPriceSPCT, tvMoTaSPCT;
     ImageView imgSPCT;
-    private int sp_id;
+    public static int sp_id;
     private SanPhamDAO dao;
     Button btnAddToCart, btnBuyNow;
     String mauSac, kichCo;
@@ -144,54 +145,6 @@ public class ProductDetailScreen extends AppCompatActivity {
         });
     }
 
-
-
-    //    public void hienThiChiTietSanPham(int spId) {
-//        SanPhamDAO sanPhamDAO = new SanPhamDAO(this);
-//        Cursor cursor = sanPhamDAO.getChiTietSanPham(spId);
-//
-//        if (cursor != null && cursor.moveToFirst()) {
-//            // Lấy giá trị từ các cột
-//            String tensp = cursor.getString(cursor.getColumnIndexOrThrow("tensp"));
-//            String img = cursor.getString(cursor.getColumnIndexOrThrow("img"));
-//            int status = cursor.getInt(cursor.getColumnIndexOrThrow("status"));
-//            int price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
-//            String description = cursor.getString(cursor.getColumnIndexOrThrow("description"));
-//            String size = cursor.getString(cursor.getColumnIndexOrThrow("size"));
-//            String color = cursor.getString(cursor.getColumnIndexOrThrow("color"));
-//            int soLuong = cursor.getInt(cursor.getColumnIndexOrThrow("soluong"));
-//
-//            // Gán dữ liệu lên TextView
-//            tvNameSPCT.setText(tensp);
-//            try {
-//                String imgPath = img;  // Lấy đường dẫn tệp từ SQLite
-//                File imgFile = new  File(imgPath);  // Tạo đối tượng File từ đường dẫn
-//                if(imgFile.exists()) {
-//                    Uri uri = Uri.fromFile(imgFile);  // Chuyển đường dẫn thành URI
-//                    imgSPCT.setImageURI(uri);  // Đặt URI vào ImageView
-//                }
-//            } catch (Exception e){
-//                imgSPCT.setImageResource(R.drawable.img_2);
-//            } // Hoặc dùng thư viện như Glide nếu là đường dẫn ảnh
-//            tvPriceSPCT.setText(String.valueOf(price));
-//            tvMoTa.setText(description);
-//        }
-//
-//        // Đừng quên đóng Cursor sau khi sử dụng
-//        if (cursor != null) {
-//            cursor.close();
-//        }
-//    }
-    // Lấy ID tài nguyên ảnh từ tên ảnh lưu trong cơ sở dữ liệu
-//        int imageResId = getResources().getIdentifier(productImg, "drawable", getPackageName());
-//
-//// Kiểm tra nếu tài nguyên ảnh tồn tại và hiển thị ảnh
-//        if (imageResId != 0) {
-//            imgSPCT.setImageResource(imageResId);
-//        } else {
-//            // Nếu không tìm thấy ảnh, có thể set ảnh mặc định
-//            imgSPCT.setImageResource(R.drawable.img_2);  // Placeholder image
-//        }
     private void setUpSpiner(int sp_id) {
         SanPhamDAO sanPhamDAO = new SanPhamDAO(this);
 
@@ -233,21 +186,26 @@ public class ProductDetailScreen extends AppCompatActivity {
         btnBuyNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                chiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
-                ChiTietSP chiTietSP = new ChiTietSP();
-                chiTietSP.setSoluong(100);
-                chiTietSP.setColor(mauSac);
-                chiTietSP.setSize(kichCo);
-                chiTietSP.setSp_id(sp_id);
-                boolean check = chiTietDAO.insertSpChiTiet(chiTietSP);
-                if (check) {
-                    getSupportFragmentManager().beginTransaction().replace(R.id.frameLayoutPRDS, OrderFragment.newInstance()).commit();
-                    Toast.makeText(ProductDetailScreen.this, "Đã đặt hàng", Toast.LENGTH_SHORT).show();
-                    finish();
-                } else {
-                    Toast.makeText(ProductDetailScreen.this, "Có Lỗi Xảy Ra..........", Toast.LENGTH_SHORT).show();
+                if (sl > 0){
+                    chiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
+                    ChiTietSP chiTietSP = new ChiTietSP();
+                    chiTietSP.setColor(mauSac);
+                    chiTietSP.setSize(kichCo);
+                    chiTietSP.setSp_id(sp_id);
+                    chiTietSP.setSoluong(sl);
+                    chiTietSP.setNameSpChiTiet(chiTietDAO.getNameProductByID_SP(sp_id));
+                    boolean check = chiTietDAO.insertSpChiTiet(chiTietSP);
+                    if (check) {
+                        startActivity(new Intent(ProductDetailScreen.this, KiemLaiDonHang.class));
+                        Toast.makeText(ProductDetailScreen.this, "Đã đặt hàng", Toast.LENGTH_SHORT).show();
+                        finish();
+                    } else {
+                        Toast.makeText(ProductDetailScreen.this, "Có Lỗi Xảy Ra..........", Toast.LENGTH_SHORT).show();
+                    }
+                }else {
+                    Toast.makeText(ProductDetailScreen.this, "Số lượng phải lớn hơn 0..", Toast.LENGTH_SHORT).show();
                 }
-                Log.e("cz", "mau sac: " + mauSac + " kic co: " + kichCo);
+                Log.e("mkl", "mau sac: " + mauSac + " kic co: " + kichCo + " So Luong: " + sl);
             }
         });
     }

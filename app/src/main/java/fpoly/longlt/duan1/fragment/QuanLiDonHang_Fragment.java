@@ -14,8 +14,10 @@ import android.widget.ListView;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.R;
+import fpoly.longlt.duan1.adapter.QuanLiDonHang_Adapter;
 import fpoly.longlt.duan1.adapter.QuanLiKhachHang_Adapter;
 import fpoly.longlt.duan1.dao.DonHangDao;
+import fpoly.longlt.duan1.dao.QuanLiDonHangDao;
 import fpoly.longlt.duan1.model.DonHang;
 
 /**
@@ -26,8 +28,8 @@ import fpoly.longlt.duan1.model.DonHang;
 public class QuanLiDonHang_Fragment extends Fragment {
     ArrayList<DonHang> lst = new ArrayList<>();
     ListView lv_donhang;
-    QuanLiKhachHang_Adapter adapter;
-    DonHangDao dao;
+    QuanLiDonHang_Adapter adapter;
+    QuanLiDonHangDao dao;
     public QuanLiDonHang_Fragment() {
         // Required empty public constructor
     }
@@ -51,5 +53,10 @@ public class QuanLiDonHang_Fragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        lv_donhang = view.findViewById(R.id.lv_donhangmanagment);
+        dao = new QuanLiDonHangDao(getContext());
+        lst = dao.getAllDonHang();
+        adapter = new QuanLiDonHang_Adapter(lst, getContext());
+        lv_donhang.setAdapter(adapter);
     }
 }

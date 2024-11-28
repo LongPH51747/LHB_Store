@@ -1,6 +1,7 @@
 package fpoly.longlt.duan1.fragment;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -95,6 +97,49 @@ public class Voucher_Fragment extends Fragment {
                         dialog.dismiss();
                     }
                 });
+                ed_start_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        // Tạo DatePickerDialog
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                                getContext(),
+                                (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) -> {
+                                    // Định dạng ngày được chọn và hiển thị trong EditText
+                                    String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                                    ed_start_date.setText(date);
+                                },
+                                year, month, day
+                        );
+                        datePickerDialog.show();
+                    }
+                });
+                ed_end_date.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final Calendar calendar = Calendar.getInstance();
+                        int year = calendar.get(Calendar.YEAR);
+                        int month = calendar.get(Calendar.MONTH);
+                        int day = calendar.get(Calendar.DAY_OF_MONTH);
+
+                        // Tạo DatePickerDialog
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                                getContext(),
+                                (DatePicker view, int selectedYear, int selectedMonth, int selectedDay) -> {
+                                    // Định dạng ngày được chọn và hiển thị trong EditText
+                                    String date = selectedDay + "/" + (selectedMonth + 1) + "/" + selectedYear;
+                                    ed_end_date.setText(date);
+                                },
+                                year, month, day
+                        );
+                        datePickerDialog.show();
+                    }
+                });
+
                 btn_add_vc.setOnClickListener(new View.OnClickListener() {
                     @Override public void onClick(View v) {
                         voucherDao = new VoucherDao(getContext());
@@ -124,6 +169,8 @@ public class Voucher_Fragment extends Fragment {
                         }
                         else {
                             try {
+
+                                // Hiển thị DatePickerDialog
                                 SimpleDateFormat sdf = new SimpleDateFormat("dd/mm/yyyy");
                                 sdf.setLenient(false);
                                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/yyyy");
@@ -185,4 +232,9 @@ public class Voucher_Fragment extends Fragment {
         String toDay = day + "/" + (month + 1) + "/" + year;
         return toDay;
     }
+    private void showDatePickerDialog() {
+        // Lấy ngày hiện tại
+
+    }
+
 }

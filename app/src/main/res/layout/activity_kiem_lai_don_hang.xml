@@ -4,9 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/main"
     android:padding="10dp"
     tools:context=".screen.KiemLaiDonHang">
-
+    <FrameLayout
+        android:id="@+id/framelayout_kiem_lai"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -45,7 +49,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/tvUserName"
+                            android:id="@+id/tvUserNameKL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Họ tên: Nguyễn Văn A"
@@ -53,7 +57,7 @@
                             android:paddingTop="8dp" />
 
                         <TextView
-                            android:id="@+id/tvUserPhone"
+                            android:id="@+id/tvUserPhoneKL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="SĐT: 0123456789"
@@ -61,7 +65,7 @@
                             android:paddingTop="4dp" />
 
                         <TextView
-                            android:id="@+id/tvUserAddress"
+                            android:id="@+id/tvUserAddressKL"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Địa chỉ: 123 Đường ABC, TP.HCM"
@@ -99,6 +103,7 @@
 
             <!-- Voucher giảm giá -->
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -121,6 +126,7 @@
 
             <!-- Phương thức thanh toán -->
             <TextView
+                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Phương thức thanh toán"
@@ -129,6 +135,7 @@
                 android:textStyle="bold" />
 
             <RadioGroup
+                android:layout_marginLeft="10dp"
                 android:id="@+id/radioGroupPayment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -149,6 +156,7 @@
             </RadioGroup>
 
             <LinearLayout
+                android:layout_marginLeft="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -182,7 +190,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:paddingTop="16dp">
+                android:paddingTop="16dp"
+                android:padding="8dp">
 
                 <TextView
                     android:id="@+id/tvTotalPayment"

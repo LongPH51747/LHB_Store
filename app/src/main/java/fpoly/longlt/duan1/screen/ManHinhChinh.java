@@ -66,7 +66,22 @@ public class ManHinhChinh extends AppCompatActivity {
                             .replace(R.id.framelayout, fragment)
                             .commit();
                 }
-                return false;
+//                return true;
+//                    if (menuItem.getItemId() == R.id.nav_home) {
+//                        fragment = HomeFragment.newInstance();
+//                    } else if (menuItem.getItemId() == R.id.nav_order) {
+//                        fragment = OrderFragment.newInstance();
+//                    } else if (menuItem.getItemId() == R.id.nav_cart) {
+//                        fragment = CartFragment.newInstance();
+//                    } else if (menuItem.getItemId() == R.id.nav_account) {
+//                        fragment = AccountFragment.newInstance();
+//                    }
+//                    if (fragment != null) {
+//                        getSupportFragmentManager().beginTransaction()
+//                                .replace(R.id.framelayout, fragment)
+//                                .commit();
+//                    }
+                    return true;
             }
         });
     }

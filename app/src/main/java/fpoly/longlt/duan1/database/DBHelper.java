@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 10;
+    public static final int DATABASE_VERSION = 17;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -52,10 +52,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "od_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "user_id INTEGER REFERENCES user," +
                 "vc_id INTEGER REFERENCES voucher," +
-                "chitietsp_id INTEGER REFERENCES chitietsp," +
                 "oddetail_id INTEGER REFERENCES orderdetail," +
                 "od_date DATE NOT NULL," +
+                "total_price integer," +
                 "status INTEGER)";
+
         db.execSQL(createBills);
 
         // Tạo bảng `orderdetail`
@@ -98,12 +99,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void addSampleData(SQLiteDatabase db) {
         // Dữ liệu mẫu cho `user`
-        String insertUser = "INSERT INTO user(username, password, name, sdt, address, role, status, imgavatar) VALUES " +
-                "('admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',1,1,'img_1')," +
-                "('hai','123','HaiViet','0971296368','Ha Tay',0,1,'1234')," +
-                "('bao','123','GiaBao','0987654412','Ha Nam',0,1,'345')," +
-                "('long','123','ThanhLong','091234567','Ha Dong',0,1,'678')";
-        db.execSQL(insertUser);
+//        String insertUser = "INSERT INTO user(username, password, name, sdt, address, role, status, imgavatar) VALUES " +
+//                "('admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',1,1,'img_1')," +
+//                "('hai','123','HaiViet','0971296368','Ha Tay',0,1,'1234')," +
+//                "('bao','123','GiaBao','0987654412','Ha Nam',0,1,'345')," +
+//                "('long','123','ThanhLong','091234567','Ha Dong',0,1,'678')";
+//        db.execSQL(insertUser);
 
         // Dữ liệu mẫu cho `sanpham`
         String insertSP = "INSERT INTO sanpham(tensp, img, status, price, description) VALUES " +
@@ -129,6 +130,53 @@ public class DBHelper extends SQLiteOpenHelper {
         String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
                 "(1, NULL, 1, NULL, '2024-11-11', 0)";
         db.execSQL(insertBills);
+//        String insertBillDetail = "insert into orderdetail values " +
+//                "(1,1,1,2,2000),"+
+//                "(2,2,1,3,2000),"+
+//                "(3,3,2,1,2000),"+
+//                "(4,4,2,2,2000)";
+//        String insertBills = "insert into bills values" +
+//                "(1,1,'2024-11-22',4000,2)," +
+//                "(2,1,'2024-11-25',6000,1),"+
+//                "(3,2,'2024-10-20',2000,2),"+
+//                "(4,2,'2024-11-27',4000,0)";
+//                db.execSQL(insertBills);
+//                db.execSQL(insertBillDetail);
+//        String createVoucher = "create table voucher(" +
+//                "vc_id integer primary key autoincrement," +
+//                "code text," +
+//                "discount_price integer," +
+//                "start_date text," +
+//                "end_date text," +
+//                "dieukien integer," +
+//                "status bit default 0)";
+//        db.execSQL(createVoucher);
+
+        // Them cac du lieu fix cung de test o day
+        String addAdmin = ("insert into user values" +
+                "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1,1,'img_1')"
+        );
+        db.execSQL(addAdmin);
+        String insertUser = ("insert into user values" +
+                "(1,'hai','123','HaiViet','0971296368','Ha Tay',1,0,1,'aaaa')," +
+                "(2,'bao','123','GiaBao','0987654412','Ha Nam',1,0,1,'aaa')," +
+                "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,1,'aaaa')"
+        );
+        db.execSQL(insertUser);
+//        String createCart = "create table cart(" +
+//                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
+//                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
+//                "sp_id integer references sanpham," +           // ID sản phẩm, liên kết với bảng sản phẩm
+//                "quantity integer default 1," +                 // Số lượng sản phẩm, mặc định là 1
+//                "price integer," +                              // Giá của một sản phẩm
+//                "total_price integer" +                         // Tổng giá = quantity * price
+//                ")";
+//        db.execSQL(createCart);
+//        String creeateThongKe = "create table thongke (" +
+//                "od_id integer references bills," +
+//                "order_date text," +
+//                "total_rice integer)";
+//        db.execSQL(creeateThongKe);
     }
 
     @Override

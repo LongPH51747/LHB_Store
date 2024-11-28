@@ -39,5 +39,4 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("androidx.activity:activity-ktx:1.2.3")    // For ActivityResultContracts
     implementation ("com.squareup.picasso:picasso:2.8")        // For loading images
-
 }
