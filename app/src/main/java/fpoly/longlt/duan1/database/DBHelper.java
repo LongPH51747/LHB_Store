@@ -55,13 +55,14 @@ public class DBHelper extends SQLiteOpenHelper {
                 "chitietsp_id INTEGER REFERENCES chitietsp," +
                 "oddetail_id INTEGER REFERENCES orderdetail," +
                 "od_date DATE NOT NULL," +
-                "status INTEGER)";
-        String createBills = "create table bills(" +
-                "od_id integer primary key autoincrement," +
-                "user_id integer references user," +
-                "od_date date not null," +
                 "total_price integer," +
-                "status integer)";
+                "status INTEGER)";
+//        String createBills = "create table bills(" +
+//                "od_id integer primary key autoincrement," +
+//                "user_id integer references user," +
+//                "od_date date not null," +
+//                "total_price integer," +
+//                "status integer)";
         db.execSQL(createBills);
 
         // Tạo bảng `orderdetail`
@@ -104,12 +105,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     private void addSampleData(SQLiteDatabase db) {
         // Dữ liệu mẫu cho `user`
-        String insertUser = "INSERT INTO user(username, password, name, sdt, address, role, status, imgavatar) VALUES " +
-                "('admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',1,1,'img_1')," +
-                "('hai','123','HaiViet','0971296368','Ha Tay',0,1,'1234')," +
-                "('bao','123','GiaBao','0987654412','Ha Nam',0,1,'345')," +
-                "('long','123','ThanhLong','091234567','Ha Dong',0,1,'678')";
-        db.execSQL(insertUser);
+//        String insertUser = "INSERT INTO user(username, password, name, sdt, address, role, status, imgavatar) VALUES " +
+//                "('admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',1,1,'img_1')," +
+//                "('hai','123','HaiViet','0971296368','Ha Tay',0,1,'1234')," +
+//                "('bao','123','GiaBao','0987654412','Ha Nam',0,1,'345')," +
+//                "('long','123','ThanhLong','091234567','Ha Dong',0,1,'678')";
+//        db.execSQL(insertUser);
 
         // Dữ liệu mẫu cho `sanpham`
         String insertSP = "INSERT INTO sanpham(tensp, img, status, price, description) VALUES " +
@@ -135,18 +136,18 @@ public class DBHelper extends SQLiteOpenHelper {
         String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
                 "(1, NULL, 1, NULL, '2024-11-11', 0)";
         db.execSQL(insertBills);
-        String insertBillDetail = "insert into orderdetail values " +
-                "(1,1,1,2,2000),"+
-                "(2,2,1,3,2000),"+
-                "(3,3,2,1,2000),"+
-                "(4,4,2,2,2000)";
-        String insertBills = "insert into bills values" +
-                "(1,1,'2024-11-22',4000,2)," +
-                "(2,1,'2024-11-25',6000,1),"+
-                "(3,2,'2024-10-20',2000,2),"+
-                "(4,2,'2024-11-27',4000,0)";
-                db.execSQL(insertBills);
-                db.execSQL(insertBillDetail);
+//        String insertBillDetail = "insert into orderdetail values " +
+//                "(1,1,1,2,2000),"+
+//                "(2,2,1,3,2000),"+
+//                "(3,3,2,1,2000),"+
+//                "(4,4,2,2,2000)";
+//        String insertBills = "insert into bills values" +
+//                "(1,1,'2024-11-22',4000,2)," +
+//                "(2,1,'2024-11-25',6000,1),"+
+//                "(3,2,'2024-10-20',2000,2),"+
+//                "(4,2,'2024-11-27',4000,0)";
+//                db.execSQL(insertBills);
+//                db.execSQL(insertBillDetail);
         String createVoucher = "create table voucher(" +
                 "vc_id integer primary key autoincrement," +
                 "code text," +

@@ -50,30 +50,32 @@ public class BillsDAO {
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sql,new String[]{String.valueOf(od_id)});
         String img = null;
-        if (cursor != null && cursor.moveToFirst()){
+        if (cursor != null && cursor.moveToFirst()) {
             // Lấy ảnh ra từ cốt tên img tại bảng sp
             img = cursor.getString(cursor.getColumnIndexOrThrow("img"));
             cursor.close();
             return img;
-        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
-        if (cursor.getCount() > 0) {
-            cursor.moveToFirst();
-            do {
-                DonHang donHang = new DonHang();
-                donHang.setOd_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("od_id"))));
-                donHang.setUser_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("user_id"))));
-//                donHang.setVc_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("vc_id"))));
-//                donHang.setOdDetail_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("oddetail_id"))));
-                try {
-                    donHang.setOd_date(sdf.parse(cursor.getString(cursor.getColumnIndex("od_date"))));
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                donHang.setTotal_price(Integer.parseInt(cursor.getString(cursor.getColumnIndex("total_price"))));
-                donHang.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex("status"))));
-                list.add(donHang);
-            } while (cursor.moveToNext());
         }
+//        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
+
+//        if (cursor.getCount() > 0) {
+//            cursor.moveToFirst();
+//            do {
+//                DonHang donHang = new DonHang();
+//                donHang.setOd_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("od_id"))));
+//                donHang.setUser_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("user_id"))));
+////                donHang.setVc_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("vc_id"))));
+////                donHang.setOdDetail_id(Integer.parseInt(cursor.getString(cursor.getColumnIndex("oddetail_id"))));
+//                try {
+//                    donHang.setOd_date(sdf.parse(cursor.getString(cursor.getColumnIndex("od_date"))));
+//                } catch (Exception e) {
+//                    e.printStackTrace();
+//                }
+//                donHang.setTotal_price(Integer.parseInt(cursor.getString(cursor.getColumnIndex("total_price"))));
+//                donHang.setStatus(Integer.parseInt(cursor.getString(cursor.getColumnIndex("status"))));
+////                list.add(donHang);
+//            } while (cursor.moveToNext());
+//        }
         if (cursor != null && !cursor.isClosed()){
             cursor.close();
         }
