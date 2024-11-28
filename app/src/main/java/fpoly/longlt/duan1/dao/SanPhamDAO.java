@@ -43,9 +43,34 @@ public class SanPhamDAO {
             }
         } finally {
             if (cursor != null) cursor.close();
+   public ArrayList<SanPham> getAllSP(){
+      ArrayList<SanPham> arrayList = new ArrayList<>();
+       Cursor cursor = db.rawQuery("SELECT * FROM sanpham", null);
+        if(cursor.getCount() > 0){
+            cursor.moveToFirst();
+            do {
+                SanPham sanPham = new SanPham();
+                sanPham.setSpId(cursor.getInt(0));
+                sanPham.setTenSp(cursor.getString(1));
+                sanPham.setImg(cursor.getString(2));
+                sanPham.setStatus(cursor.getInt(3));
+                sanPham.setPrice(cursor.getInt(4));
+                sanPham.setDescription(cursor.getString(5));
+                arrayList.add(sanPham);
+            } while (cursor.moveToNext());
+        }
+        if (cursor != null && !cursor.isClosed()){
+            cursor.close();
         }
         return arrayList;
     }
+
+//   public ArrayList<SanPham> getSPChiTiet(int sp_id){
+//       SanPham sanPham = null;
+//
+//       Cursor cursor = db.rawQuery("SELECT * FROM sanpham WHERE sp_id = ?", new String[]{String.valueOf(sp_id)});
+//
+//   }
    public boolean insertSP(SanPham sanPham){
        ContentValues values = new ContentValues();
        values.put("tensp", sanPham.getTenSp());

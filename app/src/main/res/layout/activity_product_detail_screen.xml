@@ -7,6 +7,10 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".screen.ProductDetailScreen">
+    <FrameLayout
+        android:id="@+id/frameLayoutPRDS"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <!-- Toolbar với nút Back và tiêu đề -->
 

@@ -4,9 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="10dp"
     android:layout_margin="10dp"
-    android:layout_height="wrap_content">
+    android:layout_height="150dp">
     <androidx.cardview.widget.CardView
-        app:cardCornerRadius="20dp"
+        android:id="@+id/card_bills_od"
+        app:cardCornerRadius="30dp"
         android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -14,43 +15,41 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content">
-
             <ImageView
                 android:layout_width="130dp"
                 android:src="@drawable/ic_launcher_background"
                 android:id="@+id/img_sp_donhang"
                 android:layout_height="130dp"/>
             <TextView
+                android:textSize="15sp"
+                android:textStyle="bold"
                 android:layout_width="wrap_content"
                 android:id="@+id/tv_ma_donhang"
                 android:layout_toRightOf="@+id/img_sp_donhang"
                 android:layout_marginHorizontal="10dp"
-                android:text="mã sản phẩm: abc123"
+                android:text="Ma sản phẩm: abc123"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:id="@+id/txt_date_bill"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:text="Date"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_below="@id/tv_ma_donhang"
+                android:layout_toRightOf="@id/img_sp_donhang"
                 android:layout_width="wrap_content"
-                android:layout_below="@+id/tv_ma_donhang"
-                android:id="@+id/tv_name_sp_donhang"
-                android:layout_marginVertical="10dp"
-                android:layout_toRightOf="@+id/img_sp_donhang"
-                android:layout_marginHorizontal="10dp"
-                android:text="tên sản phẩm: j j đó"
                 android:layout_height="wrap_content"/>
             <TextView
-                android:layout_width="wrap_content"
-                android:id="@+id/tv_order_date"
-                android:layout_toRightOf="@+id/img_sp_donhang"
-                android:layout_marginHorizontal="10dp"
-                android:layout_below="@+id/tv_name_sp_donhang"
-                android:text="ngày đặt hàng: 20-10-2024"
-                android:layout_height="wrap_content"/>
-            <Button
-                android:layout_width="wrap_content"
-                android:id="@+id/btn_confirm_donhang"
-                android:text="xác nhận đơn hàng"
-                android:backgroundTint="#003A77"
+                android:id="@+id/txtShowMoreBills"
+                android:text="Show More -->"
+                android:textStyle="bold"
+                android:textSize="20sp"
+                android:layout_marginBottom="50dp"
+                android:layout_marginRight="10dp"
                 android:layout_alignParentRight="true"
-                android:layout_alignBottom="@+id/img_sp_donhang"
+                android:layout_alignParentBottom="true"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
     </androidx.cardview.widget.CardView>

@@ -23,6 +23,7 @@
             android:padding="16dp">
 
             <ImageView
+                android:id="@+id/imgAvatar"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
                 android:src="@drawable/baseline_account_circle_24"
@@ -30,6 +31,7 @@
                 android:layout_gravity="center" />
 
             <TextView
+                android:id="@+id/txtNameAccount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -66,9 +68,9 @@
                     android:textColor="#000" />
 
                 <Button
+                    android:id="@+id/btn_update_profile"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/btnEdit"
                     android:backgroundTint="#4EE9AC"
                     android:text="Edit"
                     android:textColor="#000" />
@@ -139,6 +141,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/imgLogOut"
                         android:layout_width="32dp"
                         android:layout_height="32dp"
                         android:src="@drawable/baseline_logout_24" />
