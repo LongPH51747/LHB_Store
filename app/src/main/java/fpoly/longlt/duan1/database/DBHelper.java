@@ -54,15 +54,11 @@ public class DBHelper extends SQLiteOpenHelper {
                 "vc_id INTEGER REFERENCES voucher," +
 //                "chitietsp_id INTEGER REFERENCES chitietsp," +
 //                "oddetail_id INTEGER REFERENCES orderdetail," +
+                "oddetail_id INTEGER REFERENCES orderdetail," +
                 "od_date DATE NOT NULL," +
                 "total_price integer," +
                 "status INTEGER)";
-//        String createBills = "create table bills(" +
-//                "od_id integer primary key autoincrement," +
-//                "user_id integer references user," +
-//                "od_date date not null," +
-//                "total_price integer," +
-//                "status integer)";
+
         db.execSQL(createBills);
 
         // Tạo bảng `orderdetail`

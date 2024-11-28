@@ -60,6 +60,50 @@ public class SanPhamChiTietDAO {
         return list;
     }
 
+    public String getNameProductByID_SP(int chitietsp_id){
+        SQLiteDatabase sqLiteDatabase = null;
+        String name = null;
+        Cursor cursor = null;
+        try {
+            String sql = "SELECT sanpham.tensp FROM chitietsp " +
+                    "JOIN sanpham ON sanpham.sp_id = chitietsp.sp_id " +
+                    "WHERE chitietsp.chitietsp_id = ?";
+            sqLiteDatabase = dbHelper.getReadableDatabase();
+            cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(chitietsp_id)});
+            if (cursor.getCount() > 0 && cursor.moveToFirst()){
+                name = cursor.getString(cursor.getColumnIndexOrThrow("tensp"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if(cursor != null && !cursor.isClosed()) cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) sqLiteDatabase.close();
+        }
+        return name;
+    }
+
+    public int getPriceByID(int sp_id){
+        int price = 0;
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        try {
+            String sql = "SELECT sanpham.price FROM chitietsp " +
+                    "JOIN sanpham ON sanpham.sp_id = chitietsp.sp_id " +
+                    "WHERE chitietsp.chitietsp_id = ?";
+            sqLiteDatabase = dbHelper.getReadableDatabase();
+            cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(sp_id)});
+            if (cursor.getCount() > 0 && cursor.moveToFirst()){
+                price = cursor.getInt(cursor.getColumnIndexOrThrow("price"));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (cursor != null && !cursor.isClosed()) cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) sqLiteDatabase.close();
+        }
+        return price;
+    }
+
     public boolean deleteByID(int id_spChiTiet){
         SQLiteDatabase sqLiteDatabase = dbHelper.getWritableDatabase();
         int result = sqLiteDatabase.delete("chitietsp","chitietsp_id = ?", new String[]{String.valueOf(id_spChiTiet)});

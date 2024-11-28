@@ -1,8 +1,49 @@
 package fpoly.longlt.duan1.model;
 
 public class ChiTietSP {
-    int chitietSP_id, sp_id, soluong;
-    String size, color;
+    int chitietSP_id, sp_id, soluong, gia;
+
+    public int getGia() {
+        return gia;
+    }
+
+    public void setGia(int gia) {
+        this.gia = gia;
+    }
+
+    public ChiTietSP(int sp_id, int soluong, int gia, String size, String color, String nameSpChiTiet) {
+        this.sp_id = sp_id;
+        this.soluong = soluong;
+        this.gia = gia;
+        this.size = size;
+        this.color = color;
+        this.nameSpChiTiet = nameSpChiTiet;
+    }
+
+    String size, color, nameSpChiTiet;
+
+    public ChiTietSP(int sp_id, int soluong, String size, String color) {
+        this.sp_id = sp_id;
+        this.soluong = soluong;
+        this.size = size;
+        this.color = color;
+    }
+
+    public ChiTietSP(int sp_id, int soluong, String size, String color, String nameSpChiTiet) {
+        this.sp_id = sp_id;
+        this.soluong = soluong;
+        this.size = size;
+        this.color = color;
+        this.nameSpChiTiet = nameSpChiTiet;
+    }
+
+    public String getNameSpChiTiet() {
+        return nameSpChiTiet;
+    }
+
+    public void setNameSpChiTiet(String nameSpChiTiet) {
+        this.nameSpChiTiet = nameSpChiTiet;
+    }
 
     public int getChitietSP_id() {
         return chitietSP_id;

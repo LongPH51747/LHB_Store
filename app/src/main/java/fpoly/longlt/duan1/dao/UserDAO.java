@@ -335,4 +335,28 @@ public class UserDAO {
             }
         }
     }
+
+    public ArrayList<User> getUserByID(int user_id){
+        ArrayList<User> users = new ArrayList<>();
+        SQLiteDatabase sqLiteDatabase = null;
+        Cursor cursor = null;
+        try {
+            String sql = "SELECT * FROM user WHERE user_id = ?";
+            sqLiteDatabase = dbHelper.getReadableDatabase();
+            cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(user_id)});
+            if(cursor.getCount() > 0 && cursor.moveToFirst()){
+                User user = new User();
+                user.setNameUser(cursor.getString(cursor.getColumnIndexOrThrow("name")));
+                user.setPhoneNumber(cursor.getString(cursor.getColumnIndexOrThrow("sdt")));
+                user.setAddress(cursor.getString(cursor.getColumnIndexOrThrow("address")));
+                users.add(user);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            if (cursor != null && !cursor.isClosed()) cursor.close();
+            if (sqLiteDatabase != null && sqLiteDatabase.isOpen()) sqLiteDatabase.close();
+        }
+        return users;
+    }
 }
