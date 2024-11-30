@@ -30,6 +30,16 @@
                 android:text="Ma sản phẩm: abc123"
                 android:layout_height="wrap_content"/>
             <TextView
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_total_price"
+                android:layout_below="@+id/tv_ma_donhang"
+                android:layout_toRightOf="@+id/img_sp_donhang"
+                android:layout_marginHorizontal="10dp"
+                android:text="Tổng tiền: 9999999"
+                android:layout_height="wrap_content"/>
+            <TextView
                 android:id="@+id/txt_date_bill"
                 android:layout_marginTop="20dp"
                 android:layout_marginLeft="10dp"

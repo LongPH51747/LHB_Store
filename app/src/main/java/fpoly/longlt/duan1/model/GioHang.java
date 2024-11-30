@@ -1,6 +1,18 @@
 package fpoly.longlt.duan1.model;
 
+import android.os.Parcelable;
+
 public class GioHang {
+    int chitietsp_id;
+
+    public int getChitietsp_id() {
+        return chitietsp_id;
+    }
+
+    public void setChitietsp_id(int chitietsp_id) {
+        this.chitietsp_id = chitietsp_id;
+    }
+
     private int user_id;
     private int status;
 

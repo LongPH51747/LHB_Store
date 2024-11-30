@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
 
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import fpoly.longlt.duan1.database.DBHelper;
@@ -15,7 +16,7 @@ import fpoly.longlt.duan1.model.DonHang;
 
 public class BillsDAO {
     public DBHelper dbHelper;
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public BillsDAO(Context context) {
         dbHelper = new DBHelper(context);
@@ -84,12 +85,11 @@ public class BillsDAO {
         }
         return img;
     }
-
-    public ArrayList<DonHang> getAll(int user_id){
+    public ArrayList<DonHang> getAll(int id){
         ArrayList<DonHang> list = new ArrayList<>();
-        String sql = "SELECT * FROM bills WHERE bills.user_id = ?";
+        String sql = "SELECT * FROM bills WHERE user_id = ?";
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(user_id)});
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(id)});
         try {
             if (cursor.getCount() > 0){
                 cursor.moveToFirst();
@@ -98,13 +98,17 @@ public class BillsDAO {
                     donHang.setOd_id(cursor.getInt(0));
                     donHang.setUser_id(cursor.getInt(1));
                     donHang.setVc_id(cursor.getInt(2));
-                    donHang.setChitietsp_id(cursor.getInt(3));
-                    donHang.setOdDetail_id(cursor.getInt(4));
-                    donHang.setOd_date(sdf.parse(cursor.getString(5)));
-                    donHang.setStatus(cursor.getInt(6));
+                    try {
+                        donHang.setOd_date(sdf.parse(cursor.getString(3)));
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+                    donHang.setTotal_price(cursor.getInt(4));
+                    donHang.setStatus(cursor.getInt(5));
                     list.add(donHang);
                 }while (cursor.moveToNext());
             }
+            return list;
         }catch (Exception e){
             e.printStackTrace();
         }finally {

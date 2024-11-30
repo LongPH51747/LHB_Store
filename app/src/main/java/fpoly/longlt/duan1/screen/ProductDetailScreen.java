@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -48,7 +49,7 @@ public class ProductDetailScreen extends AppCompatActivity {
     ImageButton btnBackCT;
     SanPhamChiTietDAO chiTietDAO;
     int sl = 0;
-
+    String imgPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,17 +88,27 @@ public class ProductDetailScreen extends AppCompatActivity {
         tvMoTaSPCT.setText(sanPham.getDescription());
         Log.d("anh", "ảnh: " + bundle.getString("img"));
         try {
-            String imgPath = sanPham.getImg();  // Lấy đường dẫn tệp từ SQLite
+            imgPath = sanPham.getImg();  // Lấy đường dẫn tệp từ SQLite
             File imgFile = new File(imgPath);  // Tạo đối tượng File từ đường dẫn
             if (imgFile.exists()) {
                 Uri uri = Uri.fromFile(imgFile);  // Chuyển đường dẫn thành URI
                 imgSPCT.setImageURI(uri);  // Đặt URI vào ImageView
+            }
+            else {
+                imgSPCT.setImageResource(R.drawable.img_2);
             }
         } catch (Exception e) {
             imgSPCT.setImageResource(R.drawable.img_2);
         }
         setUpSpiner(sp_id);
 
+        ed_sl.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                sl = Integer.parseInt(ed_sl.getText().toString());
+                return true;
+            }
+        });
 
         btn_cong.setOnClickListener(v -> {
             sl += 1;
@@ -109,6 +120,31 @@ public class ProductDetailScreen extends AppCompatActivity {
                 sl = 0;
             }
             ed_sl.setText(sl+"");
+        });
+        btnBuyNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (sl > 0){
+//                    chiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
+                    ChiTietSP chiTietSP = new ChiTietSP();
+                    chiTietSP.setColor(mauSac);
+                    chiTietSP.setSize(kichCo);
+                    chiTietSP.setSp_id(sp_id);
+                    chiTietSP.setSoluong(sl);
+//                    chiTietSP.setNameSpChiTiet(chiTietDAO.getNameProductByID_SP(sp_id));
+                    Bundle bundle = new Bundle();
+                    Intent intent = new Intent();
+                    bundle.putSerializable("chiTietSP", chiTietSP);
+                    intent.putExtras(bundle);
+                    intent.setClass(ProductDetailScreen.this, KiemLaiDonHang.class);
+//                    boolean check = chiTietDAO.insertSpChiTiet(chiTietSP);
+                    startActivity(intent);
+                    finish();
+                }else {
+                    Toast.makeText(ProductDetailScreen.this, "Số lượng phải lớn hơn 0..", Toast.LENGTH_SHORT).show();
+                }
+                Log.e("mkl", "mau sac: " + mauSac + " kic co: " + kichCo + " So Luong: " + sl);
+            }
         });
         btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +167,7 @@ public class ProductDetailScreen extends AppCompatActivity {
                         int price = sanPham1.getPrice();
                         String imgPath = sanPham1.getImg();
 //    sl = Integer.parseInt(ed_sl.getText().toString());
-                        boolean isAdded = cartDAO.addToCart(user_id, sp_id, sl, price, imgPath, selectedColor, selectedSize);
+                        boolean isAdded = cartDAO.addToCart(user_id, sp_id, 1, sl, price, imgPath, selectedColor, selectedSize);
                         if (isAdded) {
                             Toast.makeText(ProductDetailScreen.this, "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, CartFragment.newInstance()).commit();
@@ -145,12 +181,12 @@ public class ProductDetailScreen extends AppCompatActivity {
         });
     }
 
-    private void setUpSpiner(int sp_id) {
+    private void setUpSpiner(int id_sp) {
         SanPhamDAO sanPhamDAO = new SanPhamDAO(this);
 
         // Lấy danh sách màu sắc và kích thước từ cơ sở dữ liệu
-        ArrayList<String> listColors = sanPhamDAO.getAllColors(sp_id);
-        ArrayList<String> listSize = sanPhamDAO.getAllSizes(sp_id);
+        ArrayList<String> listColors = sanPhamDAO.getAllColors(id_sp);
+        ArrayList<String> listSize = sanPhamDAO.getAllSizes(id_sp);
 
         // Tạo ArrayAdapter cho Spinner Size
         ArrayAdapter<String> sizeAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, listSize);
@@ -183,31 +219,7 @@ public class ProductDetailScreen extends AppCompatActivity {
 
             }
         });
-        btnBuyNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (sl > 0){
-                    chiTietDAO = new SanPhamChiTietDAO(ProductDetailScreen.this);
-                    ChiTietSP chiTietSP = new ChiTietSP();
-                    chiTietSP.setColor(mauSac);
-                    chiTietSP.setSize(kichCo);
-                    chiTietSP.setSp_id(sp_id);
-                    chiTietSP.setSoluong(sl);
-                    chiTietSP.setNameSpChiTiet(chiTietDAO.getNameProductByID_SP(sp_id));
-                    boolean check = chiTietDAO.insertSpChiTiet(chiTietSP);
-                    if (check) {
-                        startActivity(new Intent(ProductDetailScreen.this, KiemLaiDonHang.class));
-                        Toast.makeText(ProductDetailScreen.this, "Đã đặt hàng", Toast.LENGTH_SHORT).show();
-                        finish();
-                    } else {
-                        Toast.makeText(ProductDetailScreen.this, "Có Lỗi Xảy Ra..........", Toast.LENGTH_SHORT).show();
-                    }
-                }else {
-                    Toast.makeText(ProductDetailScreen.this, "Số lượng phải lớn hơn 0..", Toast.LENGTH_SHORT).show();
-                }
-                Log.e("mkl", "mau sac: " + mauSac + " kic co: " + kichCo + " So Luong: " + sl);
-            }
-        });
+
     }
     private User getCurrentUser(){
         return new User(1, "dinhbao");

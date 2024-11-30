@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.dao.CartDAO;
@@ -28,11 +29,15 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     Context mContext;
     ArrayList<SanPham> arrayList;
     ArrayList<GioHang> lst;
+    ArrayList<GioHang> selectedItems;
     CartDAO cartDAO;
     CartFragment cartFragment;
     CartAdapter adapter;
+    OnSelectedChangeListener onSelectedChangeListener;
     OnCartUpdateListener listener; // Interface listener
-
+    public interface OnSelectedChangeListener {
+        void onSelectionChanged(List<GioHang> selectedItems);
+    }
     public CartAdapter(Context mContext, ArrayList<SanPham> arrayList, CartDAO cartDAO, OnCartUpdateListener listener, ArrayList<GioHang> lst, CartFragment cartFragment) {
         this.mContext = mContext;
         this.arrayList = arrayList;
@@ -40,6 +45,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         this.listener = listener;
         this.lst = lst;
         this.cartFragment = cartFragment;
+    }
+
+    public CartAdapter(ArrayList<GioHang> lst, OnSelectedChangeListener onSelectedChangeListener) {
+        this.lst = lst;
+        this.onSelectedChangeListener = onSelectedChangeListener;
     }
 
     @NonNull
@@ -52,6 +62,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
         SanPham sanPham = arrayList.get(position);
+        GioHang gioHang = lst.get(position);
 
         holder.tvNameCart.setText(sanPham.getTenSp());
         holder.tvquantity.setText(String.valueOf(sanPham.getSoLuong()));
@@ -60,7 +71,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         holder.tvSizeCart.setText(sanPham.getSize());
 
 
-        GioHang gioHang = lst.get(position);
        String imgPath = gioHang.getImgPath();
         if (imgPath != null && !imgPath.isEmpty()) {
             File imgFile = new File(imgPath);
@@ -74,10 +84,19 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             holder.imgProduct.setImageResource(R.drawable.img_3); // Ảnh mặc định
         }
         holder.cb_selected.setChecked(sanPham.isSelected());
+//        holder.cb_selected.setOnCheckedChangeListener(null); // Xóa lắng nghe cũ
+//        holder.cb_selected.setChecked(selectedItems.contains(lst));
+
         holder.cb_selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
             sanPham.setSelected(isChecked);
             cartDAO.updateStatus(sanPham.getSpId(), isChecked?1:0);
+//            if (isChecked){
+//                selectedItems.add(gioHang);
+//            }else {
+//                selectedItems.remove(gioHang);
+//            }
             updateTotalPrice();
+//            onSelectedChangeListener.onSelectionChanged(selectedItems);
         });
 
 
@@ -179,7 +198,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cb_selected = itemView.findViewById(R.id.cb_selected);
         }
     }
-
+    public ArrayList<GioHang> getSelectedItems() {
+        return new ArrayList<>(lst);
+    }
     public void checkBox(CheckBox checkBox){
 
     }

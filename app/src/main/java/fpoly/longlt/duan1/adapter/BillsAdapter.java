@@ -2,10 +2,12 @@ package fpoly.longlt.duan1.adapter;
 
 import static fpoly.longlt.duan1.screen.LoginScreen.id_userHere;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.icu.text.SimpleDateFormat;
 import android.net.Uri;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,12 +49,12 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsHolderV
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BillsHolderView holder, int position) {
+    public void onBindViewHolder(@NonNull BillsHolderView holder, @SuppressLint("RecyclerView") int position) {
         billsDAO = new BillsDAO(context.getApplicationContext());
         DonHang donHang = list.get(position);
-        holder.txt_ma_bills.setText("Ma Don Hang: FTMC" + donHang.getOd_id()+"BMC");
+        holder.txt_ma_bills.setText("Mã đơn hàng:\n FTMC" + donHang.getOd_id()+"BMC");
         holder.txt_date_bills.setText(sdf.format(donHang.getOd_date()));
-
+        holder.tv_tongtien.setText("Tổng tiền: "+donHang.getTotal_price());
         if (list.size() > 0) {
             try {
                 String imgPath = billsDAO.getImgBills(billsDAO.getID_OD(id_userHere));  // Lấy đường dẫn tệp từ SQLite
@@ -70,9 +72,12 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsHolderV
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, OrderDetailScreen.class);
-                intent.putExtra("ma_bills", donHang.getOd_id());
-                intent.putExtra("data_bills", donHang.getOd_date());
-                intent.putExtra("imgPath_bills", uri);
+                intent.putExtra("ma_bills", holder.txt_ma_bills.getText().toString());
+                intent.putExtra("date_bills", list.get(position).getOd_date());
+                intent.putExtra("id", list.get(position).getOd_id());
+                intent.putExtra("tongtien", list.get(position).getTotal_price());
+//                intent.putExtra("gia", list.get(position));
+//                intent.putExtra("imgPath_bills", uri);
                 context.startActivity(intent);
             }
         });
@@ -88,9 +93,10 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsHolderV
     public static class BillsHolderView extends RecyclerView.ViewHolder {
         CardView card_bill_od;
         ImageView img_sp_bills;
-        TextView txt_ma_bills, txt_date_bills, txt_show_more;
+        TextView txt_ma_bills, txt_date_bills, txt_show_more, tv_tongtien;
         public BillsHolderView(@NonNull View view) {
             super(view);
+            tv_tongtien = view.findViewById(R.id.tv_total_price);
             img_sp_bills = view.findViewById(R.id.img_sp_donhang);
             txt_ma_bills = view.findViewById(R.id.tv_ma_donhang);
             txt_date_bills = view.findViewById(R.id.txt_date_bill);

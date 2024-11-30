@@ -283,7 +283,7 @@ public class UserDAO {
             contentValues.put("name", user.getNameUser());
             contentValues.put("sdt", user.getPhoneNumber());
             contentValues.put("address", user.getAddress());
-//            contentValues.put("imgavatar", user.getImageAvatar());
+            contentValues.put("imgavatar", user.getImageAvatar());
 
             int result = sqLiteDatabase.update("user", contentValues, "user_id = ?", new String[]{String.valueOf(id)});
             return result > 0; // Trả về true nếu có ít nhất một hàng được cập nhật

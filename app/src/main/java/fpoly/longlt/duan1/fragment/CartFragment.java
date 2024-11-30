@@ -1,10 +1,13 @@
 package fpoly.longlt.duan1.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -15,13 +18,18 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.adapter.CartAdapter;
+import fpoly.longlt.duan1.adapter.KiemLaiAdapter;
 import fpoly.longlt.duan1.dao.CartDAO;
+import fpoly.longlt.duan1.dao.QuanLiDonHangDao;
 import fpoly.longlt.duan1.dao.SanPhamDAO;
+import fpoly.longlt.duan1.model.DonHang;
 import fpoly.longlt.duan1.model.GioHang;
 import fpoly.longlt.duan1.model.SanPham;
+import fpoly.longlt.duan1.screen.KiemLaiDonHang;
 
 public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateListener {
     private ImageView imgBack;
@@ -31,7 +39,9 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
     private ArrayList<SanPham> sanPhamList;
     ArrayList<GioHang> gioHangList;
     private CartDAO cartDAO;
+    Button btnBuy;
     SanPhamDAO dao;
+//    private List<GioHang> selectedItems = new ArrayList<>();
     private TextView tvTotalPrice;
     private int user_id = 1; // Giả sử ID người dùng là 1, thay thế bằng ID thực tế của người dùng
 
@@ -58,8 +68,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         cb_selected_all = view.findViewById(R.id.cb_select_all);
-
-       cb_selected_all.setOnCheckedChangeListener(((buttonView, isChecked) -> {
+        btnBuy = view.findViewById(R.id.btn_order);
+        cb_selected_all.setOnCheckedChangeListener(((buttonView, isChecked) -> {
            for (SanPham sanPham: sanPhamList){
                sanPham.setSelected(isChecked);
                cartDAO.updateStatus(sanPham.getSpId(), isChecked?1:0);
@@ -91,9 +101,25 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
         adapter.notifyDataSetChanged(); // Cập nhật lại adapter
         updateTotalPrice(calculateTotalPrice());
         // Cập nhật tổng giá trị
+
+        btnBuy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<GioHang> selecteds = adapter.getSelectedItems();
+                Intent intent = new Intent(getActivity(), KiemLaiDonHang.class);
+//                intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(selecteds));
+                startActivity(intent);
+            }
+        });
+
         return view;
     }
-
+//    private void loadCartItems() {
+//        CartDAO dao1 = new CartDAO(getContext()); // Lấy danh sách sản phẩm từ SQLite
+//        selectedItems = dao1.getAll(user_id); // Lấy danh sách sản phẩm từ SQLite
+//        CartAdapter adapter = new CartAdapter(selectedItems);
+//        recyleViewCart.setAdapter(adapter);
+//    }
 
     private void loadCartItems() {
         gioHangList = cartDAO.getAll(user_id); // Lấy danh sách GioHang từ DAO
@@ -109,6 +135,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
             }
         }
     }
+
 
 
 

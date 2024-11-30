@@ -21,7 +21,7 @@ public class CartDAO {
         db = fileHelper.getWritableDatabase();
     }
 
-    public boolean addToCart(int user_id, int sp_id, int quantity, int price, String imgPath, String color, String size) {
+    public boolean addToCart(int user_id, int sp_id, int chitietsp_id, int quantity, int price, String imgPath, String color, String size) {
         // Truy vấn kiểm tra sản phẩm đã tồn tại trong giỏ hàng hay chưa (dựa trên user_id, sp_id, color, size)
         Cursor cursor = db.rawQuery(
                 "SELECT quantity, price FROM cart WHERE user_id = ? AND sp_id = ? AND color = ? AND size = ?",
@@ -51,13 +51,13 @@ public class CartDAO {
             ContentValues values = new ContentValues();
             values.put("user_id", user_id);
             values.put("sp_id", sp_id);
+            values.put("chitietsp_id", chitietsp_id);
             values.put("quantity", quantity);
             values.put("price", price);
             values.put("total_price", price * quantity);
             values.put("img_path", imgPath);
             values.put("color", color);
             values.put("size", size);
-
             long rowInserted = db.insert("cart", null, values); // Thực hiện thêm vào DB
             result = rowInserted != -1;
         }
@@ -88,13 +88,14 @@ public class CartDAO {
                 gioHang.setCart_id(cursor.getInt(0));
                 gioHang.setUser_id(cursor.getInt(1));
                 gioHang.setSp_id(cursor.getInt(2));
-                gioHang.setQuantity(cursor.getInt(3));
-                gioHang.setPrice(cursor.getInt(4));
-                gioHang.setTotal_price(cursor.getInt(5));
-                gioHang.setImgPath(cursor.getString(6));
-                gioHang.setColor(cursor.getString(7));
-                gioHang.setSize(cursor.getString(8));
-                gioHang.setStatus(cursor.getInt(9));
+                gioHang.setChitietsp_id(cursor.getInt(3));
+                gioHang.setQuantity(cursor.getInt(4));
+                gioHang.setPrice(cursor.getInt(5));
+                gioHang.setTotal_price(cursor.getInt(6));
+                gioHang.setImgPath(cursor.getString(7));
+                gioHang.setColor(cursor.getString(8));
+                gioHang.setSize(cursor.getString(9));
+                gioHang.setStatus(cursor.getInt(10));
 
 
                 // Thêm vào danh sách
@@ -163,9 +164,7 @@ public class CartDAO {
     public void updateStatus(int sp_id, int status) {
         ContentValues values = new ContentValues();
         values.put("status", status);  // Cập nhật trạng thái
-
         db.update("cart", values, "sp_id = ?", new String[]{String.valueOf(sp_id)});
-
     }
 
 

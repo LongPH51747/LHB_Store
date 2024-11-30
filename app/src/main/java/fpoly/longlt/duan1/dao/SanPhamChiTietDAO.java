@@ -67,7 +67,7 @@ public class SanPhamChiTietDAO {
         try {
             String sql = "SELECT sanpham.tensp FROM chitietsp " +
                     "JOIN sanpham ON sanpham.sp_id = chitietsp.sp_id " +
-                    "WHERE chitietsp.chitietsp_id = ?";
+                    "WHERE sanpham.sp_id = ?";
             sqLiteDatabase = dbHelper.getReadableDatabase();
             cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(chitietsp_id)});
             if (cursor.getCount() > 0 && cursor.moveToFirst()){
@@ -89,7 +89,7 @@ public class SanPhamChiTietDAO {
         try {
             String sql = "SELECT sanpham.price FROM chitietsp " +
                     "JOIN sanpham ON sanpham.sp_id = chitietsp.sp_id " +
-                    "WHERE chitietsp.chitietsp_id = ?";
+                    "WHERE sanpham.sp_id = ?";
             sqLiteDatabase = dbHelper.getReadableDatabase();
             cursor = sqLiteDatabase.rawQuery(sql, new String[]{String.valueOf(sp_id)});
             if (cursor.getCount() > 0 && cursor.moveToFirst()){

@@ -1,6 +1,8 @@
 package fpoly.longlt.duan1.model;
 
-public class ChiTietSP {
+import java.io.Serializable;
+
+public class ChiTietSP implements Serializable {
     int chitietSP_id, sp_id, soluong, gia;
 
     public int getGia() {

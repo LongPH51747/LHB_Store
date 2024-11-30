@@ -1,6 +1,7 @@
 package fpoly.longlt.duan1.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -78,7 +79,7 @@ public class QuanLiDonHang_Adapter extends BaseAdapter {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        tv_tong_tien.setText("Tổng tiền: "+donHang.getTotal_price());
+        tv_tong_tien.setText("Tổng tiền: "+(donHang.getTotal_price()-20000));
         tv_ten_kh.setText("Tên khách hàng: "+dao.getNameKH(donHang.getUser_id()));
 
         btn_dagiaohang.setVisibility(View.GONE);
@@ -98,7 +99,8 @@ public class QuanLiDonHang_Adapter extends BaseAdapter {
             btn_huy.setVisibility(View.GONE);
             tv_status.setText("Đã giao");
         }
-
+        Log.d("bill", "số lượng: "+dao.getQuantity(donHang.getOd_id()));
+        Log.d("bill", "statussss: "+donHang.getStatus());
         btn_xacnhan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

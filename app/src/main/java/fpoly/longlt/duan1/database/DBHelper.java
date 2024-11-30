@@ -54,7 +54,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 "vc_id INTEGER REFERENCES voucher," +
 //                "chitietsp_id INTEGER REFERENCES chitietsp," +
 //                "oddetail_id INTEGER REFERENCES orderdetail," +
-                "oddetail_id INTEGER REFERENCES orderdetail," +
+//                "oddetail_id INTEGER REFERENCES orderdetail," +
                 "od_date DATE NOT NULL," +
                 "total_price integer," +
                 "status INTEGER)";
@@ -65,7 +65,7 @@ public class DBHelper extends SQLiteOpenHelper {
         String createOrderDetail = "CREATE TABLE orderdetail(" +
                 "oddetail_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "od_id INTEGER REFERENCES bills," +
-                "sp_id INTEGER REFERENCES sanpham," +
+                "chitietsp_id INTEGER REFERENCES sanpham," +
                 "quantity INTEGER," +
                 "price INTEGER)";
         db.execSQL(createOrderDetail);
@@ -85,7 +85,8 @@ public class DBHelper extends SQLiteOpenHelper {
         String createCart = "CREATE TABLE cart(" +
                 "cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "user_id INTEGER REFERENCES user," +
-                "sp_id INTEGER REFERENCES sanpham," +
+//                "sp_id INTEGER REFERENCES sanpham," +
+                "chitietsp_id REFERENCES chitietsp," +
                 "quantity INTEGER DEFAULT 1," +
                 "price INTEGER," +
                 "total_price INTEGER," +
@@ -159,12 +160,15 @@ public class DBHelper extends SQLiteOpenHelper {
                 "(0,'admin','admin123','Vien Kiem Soat','0971297489','Ha Noi',0,1,1,'img_1')"
         );
         db.execSQL(addAdmin);
-        String insertUser = ("insert into user values" +
+        String insertUser = "insert into user values" +
                 "(1,'hai','123','HaiViet','0971296368','Ha Tay',1,0,1,'aaaa')," +
                 "(2,'bao','123','GiaBao','0987654412','Ha Nam',1,0,1,'aaa')," +
-                "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,1,'aaaa')"
-        );
+                "(3,'long','123','ThanhLong','091234567','Ha Dong',1,0,1,'aaaa')";
         db.execSQL(insertUser);
+        String insertIntoVoucher = "insert into voucher values" +
+                "(0,'sales20',20000,'2024-11-20','2024-12-20',2000,1)," +
+                "(1,'sales30',30000,'2024-11-25','2024-12-25',3000,1)";
+                db.execSQL(insertIntoVoucher);
 //        String createCart = "create table cart(" +
 //                "cart_id integer primary key autoincrement," +  // ID tự tăng cho từng mục trong giỏ hàng
 //                "user_id integer references user," +            // ID người dùng, liên kết với bảng users (nếu có)
