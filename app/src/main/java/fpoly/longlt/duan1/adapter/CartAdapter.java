@@ -1,7 +1,10 @@
 package fpoly.longlt.duan1.adapter;
 
+import static fpoly.longlt.duan1.screen.LoginScreen.id_userHere;
+
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,9 +30,9 @@ import fpoly.longlt.duan1.model.SanPham;
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
     Context mContext;
-    ArrayList<SanPham> arrayList;
+//    ArrayList<SanPham> arrayList;
     ArrayList<GioHang> lst;
-    ArrayList<GioHang> selectedItems;
+//    ArrayList<GioHang> selectedItems;
     CartDAO cartDAO;
     CartFragment cartFragment;
     CartAdapter adapter;
@@ -38,18 +41,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public interface OnSelectedChangeListener {
         void onSelectionChanged(List<GioHang> selectedItems);
     }
-    public CartAdapter(Context mContext, ArrayList<SanPham> arrayList, CartDAO cartDAO, OnCartUpdateListener listener, ArrayList<GioHang> lst, CartFragment cartFragment) {
-        this.mContext = mContext;
-        this.arrayList = arrayList;
-        this.cartDAO = cartDAO;
-        this.listener = listener;
-        this.lst = lst;
-        this.cartFragment = cartFragment;
-    }
 
-    public CartAdapter(ArrayList<GioHang> lst, OnSelectedChangeListener onSelectedChangeListener) {
+    public CartAdapter(Context mContext, ArrayList<GioHang> lst, OnCartUpdateListener listener) {
+        this.mContext = mContext;
         this.lst = lst;
-        this.onSelectedChangeListener = onSelectedChangeListener;
+        this.listener = listener;
     }
 
     @NonNull
@@ -61,17 +57,18 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        SanPham sanPham = arrayList.get(position);
+//        SanPham sanPham = arrayList.get(position);
         GioHang gioHang = lst.get(position);
 
-        holder.tvNameCart.setText(sanPham.getTenSp());
-        holder.tvquantity.setText(String.valueOf(sanPham.getSoLuong()));
-        holder.tvPriceCart.setText(String.valueOf(sanPham.getPrice()) + " VND");
-        holder.tvColorCart.setText(sanPham.getColors());
-        holder.tvSizeCart.setText(sanPham.getSize());
+//        Log.d("TAG", "onBindViewHolder: "+gioHang.getName()+": "+gioHang.getQuantity());
+        holder.tvNameCart.setText(gioHang.getName());
+        holder.tvquantity.setText(gioHang.getQuantity()+"");
+        holder.tvPriceCart.setText(gioHang.getPrice() + " VND");
+        holder.tvColorCart.setText(gioHang.getColor());
+        holder.tvSizeCart.setText(gioHang.getSize());
 
 
-       String imgPath = gioHang.getImgPath();
+       String imgPath = lst.get(position).getImgPath();
         if (imgPath != null && !imgPath.isEmpty()) {
             File imgFile = new File(imgPath);
             if (imgFile.exists()) {
@@ -83,53 +80,62 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         } else {
             holder.imgProduct.setImageResource(R.drawable.img_3); // Ảnh mặc định
         }
-        holder.cb_selected.setChecked(sanPham.isSelected());
+        holder.cb_selected.setChecked(gioHang.getIs_selected()==1);
 //        holder.cb_selected.setOnCheckedChangeListener(null); // Xóa lắng nghe cũ
 //        holder.cb_selected.setChecked(selectedItems.contains(lst));
 
         holder.cb_selected.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            sanPham.setSelected(isChecked);
-            cartDAO.updateStatus(sanPham.getSpId(), isChecked?1:0);
+            gioHang.setIs_selected(isChecked?1:0);
+            cartDAO = new CartDAO(mContext);
+            cartDAO.updateItemSelection(lst.get(position).getCart_id(), isChecked);
 //            if (isChecked){
-//                selectedItems.add(gioHang);
+//                lst.add(gioHang);
 //            }else {
-//                selectedItems.remove(gioHang);
+//                lst.remove(gioHang);
 //            }
             updateTotalPrice();
-//            onSelectedChangeListener.onSelectionChanged(selectedItems);
+//            onSelectedChangeListener.onSelectionChanged(lst);
         });
 
 
         // Button cộng
         // Button cộng
         holder.btn_cong.setOnClickListener(v -> {
-            int newQuantity = sanPham.getSoLuong() + 1;
-
+//            cartDAO = new CartDAO(mContext);
+//            GioHang gioHang1 = lst.get(position);
+//            cartDAO.addToCart(id_userHere,gioHang1.getChitietsp_id(),1);
+            int newQuantity = gioHang.getQuantity() + 1;
+            Log.d("cong", "onBindViewHolder: "+newQuantity);
             // Cập nhật cơ sở dữ liệu
-            sanPham.setSoLuong(newQuantity);
-            boolean isUpdated = cartDAO.updateQuantity(sanPham);
+            gioHang.setQuantity(newQuantity);
+            cartDAO = new CartDAO(mContext);
+            boolean isUpdated = cartDAO.updateQuantity(newQuantity,lst.get(position).getCart_id());
 
             if (isUpdated) {
                 holder.tvquantity.setText(String.valueOf(newQuantity)); // Cập nhật giao diện
-                Toast.makeText(mContext, "Cập nhật thành công. Số lượng mới: " + newQuantity, Toast.LENGTH_SHORT).show();
-                updateTotalPrice();  // Cập nhật tổng tiền
+                updateTotalPrice();
+//                Toast.makeText(mContext, "Cập nhật thành công. Số lượng mới: " + newQuantity, Toast.LENGTH_SHORT).show();
+//                updateTotalPrice();  // Cập nhật tổng tiền
             } else {
                 Toast.makeText(mContext, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
             }
         });
 
         holder.btn_tru.setOnClickListener(v -> {
-            if (sanPham.getSoLuong() > 1) {
-                int newQuantity = sanPham.getSoLuong() - 1;
+
+            if (gioHang.getQuantity() > 1) {
+                int newQuantity = lst.get(position).getQuantity() - 1;
 
                 // Cập nhật cơ sở dữ liệu
-                sanPham.setSoLuong(newQuantity);
-                boolean isUpdated = cartDAO.updateQuantity(sanPham);
+                gioHang.setQuantity(newQuantity);
+                cartDAO = new CartDAO(mContext);
+                boolean isUpdated = cartDAO.updateQuantity(newQuantity, lst.get(position).getCart_id());
 
                 if (isUpdated) {
                     holder.tvquantity.setText(String.valueOf(newQuantity)); // Cập nhật giao diện
-                    Toast.makeText(mContext, "Cập nhật thành công. Số lượng mới: " + newQuantity, Toast.LENGTH_SHORT).show();
-                    updateTotalPrice();  // Cập nhật tổng tiền
+                    updateTotalPrice();
+//                    Toast.makeText(mContext, "Cập nhật thành công. Số lượng mới: " + newQuantity, Toast.LENGTH_SHORT).show();
+//                    updateTotalPrice();  // Cập nhật tổng tiền
                 } else {
                     Toast.makeText(mContext, "Cập nhật thất bại", Toast.LENGTH_SHORT).show();
                 }
@@ -145,9 +151,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cartDAO = new CartDAO(mContext);
             boolean check = cartDAO.deleteProduct(lst.get(position).getCart_id());  // Xóa sản phẩm khỏi DB
             if (check){
-                arrayList.remove(position);  // Xóa sản phẩm khỏi danh sách
-                notifyItemRemoved(position);  // Thông báo RecyclerView cập nhật
-                updateTotalPrice();  // Cập nhật tổng tiền
+                lst.remove(position);  // Xóa sản phẩm khỏi danh sách
+                notifyDataSetChanged();  // Thông báo RecyclerView cập nhật
+//                updateTotalPrice();  // Cập nhật tổng tiền
                 Toast.makeText(mContext, "xóa thành công", Toast.LENGTH_SHORT).show();
             }
             else {
@@ -155,20 +161,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             }
         });
 
-        updateTotalPrice();  // Cập nhật tổng tiền khi item được hiển thị
+//        updateTotalPrice();  // Cập nhật tổng tiền khi item được hiển thị
     }
 
     @Override
     public int getItemCount() {
-        return arrayList != null ? arrayList.size() : 0;
+        return lst != null ? lst.size() : 0;
     }
 
     // Cập nhật tổng tiền
     public void updateTotalPrice() {
         int total = 0;
-        for (SanPham sanPham : arrayList) {
-            if (sanPham.isSelected()) {
-                total += sanPham.getPrice() * sanPham.getSoLuong();
+        for (GioHang gioHang : lst) {
+            if (gioHang.getIs_selected()==1) {
+                total += gioHang.getPrice() * gioHang.getQuantity();
             }
         }
         if (listener != null) {
@@ -198,12 +204,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             cb_selected = itemView.findViewById(R.id.cb_selected);
         }
     }
-    public ArrayList<GioHang> getSelectedItems() {
-        return new ArrayList<>(lst);
-    }
-    public void checkBox(CheckBox checkBox){
-
-    }
+//    public ArrayList<GioHang> getSelectedItems() {
+//        return new ArrayList<>(lst);
+//    }
 
     // Interface để Fragment nhận thông báo
     public interface OnCartUpdateListener {

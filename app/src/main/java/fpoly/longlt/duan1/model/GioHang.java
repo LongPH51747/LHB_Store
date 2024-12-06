@@ -1,9 +1,53 @@
 package fpoly.longlt.duan1.model;
 
+import android.os.Parcel;
 import android.os.Parcelable;
 
-public class GioHang {
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
+
+public class GioHang implements Serializable {
     int chitietsp_id;
+    private int user_id;
+    private int status;
+    private int cart_id;
+    private int sp_id;
+    private int quantity;
+    private int is_selected;
+    private int price;
+    private int total_price;
+    private String imgPath;
+    private String color;
+    private String size;
+    private String name;
+
+//    protected GioHang(Parcel in) {
+//        chitietsp_id = in.readInt();
+//        user_id = in.readInt();
+//        cart_id = in.readInt();
+//        quantity = in.readInt();
+//        is_selected = in.readInt();
+//        price = in.readInt();
+//        imgPath = in.readString();
+//        color = in.readString();
+//        size = in.readString();
+//        name = in.readString();
+//        status = in.readInt();
+//        total_price = in.readInt();
+//    }
+//
+//    public static final Creator<GioHang> CREATOR = new Creator<GioHang>() {
+//        @Override
+//        public GioHang createFromParcel(Parcel in) {
+//            return new GioHang(in);
+//        }
+//
+//        @Override
+//        public GioHang[] newArray(int size) {
+//            return new GioHang[size];
+//        }
+//    };
 
     public int getChitietsp_id() {
         return chitietsp_id;
@@ -13,8 +57,7 @@ public class GioHang {
         this.chitietsp_id = chitietsp_id;
     }
 
-    private int user_id;
-    private int status;
+
 
     public int getStatus() {
         return status;
@@ -32,35 +75,16 @@ public class GioHang {
         this.cart_id = cart_id;
     }
 
-    public GioHang(int user_id, int cart_id, int sp_id, int quantity, int price, int total_price) {
-        this.user_id = user_id;
-        this.cart_id = cart_id;
-        this.sp_id = sp_id;
-        this.quantity = quantity;
-        this.price = price;
-        this.total_price = total_price;
+    public int getIs_selected() {
+        return is_selected;
     }
 
-    private int cart_id;
-    private int sp_id;
-    private int quantity;
-    private int price;
-    private int total_price;
-    private String imgPath;
-    private String color;
-    private String size;
-
-    public GioHang(int user_id, int cart_id, int sp_id, int quantity, int price, int total_price, String imgPath, String color, String size) {
-        this.user_id = user_id;
-        this.cart_id = cart_id;
-        this.sp_id = sp_id;
-        this.quantity = quantity;
-        this.price = price;
-        this.total_price = total_price;
-        this.imgPath = imgPath;
-        this.color = color;
-        this.size = size;
+    public void setIs_selected(int is_selected) {
+        this.is_selected = is_selected;
     }
+
+
+
 
     public String getColor() {
         return color;
@@ -82,30 +106,22 @@ public class GioHang {
         return imgPath;
     }
 
-    public GioHang(int user_id, int cart_id, int sp_id, int quantity, int price, int total_price, String imgPath) {
-        this.user_id = user_id;
-        this.cart_id = cart_id;
-        this.sp_id = sp_id;
-        this.quantity = quantity;
-        this.price = price;
-        this.total_price = total_price;
-        this.imgPath = imgPath;
-    }
 
     public void setImgPath(String imgPath) {
         this.imgPath = imgPath;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public GioHang() {
     }
 
-    public GioHang(int user_id, int sp_id, int quantity, int price, int total_price) {
-        this.user_id = user_id;
-        this.sp_id = sp_id;
-        this.quantity = quantity;
-        this.price = price;
-        this.total_price = total_price;
-    }
 
     public int getUser_id() {
         return user_id;
@@ -146,4 +162,27 @@ public class GioHang {
     public void setTotal_price(int total_price) {
         this.total_price = total_price;
     }
+
+//    @Override
+//    public int describeContents() {
+//        return 0;
+//    }
+//
+//
+////
+////    @Override
+////    public void writeToParcel(@NonNull Parcel dest, int flags) {
+////        dest.writeInt(cart_id);
+////        dest.writeInt(user_id);
+////        dest.writeInt(chitietsp_id);
+////        dest.writeInt(quantity);
+////        dest.writeInt(price);
+////        dest.writeString(imgPath);
+////        dest.writeString(color);
+////        dest.writeString(size);
+////        dest.writeString(name);
+////        dest.writeInt(is_selected);
+////        dest.writeInt(status);
+////        dest.writeInt(total_price);
+////    }
 }

@@ -2,10 +2,15 @@ package fpoly.longlt.duan1.fragment;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +30,7 @@ import fpoly.longlt.duan1.R;
 public class HomeFragment extends Fragment {
     private ViewPager2 viewPager2;
     SanPhamDAO sanPhamDAO;
+    EditText ed_search;
     private RecyclerView recyclerView;
     private Handler sliderHandler = new Handler();
     private int currentPage = 0;
@@ -51,9 +57,28 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         recyclerView = view.findViewById(R.id.recyclerViewProducts);
-
+        ed_search = view.findViewById(R.id.ed_search);
         viewPager2 = view.findViewById(R.id.viewPagerBanner);
 
+        ed_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String query = s.toString();
+                arrayList = sanPhamDAO.search(query);  // Tìm kiếm sản phẩm từ cơ sở dữ liệu
+                adapter.updataData(arrayList); // Cập nhật dữ liệu trong adapter
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+        });
 
         // Danh sách ảnh banner
         List<Integer> bannerImages = Arrays.asList(
@@ -81,6 +106,7 @@ public class HomeFragment extends Fragment {
         // Thiết lập RecyclerView cho danh sách sản phẩm
         return view;
     }
+
 
     private final Runnable slideRunnable = new Runnable() {
         @Override

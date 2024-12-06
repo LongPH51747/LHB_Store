@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 17;
+    public static final int DATABASE_VERSION = 18;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -80,21 +80,29 @@ public class DBHelper extends SQLiteOpenHelper {
                 "dieukien INTEGER," +
                 "status BIT DEFAULT 0)";
         db.execSQL(createVoucher);
-
-        // Tạo bảng `cart`
         String createCart = "CREATE TABLE cart(" +
-                "cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "user_id INTEGER REFERENCES user," +
-//                "sp_id INTEGER REFERENCES sanpham," +
-                "chitietsp_id REFERENCES chitietsp," +
-                "quantity INTEGER DEFAULT 1," +
-                "price INTEGER," +
-                "total_price INTEGER," +
-                "img_path TEXT," +
-                "color TEXT," +
-                "size TEXT," +
-                "status INTEGER)";
+                "    cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "    user_id INTEGER REFERENCES user," +
+                "    chitietsp_id INTEGER REFERENCES chitietsp," +
+                "    quantity INTEGER," +
+                "    is_selected BIT DEFAULT 0," +
+                "    status BIT DEFAULT 0 -- 1: Chưa thanh toán, 0: Đã thanh toán\n" +
+                ")";
         db.execSQL(createCart);
+        // Tạo bảng `cart`
+//        String createCart = "CREATE TABLE cart(" +
+//                "cart_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                "user_id INTEGER REFERENCES user," +
+////                "sp_id INTEGER REFERENCES sanpham," +
+//                "chitietsp_id REFERENCES chitietsp," +
+//                "quantity INTEGER DEFAULT 1," +
+//                "price INTEGER," +
+//                "total_price INTEGER," +
+//                "img_path TEXT," +
+//                "color TEXT," +
+//                "size TEXT," +
+//                "status INTEGER)";
+//        db.execSQL(createCart);
 
         // Thêm dữ liệu mẫu
         addSampleData(db);

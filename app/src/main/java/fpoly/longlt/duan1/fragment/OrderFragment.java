@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import fpoly.longlt.duan1.model.DonHang;
 public class OrderFragment extends Fragment {
     TextView txtNameUserBills;
     RecyclerView rc_content_bills;
+    ImageView imgAvatar;
     BillsAdapter billsAdapter;
     BillsDAO billsDAO;
     UserDAO userDAO;
@@ -62,6 +64,8 @@ public class OrderFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         txtNameUserBills = view.findViewById(R.id.txtNameUserBills);
         rc_content_bills = view.findViewById(R.id.rc_content_bills);
+        imgAvatar = view.findViewById(R.id.imgAvatarBills);
+        imgAvatar.setImageResource(R.drawable.baseline_account_circle_24);
         // Xet username
         userDAO = new UserDAO(getContext());
         txtNameUserBills.setText(userDAO.getNameUserByID(id_userHere));

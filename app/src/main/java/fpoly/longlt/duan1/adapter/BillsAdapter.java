@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+//import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -55,14 +55,29 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsHolderV
         holder.txt_ma_bills.setText("Mã đơn hàng:\n FTMC" + donHang.getOd_id()+"BMC");
         holder.txt_date_bills.setText(sdf.format(donHang.getOd_date()));
         holder.tv_tongtien.setText("Tổng tiền: "+donHang.getTotal_price());
+        if (donHang.getStatus()==1){
+            holder.tv_status.setText("Đang giao");
+        }else if (donHang.getStatus()==2){
+            holder.tv_status.setText("Đã giao");
+        }
+        else if (donHang.getStatus()==-1){
+            holder.tv_status.setText("Đã hủy");
+        }
+        else {
+            holder.tv_status.setText("Chờ xác nhận");
+        }
         if (list.size() > 0) {
             try {
-                String imgPath = billsDAO.getImgBills(billsDAO.getID_OD(id_userHere));  // Lấy đường dẫn tệp từ SQLite
-                File imgFile = new  File(imgPath);  // Tạo đối tượng File từ đường dẫn
+                ArrayList<String> imgPath = billsDAO.getImgBills(list.get(position).getOd_id());  // Lấy đường dẫn tệp từ SQLite
+                File imgFile = new  File(imgPath.get(0));  // Tạo đối tượng File từ đường dẫn
                 if(imgFile.exists()) {
-                    uri = Uri.fromFile(imgFile);  // Chuyển đường dẫn thành URI
+                    uri = Uri.fromFile(imgFile);
+                    holder.img_sp_bills.setImageURI(uri);// Chuyển đường dẫn thành URI
 //                    holder.img_sp_bills.setImageURI(uri);  // Đặt URI vào ImageView
-                    Picasso.get().load(uri).into(holder.img_sp_bills);
+//                    Picasso.get().load(uri).into(holder.img_sp_bills);
+                }
+                else {
+                    holder.img_sp_bills.setImageResource(R.drawable.img_2);
                 }
             } catch (Exception e){
                 holder.img_sp_bills.setImageResource(R.drawable.img_2);
@@ -93,10 +108,11 @@ public class BillsAdapter extends RecyclerView.Adapter<BillsAdapter.BillsHolderV
     public static class BillsHolderView extends RecyclerView.ViewHolder {
         CardView card_bill_od;
         ImageView img_sp_bills;
-        TextView txt_ma_bills, txt_date_bills, txt_show_more, tv_tongtien;
+        TextView txt_ma_bills, txt_date_bills, txt_show_more, tv_tongtien, tv_status;
         public BillsHolderView(@NonNull View view) {
             super(view);
             tv_tongtien = view.findViewById(R.id.tv_total_price);
+            tv_status = view.findViewById(R.id.tv_status);
             img_sp_bills = view.findViewById(R.id.img_sp_donhang);
             txt_ma_bills = view.findViewById(R.id.tv_ma_donhang);
             txt_date_bills = view.findViewById(R.id.txt_date_bill);

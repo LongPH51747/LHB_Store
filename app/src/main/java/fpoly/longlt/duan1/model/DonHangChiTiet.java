@@ -1,12 +1,44 @@
 package fpoly.longlt.duan1.model;
 
-public class DonHangChiTiet {
+import java.io.Serializable;
+import java.util.Date;
+
+public class DonHangChiTiet implements Serializable {
 //    "oddetail_id INTEGER PRIMARY KEY AUTOINCREMENT," +
 //        "od_id INTEGER REFERENCES bills," +
 //        "chitietsp_id INTEGER REFERENCES sanpham," +
 //        "quantity INTEGER," +
 //        "price INTEGER)";
     private int od_id, oddetail_id, chitietsp_id, quantity, price;
+    String img;
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    String name;
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
+    }
+
+    public Date getOdDate() {
+        return odDate;
+    }
+
+    public void setOdDate(Date odDate) {
+        this.odDate = odDate;
+    }
+
+    Date odDate;
 
     public int getOd_id() {
         return od_id;

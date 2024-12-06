@@ -51,6 +51,92 @@ public class ThongKeDao {
         return statistics;
     }
 
+    public List<HashMap<String, Object>> getSearch(String monthYearFilter) {
+        List<HashMap<String, Object>> statistics = new ArrayList<>();
+
+        String sql = "SELECT " +
+                "    strftime('%m-%Y', b.od_date) AS month_year, " +
+                "    SUM(od.quantity) AS total_quantity, " +
+                "    SUM(od.price * od.quantity) AS total_revenue " +
+                "FROM bills b " +
+                "JOIN orderdetail od ON b.od_id = od.od_id " +
+                "WHERE b.status = 2 ";
+
+        if (monthYearFilter != null && !monthYearFilter.isEmpty()) {
+            sql += "AND strftime('%m-%Y', b.od_date) = ? ";
+        }
+
+        sql += "GROUP BY month_year " +
+                "ORDER BY b.od_date DESC";
+
+
+        Cursor cursor;
+        if (monthYearFilter != null && !monthYearFilter.isEmpty()) {
+            cursor = database.rawQuery(sql, new String[]{monthYearFilter});
+        } else {
+            cursor = database.rawQuery(sql, null);
+        }
+
+        while (cursor.moveToNext()) {
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("month_year", cursor.getString(cursor.getColumnIndexOrThrow("month_year")));
+            data.put("total_quantity", cursor.getInt(cursor.getColumnIndexOrThrow("total_quantity")));
+            data.put("total_revenue", cursor.getInt(cursor.getColumnIndexOrThrow("total_revenue")));
+            statistics.add(data);
+        }
+
+        cursor.close();
+        return statistics;
+    }
+    // Xeo theo tu lon toi be
+    public List<HashMap<String, Object>> getTopToUnder() {
+        List<HashMap<String, Object>> statistics = new ArrayList<>();
+
+        String sql = "SELECT " +
+                "    strftime('%m-%Y', b.od_date) AS month_year, " +
+                "    SUM(od.quantity) AS total_quantity, " +
+                "    SUM(od.price * od.quantity) AS total_revenue " +
+                "FROM bills b " +
+                "JOIN orderdetail od ON b.od_id = od.od_id " +
+                "WHERE b.status = 2 " +
+                "GROUP BY month_year " +
+                "ORDER BY total_revenue DESC";
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("month_year", cursor.getString(cursor.getColumnIndexOrThrow("month_year")));
+            data.put("total_quantity", cursor.getInt(cursor.getColumnIndexOrThrow("total_quantity")));
+            data.put("total_revenue", cursor.getInt(cursor.getColumnIndexOrThrow("total_revenue")));
+            statistics.add(data);
+        }
+
+        cursor.close();
+        return statistics;
+    }
+    public List<HashMap<String, Object>> getUnderToTop() {
+        List<HashMap<String, Object>> statistics = new ArrayList<>();
+        String sql = "SELECT " +
+                "    strftime('%m-%Y', b.od_date) AS month_year, " +
+                "    SUM(od.quantity) AS total_quantity, " +
+                "    SUM(od.price * od.quantity) AS total_revenue " +
+                "FROM bills b " +
+                "JOIN orderdetail od ON b.od_id = od.od_id " +
+                "WHERE b.status = 2 " +
+                "GROUP BY month_year " +
+                "ORDER BY total_revenue ASC";
+
+        Cursor cursor = database.rawQuery(sql, null);
+        while (cursor.moveToNext()) {
+            HashMap<String, Object> data = new HashMap<>();
+            data.put("month_year", cursor.getString(cursor.getColumnIndexOrThrow("month_year")));
+            data.put("total_quantity", cursor.getInt(cursor.getColumnIndexOrThrow("total_quantity")));
+            data.put("total_revenue", cursor.getInt(cursor.getColumnIndexOrThrow("total_revenue")));
+            statistics.add(data);
+        }
+
+        cursor.close();
+        return statistics;
+    }
 //    public ArrayList<ThongKe> getThongKe() {
 //        ArrayList<ThongKe> lst = new ArrayList<>();
 //        Cursor cursor = database.rawQuery("SELECT " +

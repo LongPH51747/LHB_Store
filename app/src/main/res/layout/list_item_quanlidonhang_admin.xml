@@ -139,7 +139,7 @@
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/btn_chi_tiet_donhang_admin"
             android:backgroundTint="#00796B"
-            android:text="đã giao hàng"
+            android:text="đã giao"
             android:visibility="gone"
             android:focusable="false"
             android:focusableInTouchMode="false"

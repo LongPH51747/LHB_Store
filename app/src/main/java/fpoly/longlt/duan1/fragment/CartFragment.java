@@ -1,5 +1,7 @@
 package fpoly.longlt.duan1.fragment;
 
+import static fpoly.longlt.duan1.screen.LoginScreen.id_userHere;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -36,14 +38,17 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
     private CheckBox cb_selected_all;
     private RecyclerView recyleViewCart;
     private CartAdapter adapter;
-    private ArrayList<SanPham> sanPhamList;
+//    private ArrayList<GioHang> sanPhamList;
     ArrayList<GioHang> gioHangList;
+    ArrayList<GioHang> cartItems = new ArrayList<>();
+
     private CartDAO cartDAO;
     Button btnBuy;
     SanPhamDAO dao;
 //    private List<GioHang> selectedItems = new ArrayList<>();
     private TextView tvTotalPrice;
-    private int user_id = 1; // Giả sử ID người dùng là 1, thay thế bằng ID thực tế của người dùng
+    CartAdapter cartAdapter;
+    private int user_id = id_userHere; // Giả sử ID người dùng là 1, thay thế bằng ID thực tế của người dùng
 
     public CartFragment() {
         // Required empty public constructor
@@ -57,9 +62,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cartDAO = new CartDAO(getContext()); // Khởi tạo CartDAO để truy xuất dữ liệu giỏ hàng
-        sanPhamList = new ArrayList<>();
+//        sanPhamList = new ArrayList<>();
         gioHangList = new ArrayList<>();
-        loadCartItems(); // Lấy danh sách sản phẩm từ giỏ hàng
     }
 
     @Override
@@ -68,47 +72,67 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_cart, container, false);
         cb_selected_all = view.findViewById(R.id.cb_select_all);
+        recyleViewCart = view.findViewById(R.id.recyleViewCart);
+        imgBack = view.findViewById(R.id.imgBack);
         btnBuy = view.findViewById(R.id.btn_order);
+        tvTotalPrice = view.findViewById(R.id.tv_total_price_cart);
+        loadCartItems(id_userHere);
+        updateTotalPrice(calculateTotalPrice());
         cb_selected_all.setOnCheckedChangeListener(((buttonView, isChecked) -> {
-           for (SanPham sanPham: sanPhamList){
-               sanPham.setSelected(isChecked);
-               cartDAO.updateStatus(sanPham.getSpId(), isChecked?1:0);
-
+           for (GioHang gioHang: gioHangList){
+               gioHang.setIs_selected(isChecked?1:0);
+               cartDAO.updateItemSelection(gioHang.getCart_id(), isChecked);
            }
            adapter.notifyDataSetChanged();
            updateTotalPrice(calculateTotalPrice());
        }));
 
-
         // Khởi tạo RecyclerView và thiết lập LayoutManager
-        recyleViewCart = view.findViewById(R.id.recyleViewCart);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        recyleViewCart.setLayoutManager(layoutManager);
+//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        recyleViewCart.setLayoutManager(layoutManager);
 
+        adapter.notifyDataSetChanged(); // Cập nhật lại adapter
+//        updateTotalPrice(calculateTotalPrice());
         // Khởi tạo Adapter và gán dữ liệu giỏ hàng
-        adapter = new CartAdapter(getContext(), sanPhamList, cartDAO, this,gioHangList, this);
-        recyleViewCart.setAdapter(adapter);
+//        adapter = new CartAdapter(getContext(), sanPhamList, cartDAO, this,gioHangList, this);
+//        recyleViewCart.setAdapter(adapter);
 
         // Thiết lập sự kiện quay lại (imgBack)
-        imgBack = view.findViewById(R.id.imgBack);
 
         // Thiết lập TextView hiển thị tổng giá trị
-        tvTotalPrice = view.findViewById(R.id.tv_total_price);
-        updateTotalPrice(calculateTotalPrice()); // Hiển thị tổng giá trị ban đầu
+//        updateTotalPrice(calculateTotalPrice()); // Hiển thị tổng giá trị ban đầu
 // Cập nhật giỏ hàng mỗi khi người dùng quay lại fragment
-        sanPhamList.clear();
-        loadCartItems();
-        adapter.notifyDataSetChanged(); // Cập nhật lại adapter
-        updateTotalPrice(calculateTotalPrice());
+//        sanPhamList.clear();
+
         // Cập nhật tổng giá trị
 
         btnBuy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<GioHang> selecteds = adapter.getSelectedItems();
-                Intent intent = new Intent(getActivity(), KiemLaiDonHang.class);
-//                intent.putParcelableArrayListExtra("cartItems", new ArrayList<>(selecteds));
-                startActivity(intent);
+                cartDAO = new CartDAO(getContext());
+                gioHangList = (ArrayList<GioHang>) cartDAO.laySanPhamTrongGioHang(id_userHere);
+                cartItems.clear();
+                if (gioHangList==null||gioHangList.isEmpty()){
+                    Log.d("CartFragment", "Không có sản phẩm trong giỏ hàng");
+                    return;
+                }
+                for (GioHang cart : gioHangList) {
+                    if (cart.getIs_selected()==1){
+                        cartItems.add(cart);
+                    }
+                }
+                if (cartItems!=null) {
+    //                ArrayList<GioHang> selecteds = adapter.getSelectedItems();
+                    Intent intent = new Intent(getActivity(), KiemLaiDonHang.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("cartItems", cartItems);
+//                    bundle.putParcelableArrayList("cartItems", cartItems);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+                }
+                else {
+                    Log.d("CartFragment", "Không có sản phẩm được chọn");
+                }
             }
         });
 
@@ -121,19 +145,36 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
 //        recyleViewCart.setAdapter(adapter);
 //    }
 
-    private void loadCartItems() {
-        gioHangList = cartDAO.getAll(user_id); // Lấy danh sách GioHang từ DAO
-        for (GioHang gioHang : gioHangList) {
-            SanPham sanPham = cartDAO.getSanPhamChiTiet(gioHang.getSp_id()); // Lấy thông tin SanPham
-            if (sanPham != null) {
-                sanPham.setSoLuong(gioHang.getQuantity());
-                sanPham.setImg(gioHang.getImgPath());
-                sanPham.setColors(gioHang.getColor());
-                sanPham.setSize(gioHang.getSize());
-                sanPham.setSelected(gioHang.getStatus() == 1); // Đồng bộ trạng thái từ `status`
-                sanPhamList.add(sanPham); // Thêm sản phẩm vào danh sách
-            }
-        }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadCartItems(id_userHere);
+    }
+
+    private void loadCartItems(int user_id) {
+        cartDAO = new CartDAO(getContext());
+        gioHangList = new ArrayList<>();
+        gioHangList = (ArrayList<GioHang>) cartDAO.laySanPhamTrongGioHang(user_id); // Lấy danh sách GioHang từ DAO
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyleViewCart.setLayoutManager(linearLayoutManager);
+
+        adapter = new CartAdapter(getContext(), gioHangList, this);
+        recyleViewCart.setAdapter(adapter);
+        Log.d("list", "loadCartItems: "+gioHangList.size());
+//        for (GioHang gioHang : gioHangList) {
+//            SanPham sanPham = cartDAO.getSanPhamChiTiet(gioHang.getSp_id()); // Lấy thông tin SanPham
+//            if (sanPham != null) {
+//                sanPham.setSoLuong(gioHang.getQuantity());
+//                sanPham.setImg(gioHang.getImgPath());
+//                sanPham.setColors(gioHang.getColor());
+//                sanPham.setSize(gioHang.getSize());
+//                sanPham.setSelected(gioHang.getStatus() == 1); // Đồng bộ trạng thái từ `status`
+//                sanPhamList.add(sanPham); // Thêm sản phẩm vào danh sách
+//            }
+//        }
     }
 
 
@@ -141,9 +182,9 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
 
     private int calculateTotalPrice() {
         int total = 0;
-        for (SanPham sanPham : sanPhamList) {
-            if (sanPham.isSelected()) { // Chỉ cộng giá trị của sản phẩm được chọn
-                total += sanPham.getPrice() * sanPham.getSoLuong();
+        for (GioHang gioHang : gioHangList) {
+            if (gioHang.getIs_selected()==1) { // Chỉ cộng giá trị của sản phẩm được chọn
+                total += gioHang.getPrice() * gioHang.getQuantity();
             }
         }
         return total;
@@ -156,7 +197,7 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
         tvTotalPrice.setText(String.format("%,d VND", total));
     }
     public void updateSelectedAll() {
-        if (sanPhamList == null || sanPhamList.isEmpty()) {
+        if (gioHangList == null || gioHangList.isEmpty()) {
             Log.e("CartFragment", "sanPhamList is null or empty!");
             if (cb_selected_all != null) {
                 cb_selected_all.setChecked(false); // Nếu danh sách rỗng, bỏ chọn checkbox
@@ -166,8 +207,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
 
         boolean allSelected = true;
         // Kiểm tra trạng thái của tất cả các sản phẩm
-        for (SanPham sanPham : sanPhamList) {
-            if (!sanPham.isSelected()) {
+        for (GioHang gioHang : gioHangList) {
+            if (gioHang.getIs_selected()!=1) {
                 allSelected = false;
                 break;
             }
@@ -179,8 +220,8 @@ public class CartFragment extends Fragment implements CartAdapter.OnCartUpdateLi
             cb_selected_all.setChecked(allSelected); // Đặt trạng thái của checkbox theo trạng thái các sản phẩm
             // Thiết lập lại sự kiện cho checkbox
             cb_selected_all.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                for (SanPham sanPham : sanPhamList) {
-                    sanPham.setSelected(isChecked); // Cập nhật trạng thái selected cho từng sản phẩm
+                for (GioHang gioHang : gioHangList) {
+                    gioHang.setIs_selected(isChecked?1:0); // Cập nhật trạng thái selected cho từng sản phẩm
                 }
                 adapter.notifyDataSetChanged(); // Cập nhật lại RecyclerView
                 updateTotalPrice(calculateTotalPrice()); // Cập nhật tổng giá trị

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.icu.text.SimpleDateFormat;
+import android.util.Log;
 
 
 import java.text.ParseException;
@@ -43,19 +44,23 @@ public class BillsDAO {
 
     // Lay anh tu bang sp qua bang spchitiet de lay dc ben bills
 
-    public String getImgBills(int od_id){
+    public ArrayList<String> getImgBills(int od_id){
         String sql = "SELECT sanpham.img FROM bills" +
-                " JOIN chitietsp ON bills.chitietsp_id = chitietsp.chitietsp_id" +
+                " JOIN orderdetail ON bills.od_id = orderdetail.od_id" +
+                " JOIN chitietsp ON chitietsp.chitietsp_id = orderdetail.chitietsp_id" +
                 " JOIN sanpham ON chitietsp.sp_id = sanpham.sp_id" +
-                " WHERE bills.od_id = ?";
+                " WHERE orderdetail.od_id = ?";
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
         Cursor cursor = sqLiteDatabase.rawQuery(sql,new String[]{String.valueOf(od_id)});
-        String img = null;
+        ArrayList<String> img = new ArrayList<>();
         if (cursor != null && cursor.moveToFirst()) {
-            // Lấy ảnh ra từ cốt tên img tại bảng sp
-            img = cursor.getString(cursor.getColumnIndexOrThrow("img"));
-            cursor.close();
-            return img;
+            do {
+                // Lấy ảnh ra từ cốt tên img tại bảng sp
+                img.add(cursor.getString(0));
+                Log.d("TAG", "getImgBills: "+img);
+                cursor.close();
+                return img;
+            }while (cursor.moveToNext());
         }
 //        Cursor cursor = sqLiteDatabase.rawQuery(sql, selectionArgs);
 
@@ -121,13 +126,13 @@ public class BillsDAO {
         }
         return list;
     }
-    public int getID_OD(int user_id){
-        String sql = "SELECT od_id FROM bills WHERE user_id = ?";
+    public int getOrderDetail_Id(int od_id, int chitietsp_id){
+        String sql = "SELECT oddetail_id FROM orderdetail WHERE od_id = ? AND chitietsp_id = ?";
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(sql,new String[]{String.valueOf(user_id)});
+        Cursor cursor = sqLiteDatabase.rawQuery(sql,new String[]{String.valueOf(od_id), String.valueOf(chitietsp_id)});
         try {
             if (cursor != null && cursor.moveToFirst()){
-                int id = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
+                int id = cursor.getInt(0);
                 cursor.close();
                 return id;
             }

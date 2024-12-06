@@ -152,10 +152,9 @@ public class UserDAO {
     }
 
     public int getIDByLogIn(String name, String pass) {
-        int role = 0;
-        String sql = "SELECT user_id FROM user WHERE username = ? AND password = ? AND role = ?";
+        String sql = "SELECT user_id FROM user WHERE username = ? AND password = ?";
         SQLiteDatabase sqLiteDatabase = dbHelper.getReadableDatabase();
-        Cursor cursor = sqLiteDatabase.rawQuery(sql, new String[]{name, pass, String.valueOf(role)});
+        Cursor cursor = sqLiteDatabase.rawQuery(sql, new String[]{name, pass});
         if (cursor != null && cursor.moveToFirst()) {
             int id = cursor.getInt(cursor.getColumnIndexOrThrow("user_id"));
             cursor.close();

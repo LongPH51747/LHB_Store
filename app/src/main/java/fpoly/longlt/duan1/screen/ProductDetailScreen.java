@@ -1,5 +1,7 @@
 package fpoly.longlt.duan1.screen;
 
+import static fpoly.longlt.duan1.screen.LoginScreen.id_userHere;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -161,13 +163,15 @@ public class ProductDetailScreen extends AppCompatActivity {
                 } else {
                     CartDAO cartDAO = new CartDAO(ProductDetailScreen.this);
                     SanPham sanPham1 = dao.getSP(sp_id);
-                    if (sanPham1 != null) {
-                        User user = getCurrentUser();
-                        int user_id = user.getId_user();
-                        int price = sanPham1.getPrice();
-                        String imgPath = sanPham1.getImg();
+                    int idChiTietSP = dao.getIdChiTietSP(mauSac,kichCo,sp_id);
+                    if (sanPham1 != null && idChiTietSP != -1) {
+                        Log.d("TAG", "onClick: "+idChiTietSP);
+//                        User user = getCurrentUser();
+//                        int user_id = user.getId_user();
+//                        int price = sanPham1.getPrice();
+//                        String imgPath = sanPham1.getImg();
 //    sl = Integer.parseInt(ed_sl.getText().toString());
-                        boolean isAdded = cartDAO.addToCart(user_id, sp_id, 1, sl, price, imgPath, selectedColor, selectedSize);
+                        boolean isAdded = cartDAO.addToCart(id_userHere, idChiTietSP, sl);
                         if (isAdded) {
                             Toast.makeText(ProductDetailScreen.this, "Thêm giỏ hàng thành công", Toast.LENGTH_SHORT).show();
 //        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout, CartFragment.newInstance()).commit();

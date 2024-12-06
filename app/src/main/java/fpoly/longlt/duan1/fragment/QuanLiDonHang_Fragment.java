@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.adapter.QuanLiDonHang_Adapter;
@@ -56,6 +57,7 @@ public class QuanLiDonHang_Fragment extends Fragment {
         lv_donhang = view.findViewById(R.id.lv_donhangmanagment);
         dao = new QuanLiDonHangDao(getContext());
         lst = dao.getAllDonHang();
+        Collections.reverse(lst);
         adapter = new QuanLiDonHang_Adapter(lst, getContext());
         lv_donhang.setAdapter(adapter);
     }

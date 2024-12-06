@@ -100,11 +100,11 @@
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerViewProducts"
+                android:id="@+id/recyclerViewProducts_kiemlai"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_prepare_order"
                 android:paddingTop="8dp" />
+<!--                tools:listitem="@layout/item_prepare_order"-->
 
             <!-- Voucher giảm giá -->
             <LinearLayout

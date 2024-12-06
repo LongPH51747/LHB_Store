@@ -1,9 +1,11 @@
 package fpoly.longlt.duan1.dao;
 
+import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -66,6 +68,34 @@ public class QuanLiDonHangDao {
 //
 //        }
 //    }
+    public boolean createBills(DonHang donHang, ArrayList<GioHang> lst) {
+        ContentValues values = new ContentValues();
+        values.put("user_id",donHang.getUser_id());
+        values.put("od_date",sdf.format(donHang.getOd_date()));
+        values.put("total_price",donHang.getTotal_price());
+        values.put("status",donHang.getStatus());
+        long check = database.insert("bills", null, values);
+        Log.d("TAG", "createBill: "+check);
+        if (check!=-1){
+            for (int i = 0; i < lst.size(); i++) {
+                ContentValues values1 = new ContentValues();
+                values1.put("od_id",check);
+                values1.put("chitietsp_id",lst.get(i).getChitietsp_id());
+                values1.put("quantity",lst.get(i).getQuantity());
+                values1.put("price",lst.get(i).getPrice());
+                long oddetail = database.insert("orderdetail", null, values1);
+                if (oddetail == -1) {  // Nếu bất kỳ mục nào lỗi, return false.
+                    Log.d("TAG", "createBill: Lỗi khi thêm orderdetail tại index: " + i);
+                    return false;
+                }
+            }
+            return true;
+        }
+        else if (check==-1){
+            Log.d("TAG", "createBill: "+"lỗi");
+        }
+        return false;
+    }
     public boolean createBill(DonHang donHang, int chitietsp_id, int quantity, int price){
         ContentValues values = new ContentValues();
         values.put("user_id",donHang.getUser_id());
@@ -73,6 +103,7 @@ public class QuanLiDonHangDao {
         values.put("total_price",donHang.getTotal_price());
         values.put("status",donHang.getStatus());
         long check = database.insert("bills", null, values);
+        Log.d("TAG", "createBill: "+check);
         if (check!=-1){
             ContentValues values1 = new ContentValues();
             values1.put("od_id",check);
@@ -81,6 +112,9 @@ public class QuanLiDonHangDao {
             values1.put("price",price);
             long oddetail = database.insert("orderdetail", null, values1);
             return oddetail!=-1;
+        }
+        else if (check==-1){
+            Log.d("TAG", "createBill: "+"lỗi");
         }
         return false;
     }
@@ -102,9 +136,19 @@ public class QuanLiDonHangDao {
         long check = database.insert("orderdetail", null, values);
         return check!=-1;
     }
+    @SuppressLint("Range")
     public ArrayList<DonHangChiTiet> getDonHangChiTiet(int od_id){
+//        "oddetail_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//                "od_id INTEGER REFERENCES bills," +
+//                "chitietsp_id INTEGER REFERENCES sanpham," +
+//                "quantity INTEGER," +
+//                "price INTEGER)";
         ArrayList<DonHangChiTiet> lst = new ArrayList<>();
-        Cursor cursor = database.rawQuery("select * from orderdetail where od_id = ?", new String[]{String.valueOf(od_id)});
+        Cursor cursor = database.rawQuery("select d.oddetail_id, d.od_id, d.chitietsp_id, d.quantity, d.price, s.img, s.tensp, b.od_date from orderdetail d " +
+                "join bills b on b.od_id = d.od_id " +
+                "join chitietsp c on c.chitietsp_id = d.chitietsp_id " +
+                "join sanpham s on s.sp_id = c.sp_id " +
+                "where d.od_id = ?", new String[]{String.valueOf(od_id)});
         if (cursor.getCount()>0) {
             cursor.moveToFirst();
             do {
@@ -114,6 +158,13 @@ public class QuanLiDonHangDao {
                 donHangChiTiet.setChitietsp_id(cursor.getInt(2));
                 donHangChiTiet.setQuantity(cursor.getInt(3));
                 donHangChiTiet.setPrice(cursor.getInt(4));
+                donHangChiTiet.setImg(cursor.getString(5));
+                donHangChiTiet.setName(cursor.getString(6));
+                try {
+                    donHangChiTiet.setOdDate(sdf.parse(cursor.getString(cursor.getColumnIndex("od_date"))));
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
                 lst.add(donHangChiTiet);
             } while (cursor.moveToNext());
         }

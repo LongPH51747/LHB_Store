@@ -112,6 +112,7 @@ public class AccountFragment extends Fragment {
             public void onClick(View v) {
                 Toast.makeText(getContext(), "Hen Gap Lai Quy Khach...", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(getActivity(), LoginScreen.class));
+                getActivity().finish();
             }
         });
         // Phan chinh sua thong tin ==> do user tu chinh sua

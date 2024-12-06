@@ -44,7 +44,11 @@ public class    SanPhamAdapter extends RecyclerView.Adapter<SanPhamAdapter.SanPh
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_sp_kh, parent, false);
         return new SanPhamViewHolder(view);
     }
+    public void updataData(ArrayList<SanPham> newList){
+        this.arrayList = newList;
+        notifyDataSetChanged();
 
+    }
     @Override
     public void onBindViewHolder(@NonNull SanPhamViewHolder holder, int position) {
         SanPham sanPham = arrayList.get(position);

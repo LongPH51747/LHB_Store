@@ -125,6 +125,20 @@ public class SanPhamDAO {
 //        return sanPham;
 //    }
     //Lấy sản phẩm chi tiết
+    public int getIdChiTietSP(String color, String size, int spId){
+        int id = -1;
+        Cursor cursor = db.rawQuery("select chitietsp_id from chitietsp where color = ? and size = ? and sp_id = ?", new String[]{color, size, String.valueOf(spId)});
+        if (cursor.getCount()>0){
+            cursor.moveToFirst();
+            id = cursor.getInt(0);
+        }
+        return id;
+    }
+//    "chitietsp_id INTEGER PRIMARY KEY AUTOINCREMENT," +
+//            "sp_id INTEGER REFERENCES sanpham," +
+//            "size TEXT," +
+//            "color TEXT," +
+//            "soluong INTEGER)";
     public ChiTietSP getSPChiTiet(int spId) {
         ChiTietSP sp = new ChiTietSP();
       Cursor cursor = db.rawQuery("SELECT chitietsp_id,sp_id FROM chitietsp WHERE sp_id = ?", new String[]{String.valueOf(spId)});
@@ -280,5 +294,50 @@ public class SanPhamDAO {
         values.put("soluong", chiTietSP.getSoluong());
         int result = db.update("chitietsp", values, "chitietsp_id = ?", new String[]{String.valueOf(chiTietSP.getChitietSP_id())});
         return result != -1;
+    }
+    public ArrayList<SanPham> search(String query) {
+        ArrayList<SanPham> arrayList = new ArrayList<>();
+        // Kiểm tra xem query có phải là số hay không
+        String sql;
+        String[] selectionArgs;
+
+        if (isNumeric(query)) {
+            // Nếu query là số, tìm kiếm theo tên hoặc giá (sử dụng "=" cho giá)
+            sql = "SELECT sp_id, tensp, img, status, price FROM sanpham WHERE tensp LIKE ? OR price = ?";
+            selectionArgs = new String[]{"%" + query + "%", query};  // Tìm kiếm theo tên và giá
+        } else {
+            // Nếu query là chuỗi, chỉ tìm kiếm theo tên
+            sql = "SELECT sp_id, tensp, img, status, price FROM sanpham WHERE tensp LIKE ?";
+            selectionArgs = new String[]{"%" + query + "%"};  // Chỉ tìm kiếm theo tên
+        }
+
+        // Thực thi câu truy vấn
+        Cursor cursor = db.rawQuery(sql, selectionArgs);
+
+        if (cursor.moveToFirst()) {
+            do {
+                // Tạo đối tượng SanPham từ kết quả cursor
+                SanPham sanPham = new SanPham();
+                sanPham.setSpId(cursor.getInt(0));
+                sanPham.setTenSp(cursor.getString(1));
+                sanPham.setImg(cursor.getString(2));
+                sanPham.setStatus(cursor.getInt(3));
+                sanPham.setPrice(cursor.getInt(4));
+                // Thêm vào danh sách
+                arrayList.add(sanPham);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return arrayList;
+    }
+
+    // Kiểm tra xem chuỗi có phải là số không
+    private boolean isNumeric(String str) {
+        try {
+            Integer.parseInt(str);  // Thử chuyển đổi chuỗi thành số
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
 }

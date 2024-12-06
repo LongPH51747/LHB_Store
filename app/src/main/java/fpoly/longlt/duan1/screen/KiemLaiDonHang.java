@@ -36,6 +36,7 @@ import java.util.List;
 
 import fpoly.longlt.duan1.R;
 import fpoly.longlt.duan1.adapter.KiemLaiAdapter;
+import fpoly.longlt.duan1.dao.CartDAO;
 import fpoly.longlt.duan1.dao.QuanLiDonHangDao;
 import fpoly.longlt.duan1.dao.SanPhamChiTietDAO;
 import fpoly.longlt.duan1.dao.UserDAO;
@@ -62,7 +63,8 @@ public class KiemLaiDonHang extends AppCompatActivity {
     SanPhamChiTietDAO sanPhamChiTietDAO;
     ArrayList<ChiTietSP> list = new ArrayList<>();
     ArrayList<User> userArrayList = new ArrayList<>();
-    List<GioHang> selectedItems = new ArrayList<>();
+//    List<GioHang> selectedItems = new ArrayList<>();
+    ArrayList<GioHang> listCart = new ArrayList<>();
     ArrayList<DonHangChiTiet> donHangChiTietArrayList = new ArrayList<>();
     DBHelper dbHelper;
     int discount = 0;
@@ -80,29 +82,50 @@ public class KiemLaiDonHang extends AppCompatActivity {
         // Xết view cho recycile
 //        sanPhamChiTietDAO = new SanPhamChiTietDAO(KiemLaiDonHang.this);
 //        list = sanPhamChiTietDAO.getAllSpByID(sp_id);
-
+        tvTotal.setText("");
         Bundle bundle = getIntent().getExtras();
-        calculateTotalPrice();
-        chiTietSP = (ChiTietSP) bundle.getSerializable("chiTietSP");
-        Log.e("truyLung", "SanPham " + sp_id );
-        list.add(chiTietSP);
-        kiemLaiAdapter = new KiemLaiAdapter(KiemLaiDonHang.this, list);
+        if (bundle!=null){
+            chiTietSP = (ChiTietSP) bundle.getSerializable("chiTietSP");
+            listCart = (ArrayList<GioHang>) bundle.getSerializable("cartItems");
+//            Log.d("TAG", "listcart: "+listCart.size());
+            if (chiTietSP!=null){
+                Log.e("truyLung", "SanPham " + sp_id );
+                list.add(chiTietSP);
+    //            userDAO = new UserDAO(KiemLaiDonHang.this);
+                sanPhamChiTietDAO = new SanPhamChiTietDAO(KiemLaiDonHang.this);
+                priceOneProduct = sanPhamChiTietDAO.getPriceByID(chiTietSP.getSp_id());
+                kiemLaiAdapter = new KiemLaiAdapter(KiemLaiDonHang.this, list, listCart);
+                rc_kiem_lai.setLayoutManager(new LinearLayoutManager(KiemLaiDonHang.this));
+                rc_kiem_lai.setAdapter(kiemLaiAdapter);
+                for (ChiTietSP sp : list){
+                    total_price += priceOneProduct * sp.getSoluong();
+                }
+                tvTotal.setText("Tổng Tiền: "+total_price);
+            } else if (listCart!=null){
+                Log.d("TAG", "số lượng sản phẩm: "+listCart.size());
+                kiemLaiAdapter = new KiemLaiAdapter(KiemLaiDonHang.this, list, listCart);
+                rc_kiem_lai.setLayoutManager(new LinearLayoutManager(KiemLaiDonHang.this));
+                rc_kiem_lai.setAdapter(kiemLaiAdapter);
+                kiemLaiAdapter.notifyDataSetChanged();
+                for (GioHang item : listCart) {
+                    total_price += item.getQuantity() * item.getPrice();
+                }
+                tvTotal.setText("Tổng tiền: " + total_price + " VND");
+            }
+        }
+        else{
+            Toast.makeText(this, "Không tìm thấy sản phẩm", Toast.LENGTH_SHORT).show();
+        }
 //        selectedItems = getIntent().getParcelableArrayListExtra("cartItems");
 //        kiemLaiAdapter = new KiemLaiAdapter(KiemLaiDonHang.this, selectedItems);
-        rc_kiem_lai.setLayoutManager(new LinearLayoutManager(KiemLaiDonHang.this));
-        rc_kiem_lai.setAdapter(kiemLaiAdapter);
+
         // Xét các view khác
         userDAO = new UserDAO(KiemLaiDonHang.this);
-        sanPhamChiTietDAO = new SanPhamChiTietDAO(KiemLaiDonHang.this);
-        priceOneProduct = sanPhamChiTietDAO.getPriceByID(chiTietSP.getSp_id());
         userArrayList = userDAO.getUserByID(id_userHere);
-        for (ChiTietSP sp : list){
-               total_price += priceOneProduct * sp.getSoluong();
-        }
+
         tvNameUserKL.setText("Tên Người Nhận: "+userArrayList.get(0).getNameUser());
         tvAddressKL.setText("Địa Chỉ: " +userArrayList.get(0).getAddress());
         tvPhoneKL.setText("SĐT: "+userArrayList.get(0).getPhoneNumber());
-        tvTotal.setText("Tổng Tiền: "+total_price);
         tvDiscount.setText("Giảm Giá: "+0);
         tvShip.setText("Phí Vận Chuyển: "+20000);
         tvTotalPayment.setText("Tổng thanh toán: "+(total_price+20000));
@@ -132,7 +155,7 @@ public class KiemLaiDonHang extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String paymentMethod = (rgPaymentMethod.getCheckedRadioButtonId() == R.id.rbCashOnDelivery) ? "COD" : "Online";
+//                String paymentMethod = (rgPaymentMethod.getCheckedRadioButtonId() == R.id.rbCashOnDelivery) ? "COD" : "Online";
 
                 if (rd_online.isChecked()){
                     if (userDAO.getMoney(id_userHere)<total_price+20000){
@@ -179,11 +202,21 @@ public class KiemLaiDonHang extends AppCompatActivity {
                         int newmoney = 0-total_price-20000;
                         userDAO.updateMoney(newmoney,id_userHere);
                         Log.d("newmoney", "new money: "+newmoney);
-                        muahang(1,chiTietSP, list.get(0).getSoluong(), priceOneProduct);
+                        if (chiTietSP!=null){
+                            muahang(1,chiTietSP, list.get(0).getSoluong(), priceOneProduct);
+                        }
+                        else if (listCart!=null){
+                            muahangByCart(1,listCart);
+                        }
                     }
                 }
                 else {
-                    muahang(0,chiTietSP, list.get(0).getSoluong(), priceOneProduct);
+                    if (chiTietSP!=null){
+                        muahang(0,chiTietSP, list.get(0).getSoluong(), priceOneProduct);
+                    }
+                    else if (listCart!=null){
+                        muahangByCart(0,listCart);
+                    }
                 }
 
 
@@ -198,6 +231,29 @@ public class KiemLaiDonHang extends AppCompatActivity {
             }
         });
     }
+    public void muahangByCart(int status, ArrayList<GioHang> lst){
+        QuanLiDonHangDao dao = new QuanLiDonHangDao(KiemLaiDonHang.this);
+        DonHang donHang = new DonHang();
+        donHang.setUser_id(id_userHere);
+        donHang.setTotal_price(total_price+20000);
+        try {
+            donHang.setOd_date(sdf.parse(getDate()));
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+        donHang.setStatus(status);
+        boolean isPlaced = dao.createBills(donHang, lst);
+        if (isPlaced){
+            getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_kiem_lai, OrderFragment.newInstance()).commit();
+            CartDAO dao1 = new CartDAO(KiemLaiDonHang.this);
+            dao1.deleteCart(id_userHere);
+            finish();
+        }
+        else {
+            Toast.makeText(KiemLaiDonHang.this, "Không mua được sản phẩm", Toast.LENGTH_SHORT).show();
+        }
+
+    }
     public void muahang(int status, ChiTietSP chiTietSP, int quantity, int price){
         QuanLiDonHangDao dao = new QuanLiDonHangDao(KiemLaiDonHang.this);
         int chitietsp_id = dao.getIdSPDetail(chiTietSP.getColor(), chiTietSP.getSize(),sp_id);
@@ -210,7 +266,7 @@ public class KiemLaiDonHang extends AppCompatActivity {
             throw new RuntimeException(e);
         }
         donHang.setStatus(status);
-        boolean isPlaced = dao.createBill(donHang,chitietsp_id, quantity, price);
+        boolean isPlaced = dao.createBill(donHang, chitietsp_id, quantity, price);
         if (isPlaced){
             getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_kiem_lai, OrderFragment.newInstance()).commit();
             finish();
@@ -218,12 +274,6 @@ public class KiemLaiDonHang extends AppCompatActivity {
         else {
             Toast.makeText(KiemLaiDonHang.this, "Không mua được sản phẩm", Toast.LENGTH_SHORT).show();
         }
-    }
-    private void calculateTotalPrice() {
-        for (GioHang item : selectedItems) {
-            total_price += item.getQuantity() * item.getPrice();
-        }
-        tvTotal.setText("Tổng tiền: " + total_price + " VND");
     }
     @Override
     protected void onResume() {
@@ -234,7 +284,7 @@ public class KiemLaiDonHang extends AppCompatActivity {
     private void anhXa() {
         rd_offline = findViewById(R.id.rbCashOnDelivery);
         rd_online = findViewById(R.id.rbEWallet);
-        rc_kiem_lai = findViewById(R.id.recyclerViewProducts);
+        rc_kiem_lai = findViewById(R.id.recyclerViewProducts_kiemlai);
         tvNameUserKL = findViewById(R.id.tvUserNameKL);
         tv_payment_kiemdon = findViewById(R.id.tv_payment_kiemdon);
         tvPhoneKL = findViewById(R.id.tvUserPhoneKL);
