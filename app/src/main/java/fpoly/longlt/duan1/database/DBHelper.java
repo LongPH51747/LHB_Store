@@ -6,7 +6,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "myDB";
-    public static final int DATABASE_VERSION = 18;
+    public static final int DATABASE_VERSION = 19;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -118,24 +118,24 @@ public class DBHelper extends SQLiteOpenHelper {
 //        db.execSQL(insertUser);
 
         // Dữ liệu mẫu cho `sanpham`
-        String insertSP = "INSERT INTO sanpham(tensp, img, status, price, description) VALUES " +
-                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
-                "('Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp')";
-        db.execSQL(insertSP);
-
-        // Dữ liệu mẫu cho `chitietsp`
-        String insertChiTietSP = "INSERT INTO chitietsp(sp_id, size, color, soluong) VALUES " +
-                "(1, 'M', 'Red', 100)," +
-                "(1, 'L', 'White', 70)," +
-                "(1, 'L', 'Red', 70)," +
-                "(1, 'S', 'Blue', 50)," +
-                "(1, 'M', 'Black', 60)," +
-                "(1, 'L', 'White', 40)," +
-                "(2, 'XL', 'Black', 30)," +
-                "(2, 'M', 'White', 60)," +
-                "(2, 'L', 'Black', 40)," +
-                "(2, 'X', 'Gray', 24)";
-        db.execSQL(insertChiTietSP);
+//        String insertSP = "INSERT INTO sanpham(tensp, img, status, price, description) VALUES " +
+//                "('áo khoác gió nam phong cách hàn quốc', 'img_2', 1, 10000, 'chất liệu cotton siêu mát')," +
+//                "('Quần jean trắng', 'img_3', 1, 20000, 'vải nhung tăm dày dặn, thoải mái, ấm áp')";
+//        db.execSQL(insertSP);
+//
+//        // Dữ liệu mẫu cho `chitietsp`
+//        String insertChiTietSP = "INSERT INTO chitietsp(sp_id, size, color, soluong) VALUES " +
+//                "(1, 'M', 'Red', 100)," +
+//                "(1, 'L', 'White', 70)," +
+//                "(1, 'L', 'Red', 70)," +
+//                "(1, 'S', 'Blue', 50)," +
+//                "(1, 'M', 'Black', 60)," +
+//                "(1, 'L', 'White', 40)," +
+//                "(2, 'XL', 'Black', 30)," +
+//                "(2, 'M', 'White', 60)," +
+//                "(2, 'L', 'Black', 40)," +
+//                "(2, 'X', 'Gray', 24)";
+//        db.execSQL(insertChiTietSP);
 
 //        // Dữ liệu mẫu cho `bills`
 //        String insertBills = "INSERT INTO bills(user_id, vc_id, chitietsp_id, oddetail_id, od_date, status) VALUES " +
